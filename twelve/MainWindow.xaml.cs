@@ -33,7 +33,9 @@ namespace twelve
         {
             // добавить красивые кнопки 495
             // красывый прогрес бар 505
+            rank = 8;
             InitializeComponent();
+            lb.Content = rank;
         }
   
         /// <summary>
@@ -488,6 +490,18 @@ namespace twelve
             Canvas ss = cuprentPicture();
              ss.Children.Add(myPath);
         }
+        /// <summary>
+        /// обработчкик для кнопки Next
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+          private void b1Next_Click(object sender, RoutedEventArgs e)
+          {
+              if (rank == 8) { rank = 10; lb.Content = rank; }
+              else if (rank == 10) {rank = 12;     lb.Content = rank;}
+              else if (rank == 12) { rank = 8; lb.Content = rank; }
+             
+          }
          
     }
 

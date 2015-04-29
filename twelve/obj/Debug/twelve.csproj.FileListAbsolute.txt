@@ -24,3 +24,17 @@ D:\temp\twelve2\twelve\obj\Debug\twelve.Properties.Resources.resources
 D:\temp\twelve2\twelve\obj\Debug\twelve.csproj.GenerateResource.Cache
 D:\temp\twelve2\twelve\obj\Debug\twelve.exe
 D:\temp\twelve2\twelve\obj\Debug\twelve.pdb
+D:\test\twelve\twelve\bin\Debug\twelve.exe.config
+D:\test\twelve\twelve\obj\Debug\twelve.exe
+D:\test\twelve\twelve\obj\Debug\twelve.pdb
+D:\test\twelve\twelve\bin\Debug\twelve.exe
+D:\test\twelve\twelve\bin\Debug\twelve.pdb
+D:\test\twelve\twelve\obj\Debug\twelve.csprojResolveAssemblyReference.cache
+D:\test\twelve\twelve\obj\Debug\MainWindow.baml
+D:\test\twelve\twelve\obj\Debug\MainWindow.g.cs
+D:\test\twelve\twelve\obj\Debug\App.g.cs
+D:\test\twelve\twelve\obj\Debug\twelve_MarkupCompile.cache
+D:\test\twelve\twelve\obj\Debug\twelve.g.resources
+D:\test\twelve\twelve\obj\Debug\twelve.Properties.Resources.resources
+D:\test\twelve\twelve\obj\Debug\twelve.csproj.GenerateResource.Cache
+D:\test\twelve\twelve\bin\Debug\NumericUpDown.dll
