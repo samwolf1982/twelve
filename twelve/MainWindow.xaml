@@ -1,0 +1,90 @@
+﻿<Window x:Class="twelve.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="MainWindow" Height="350" Width="525" WindowState="Maximized">
+  
+    <Grid Background="AliceBlue">
+        
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <TabControl Name="tabControl1"  Background="LightBlue"  Grid.RowSpan="6" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="8" Margin="1,1,1,10" SelectionChanged="tabControl1_SelectionChanged">
+            <TabItem BorderThickness="3" Name="t1" Header="Mass=1">
+                <Canvas Name="pic" Background="AntiqueWhite"  Grid.RowSpan="6" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="8" Margin="1,1,1,1" >
+                </Canvas>
+            </TabItem>
+            <TabItem Name="t2" Header="Mass=2">
+                <Canvas Name="pic2" Background="AntiqueWhite"  Grid.RowSpan="6" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="8" Margin="1,1,1,1" >
+                </Canvas>
+            </TabItem>
+            <TabItem Name="t3" Header="Mass=3">
+                <Canvas Name="pic3" Background="AntiqueWhite"  Grid.RowSpan="6" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="8" Margin="1,1,1,1" >
+                </Canvas>
+            </TabItem>
+            <TabItem Name="t4" Header="Mass=4">
+                <Canvas Name="pic4" Background="AntiqueWhite"  Grid.RowSpan="6" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="8" Margin="1,1,1,1" >
+                </Canvas>
+            </TabItem>
+            <TabItem Name="t5" Header="Mass=5">
+                <Canvas Name="pic5" Background="AntiqueWhite"  Grid.RowSpan="6" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="8" Margin="1,1,1,1" >
+                </Canvas>
+            </TabItem>
+            <TabItem Name="t6" Header="Mass=6">
+                <Canvas Name="pic6" Background="AntiqueWhite"  Grid.RowSpan="6" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="8" Margin="1,1,1,1" >
+                </Canvas>
+            </TabItem>
+            <TabItem Name="t7" Header="Mass=7">
+                <Canvas Name="pic7" Background="AntiqueWhite"  Grid.RowSpan="6" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="8" Margin="1,1,1,1" >
+                </Canvas>
+            </TabItem>
+            <TabItem Name="t8" Header="Mass=8">
+                <Canvas Name="pic8" Background="AntiqueWhite"  Grid.RowSpan="6" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="8" Margin="1,1,1,1" >
+                </Canvas>
+            </TabItem>
+            <TabItem Name="t9" Header="Mass=9">
+                <Canvas Name="pic9" Background="AntiqueWhite"  Grid.RowSpan="6" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="8" Margin="1,1,1,1" >
+                </Canvas>
+            </TabItem>
+
+        </TabControl>
+
+
+
+        <Button Margin="1,0,0,7" Grid.Row="7" Grid.Column="1" Grid.ColumnSpan="2"  Name="but"  Content="Начало&#xD;&#xA;" Height="22" Click="Button_Click" HorizontalAlignment="Left" Width="75" VerticalAlignment="Bottom">
+  
+        </Button>
+        <Button Margin="1,0,0,7" Grid.Row="7" Grid.Column="3" Grid.ColumnSpan="2"  Name="but2"  Content="Очистить" Height="22" Click="but2_Click" HorizontalAlignment="Left" Width="75" VerticalAlignment="Bottom"/>
+        <Button Margin="1,0,0,7" Grid.Row="7" Grid.Column="5" Grid.ColumnSpan="2"  Name="but3"  Content="Пред." Height="22" Click="but3_Click" HorizontalAlignment="Left" Width="75" VerticalAlignment="Bottom"/>
+        <Button Content="След" Margin="1,0,0,7" Grid.Row="7" Grid.Column="7" Grid.ColumnSpan="2"  Name="but4" Height="22" Click="but4_Click" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="85">
+          
+        </Button>
+        <Button Margin="1,0,0,7" Grid.Row="7" Grid.Column="10" Grid.ColumnSpan="2"  Name="butTest" Height="22"  VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="85">
+            <Button Content="Button" Width="75" Click="Button_Click_2" />
+        </Button>
+        <RichTextBox BorderThickness="3" Grid.Row="2" Grid.Column="9" Grid.ColumnSpan="3" Grid.RowSpan="4" Name="textik"></RichTextBox>
+
+    </Grid>
+ 
+</Window>
