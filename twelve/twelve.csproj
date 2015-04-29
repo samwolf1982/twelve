@@ -79,6 +79,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Filler3.cs" />
     <Compile Include="LittleShape2.cs" />
     <Compile Include="Tester.cs" />
     <Page Include="MainWindow.xaml">

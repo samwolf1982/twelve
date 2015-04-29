@@ -400,39 +400,7 @@ namespace twelve
         /// <param name="e"></param>
         private void Button_Click_2(object sender, RoutedEventArgs e)
         {
-          //  StreamGeometryTriangleExample();
-          //  filler = new Filler();
-            //filler.init();
-            /////////////////////////////      заполнить mainList
-          //  System.Diagnostics.Debug.WriteLine("Filler Ok testcolection: " + filler.testColection.Count.ToString());
-            //showinConsoleDebug("Filler Ok testcolection: " + filler.testColection.Count.ToString(), false);
-            //Filler2 obj=new Filler2();
-            ////       
-            //List<int> list=Enumerable.Range(1,4).Select(x=>x*0).ToList();
-            //int range=5;
-            //list[3] = range;
-            //list[2] = 1;
-            //list[1] = 1;
-            //list[0] = 1;
 
-            //obj.search(10 - 5,ref list);
-            //showinConsoleDebug("Its OK \n", true);
-            //foreach (var item in obj.result)
-            //{
-            //      string str= item[0].ToString()+" ";
-            //      str += item[1].ToString() + " ";
-            //      str += item[2].ToString() + " ";
-            //      str += item[3].ToString() + " ";
-            //      showinConsoleDebug(str + " \n", true);
-             
-            //}
-            //showinConsoleDebug("Its OK \n", true);
-
-            //foreach (var item in obj.testFun() )
-            //{
-            //    showinConsoleDebug("Num " + item.ToString()+"\n", true);
-            //}
-        //   showinConsoleDebug( "Fact: "+ Filler2.FactR(10).ToString(),true);
         }
 
  
