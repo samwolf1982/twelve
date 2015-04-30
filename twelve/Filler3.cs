@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Shapes;
 
 namespace twelve
 {
@@ -26,30 +27,120 @@ namespace twelve
         public bool search()
         {
             // узнаем глубину если (4-1 rank ) тогда делаем первую проверку на совпадение с (0 0)
+            // имееться в виду что на самом низу
             startN++;
             if(startN==rank){
+              
+                    // если последняя точка совпадает с точками круга
+                      // нулевой точки тогда она достает до (0:0) и имеет размер 1-ца и возврат для последующей обработки
+                // ??? делать ли проверку на пересечение для етой линни  (x y) (0: 0) c остальными ??
+                // ?? возможно что последняя == первой ?? я думаю что с большими углами и нескоькими поколениями 
+                // это маловероятно (если будет время проверить или нужда )))
+                  if( redyPoints.Exists(x=>x== mainPointList.Last())){
+                                   var t = 0;
+                       
+                        // следующей обработки ветки на уровень выше
+                        // уменьшаем уровень вложенности
+                        startN--;
+                        return true;
 
-                foreach (Point item in redyPoints)
-                {
-                    if (item == mainPointList.Last())
-                    {
-                        var t = 0;
-                    }    
-                }
-                //for (int i = 0; i < 360; i+=30)
-                //{
-                //    Point p = newPoint(i);
-                //}
+                  }
                
                 plus++;
-                return true;
+                return false;
             }
             else
             {
                 // для начала строим путь
                 double degree = test[startN];
                 p = newPoint(ref mainPointList,degree);
-                search();
+                if (search() == true) {
+                    //  ветка что глубже дала положительный отзыв значить надо проверять 
+                    // то что ...??
+                    //++ 1) смотреть на каком уровне находишся   //  startN == 3 значит я на точке 3 вместе с (0 0) 
+                    // 2) делать проверку на что-то ?? ( 1) на пересечение ?? с какими линиями (надо ли со всеми ??)  2) что еще??
+                    // проверять с следующей и предыдущей ненадо Причина: эта точка есть базисом для построения угла для
+                    // текущей линни и предыдущей ( я на точке 3 значить что линия 2и3 составляют угол - проверка не нужна только для через одну выше... и ниже...)
+                    //++ 3)  слать сигнал выше что все  ок (return true;) или что все плохо. return false;
+                    var t = 0;
+                    // Level
+                    int level = startN;
+                    // текущая точка и следующая  они создают линию для проверки
+                    Point pCurent = mainPointList[startN-1];
+                    Point pNext = mainPointList[startN ];
+                    // заходим в цикл и проверяем на пересечение с теми что идут после или до ??
+                    // думаю проверять только с теми что прошли валидацию )) ведь с теми что еще не прошли
+                    // нету смысла иметь дело значить проверка тех что внизу
+                    
+                    // предпоследняя точка сверять с последней нету надобности они создают угол  ABC  сейчас на B (из 4точек  я на 3 точке)
+                    // проверка только начиная с  mainPointList.Count-2 !!
+                    // думаю можно удалить а первый раз сразу спригнуть на 2 поколения вверх  
+                    // потом 
+                     if(startN==mainPointList.Count-1)
+                    {
+                        startN--;
+                        return true;
+
+                    }
+                    // теперь проверка на пересечение только тех линий что идут ниже.
+                     // level -2 можно проверять ту самую последню где начало mainPointList[+2] а конец mainPointList[0]
+                     if (startN <= mainPointList.Count -2)
+                     {
+                         // ето точки той линии что надо проверить не текущей  в даном случае последняя
+                         // пока что обход 
+                         // дублирую пока что перменную потом оптимиз 
+                         int startN2 = startN;
+                         //for (int i = 0; i < length; i++)
+                         //{
+                             
+                         //}
+
+                    Point pCurent2 = mainPointList[startN+1];
+                         // считать так чтобы последней индекс был или первым или следующим через один
+                         // чтото не так но вроде работает ???? проверить ставлю метку !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                    int zeroOrNext = ((startN + 2) < mainPointList.Count) ? (startN + 2) : 0;
+                    Point pNext2 = mainPointList[zeroOrNext];
+
+
+                         // если не пересекаються тогда идем дальше
+                    if (intersection(pCurent.X, pCurent.Y, pNext.X, pNext.Y, pCurent2.X, pCurent2.Y, pNext2.X, pNext2.Y) == false)
+                    {
+                        var r = 0;
+                        // ok уменьшаем уровень и true 
+                        startN--;
+                        return true;
+                    }
+                         for (int i = 0; i < 10; i++)
+                         {
+                             if (true)
+                             {
+
+                                 // следующей обработки ветки на уровень выше
+                                 // уменьшаем уровень вложенности
+                                 startN--;
+                                 return true;
+                             }
+                         }
+
+                         //if (intersection() == false)
+                         //{
+                         //    // подумать как очищать результаты или куда дальше пускать веть 
+                         //    //???????????
+                         //    return false;
+                         //}
+                         //else
+                         //{
+                         //      startN--;
+                         //   return true;
+                         //}
+                       
+
+                     }
+
+           
+                    System.Diagnostics.Debug.WriteLine("Level : " + startN.ToString());
+                }
+                
                 minus++;
                 return false;
             }
@@ -117,6 +208,33 @@ namespace twelve
             {
                 newPoint(ref redyPoints, i);
             }
+
+        }
+        /// <summary>
+        /// функция проверки, что 2 отрезка не пересекаются
+        /// </summary>
+        /// <param name="ax1"></param>
+        /// <param name="ay1"></param>
+        /// <param name="ax2"></param>
+        /// <param name="ay2"></param>
+        /// <param name="bx1"></param>
+        /// <param name="by1"></param>
+        /// <param name="bx2"></param>
+        /// <param name="by2"></param>
+        /// <returns></returns>
+        bool intersection(double ax1, double ay1, double ax2, double ay2, double bx1, double by1, double bx2, double by2) // функция проверки, что 2 отрезка не пересекаются
+        {
+
+            double v1; double v2; double v3; double v4;
+
+            v1 = (bx2 - bx1) * (ay1 - by1) - (by2 - by1) * (ax1 - bx1);
+            v2 = (bx2 - bx1) * (ay2 - by1) - (by2 - by1) * (ax2 - bx1);
+            v3 = (ax2 - ax1) * (by1 - ay1) - (ay2 - ay1) * (bx1 - ax1);
+            v4 = (ax2 - ax1) * (by2 - ay1) - (ay2 - ay1) * (bx2 - ax1);
+            var test1 = v1 * v2;
+            var test2 = v4 * v4;
+            var res = (v1 * v2 < 0) && (v3 * v4 < 0);
+            return res;
 
         }
     }
