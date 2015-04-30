@@ -388,8 +388,11 @@ namespace twelve
             if (x == true) System.Diagnostics.Debug.WriteLine(s);
             else
             {
-             
-                FlowDocument flowDoc = new FlowDocument(new Paragraph(new Run(s)));
+                string richText = new TextRange(textik.Document.ContentStart, textik.Document.ContentEnd).Text;
+
+                richText += s;
+                textik.Document.Blocks.Clear();
+                FlowDocument flowDoc = new FlowDocument(new Paragraph(new Run(richText)));
                 textik.Document = flowDoc;
             }
 }
@@ -400,7 +403,13 @@ namespace twelve
         /// <param name="e"></param>
         private void Button_Click_2(object sender, RoutedEventArgs e)
         {
+            Filler3 obj = new Filler3();
+            showinConsoleDebug("Begin", false);
+            if (obj.search())
+            {
 
+                showinConsoleDebug("End", false);
+            }
         }
 
  
