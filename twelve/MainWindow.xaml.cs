@@ -405,6 +405,13 @@ namespace twelve
         {
             Filler3 obj = new Filler3();
             showinConsoleDebug("Begin", false);
+            // массив первого уровня
+            int indexN = 330;
+            for (double a = 30; a < indexN; a+=30)
+            {
+                obj.arrDegree.Add(a);
+            }
+
             if (obj.search())
             {
 
