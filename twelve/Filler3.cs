@@ -14,10 +14,8 @@ namespace twelve
         double angle;
         int startN = 0;
         Point p;
-        /// <summary>
-        ///  список количества совпадение потом координаты
-        /// </summary>
-        public List<bool> mainboolList = new List<bool>();
+
+        public List<List<Point>> mainColections = new List<List<Point>>();
         public List<Point> mainPointList = new List<Point>();
         public List<Point> redyPoints = new List<Point>();
 
@@ -88,51 +86,102 @@ namespace twelve
                      {
                          // ето точки той линии что надо проверить не текущей  в даном случае последняя
                          // пока что обход 
-                         // дублирую пока что перменную потом оптимиз 
+                         // дублирую пока что перменные (точка и количество елементов) потом оптимиз 
                          int startN2 = startN;
-                         //for (int i = 0; i < length; i++)
-                         //{
-                             
-                         //}
-
-                    Point pCurent2 = mainPointList[startN+1];
-                         // считать так чтобы последней индекс был или первым или следующим через один
-                         // чтото не так но вроде работает ???? проверить ставлю метку !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-                    int zeroOrNext = ((startN + 2) < mainPointList.Count) ? (startN + 2) : 0;
-                    Point pNext2 = mainPointList[zeroOrNext];
-
-
-                         // если не пересекаються тогда идем дальше
-                    if (intersection(pCurent.X, pCurent.Y, pNext.X, pNext.Y, pCurent2.X, pCurent2.Y, pNext2.X, pNext2.Y) == false)
-                    {
-                        var r = 0;
-                        // ok уменьшаем уровень и true 
-                        startN--;
-                        return true;
-                    }
-                         for (int i = 0; i < 10; i++)
+                         int maxElement = mainPointList.Count;
+                         //    количество проверок для цикла проследить   !!!!!!!!!!!!!!!!  0 1 ok
+                        // int counProverk = maxElement - 2 - startN;
+                         int counProverk = maxElement - 1 - startN;
+                            // вроде все ок начинаме проверять на пересечение все что внизу -2 линии 
+                         //  для  квадрата на 2-ом лев. только одна проверка на пересечение с последней точкой
+                         // и нулевой точкой суть линия( xy - 00 )
+                         // но аналогично получаеться что и для первой точки приходится делать проверку 
+                         // пускай будет возможно будет убираться тот случай когда первая и последняя линия будут с одинаковими координатами 
+                         // возможно потом от этой проверки избавлюсь 
+                         bool flag = false;
+                         for (int i = 1; i <= counProverk; i++)
                          {
-                             if (true)
+                             // и поехали точка(вторая начало линии)
+                             Point pCurent2 = mainPointList[startN + i];
+                             // считать так чтобы последней индекс был или первым или следующим через один
+                             // чтото не так но вроде работает ???? проверить ставлю метку !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                             int zeroOrNext = ((startN + i+1) < mainPointList.Count) ? (startN + i+1) : 0;
+                             // точка вторая конец линии
+                             Point pNext2 = mainPointList[zeroOrNext];
+                             // если не пересекаються тогда флаг + иниче - и брейк
+                             if (intersection(pCurent.X, pCurent.Y, pNext.X, pNext.Y, pCurent2.X, pCurent2.Y, pNext2.X, pNext2.Y) == false)
                              {
-
-                                 // следующей обработки ветки на уровень выше
-                                 // уменьшаем уровень вложенности
-                                 startN--;
-                                 return true;
+                                 flag = true;
                              }
+                             // проверка для 4 ок
+                         }
+                         // после цикла смотрим на флаг + -  если+ значить не пересекаються тогда 
+                         // сигналим вверх  ок  незабывая менять уровень вложености  
+                         if (flag == true) 
+                         {
+                             var r = 0;
+                             // ok уменьшаем уровень и true 
+                             startN--;
+                             // здесь можно наверно перехватить готовую линию
+                             // если левел ==0
+                             if (startN == 0)
+                             {
+                                 // ну если уже здесь значить чтото можно уже словилось собираю в главную колекцию
+                                 System.Diagnostics.Debug.WriteLine("catch !!!!! : " + startN.ToString());
+                                 // фигуру добавили 
+                                 mainColections.Add(mainPointList.ToList());
+                                 //  и теперь мы все равно на 0 уровне
+                                 // значить здесь удобно давать цикл для второй фигуры - наверно
+                                 // можно чистить mainPointList и стартовать с новыми даными попоже 
+                                 var t2 = 0;
+                             }
+                             return true;
+                         }
+                         else
+                         {
+                             return false;
                          }
 
-                         //if (intersection() == false)
-                         //{
-                         //    // подумать как очищать результаты или куда дальше пускать веть 
-                         //    //???????????
-                         //    return false;
-                         //}
-                         //else
-                         //{
-                         //      startN--;
-                         //   return true;
-                         //}
+                         // 
+                         //Point pCurent2 = mainPointList[startN + 1];
+                         //// считать так чтобы последней индекс был или первым или следующим через один
+                         //// чтото не так но вроде работает ???? проверить ставлю метку !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                         //int zeroOrNext = ((startN + 2) < mainPointList.Count) ? (startN + 2) : 0;
+                         //Point pNext2 = mainPointList[zeroOrNext];
+           
+
+
+                    //     // если не пересекаються тогда идем дальше
+                    //if (intersection(pCurent.X, pCurent.Y, pNext.X, pNext.Y, pCurent2.X, pCurent2.Y, pNext2.X, pNext2.Y) == false)
+                    //{
+                    //    var r = 0;
+                    //    // ok уменьшаем уровень и true 
+                    //    startN--;
+                    //    return true;
+                    //}
+                    //     for (int i = 0; i < 10; i++)
+                    //     {
+                    //         if (true)
+                    //         {
+
+                    //             // следующей обработки ветки на уровень выше
+                    //             // уменьшаем уровень вложенности
+                    //             startN--;
+                    //             return true;
+                    //         }
+                    //     }
+
+                    //     //if (intersection() == false)
+                    //     //{
+                    //     //    // подумать как очищать результаты или куда дальше пускать веть 
+                    //     //    //???????????
+                    //     //    return false;
+                    //     //}
+                    //     //else
+                    //     //{
+                    //     //      startN--;
+                    //     //   return true;
+                    //     //}
                        
 
                      }
