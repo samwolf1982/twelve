@@ -28,7 +28,8 @@ namespace twelve
             // узнаем глубину если (4-1 rank ) тогда делаем первую проверку на совпадение с (0 0)
             // имееться в виду что на самом низу
             startN++;
-            if(startN==rank){
+             //if(startN==rank-1){  // третья или ппред последняя
+             if(startN==rank){
                       // здесь первое попадание может быть а может и не быть :)
                     // если последняя точка совпадает с точками круга
                       // нулевой точки тогда она достает до (0:0) и имеет размер 1-ца и возврат для последующей обработки
@@ -204,6 +205,11 @@ namespace twelve
             double angle2 = Math.PI * degree / 180.0;
             double sinAngleX = Math.Sin(angle2);
             double cosAngleY = Math.Cos(angle2);
+            // новая точка со смещением
+            //double cosAngleY =1- Math.Cos(angle2);
+       
+            
+            //   double y = 1 - Math.Cos(a * Math.PI / 180);
             Point p = new Point(sinAngleX, cosAngleY);
             arr.Add(p);
             //double xx = Math.Sin(a * Math.PI / 180);

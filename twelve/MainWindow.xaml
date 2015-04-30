@@ -90,6 +90,8 @@
         <Button Margin="1,0,0,7" Grid.Row="7" Grid.Column="10" Grid.ColumnSpan="2"  Name="butTest" Height="22"  VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="85">
             <Button Content="Button" Width="75" Click="Button_Click_2" />
         </Button>
+        <Button Margin="1,0,0,7" Content="DrowNext" Grid.Row="8" Click="NextDraw_Click" Grid.Column="10" Grid.ColumnSpan="2"  Name="NextDraw" Height="22"  VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="85">
+        </Button>
         <RichTextBox BorderThickness="3" Grid.Row="2" Grid.Column="9" Grid.ColumnSpan="3" Grid.RowSpan="4" Name="textik"></RichTextBox>
 
     </Grid>

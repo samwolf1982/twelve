@@ -80,6 +80,8 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Filler3.cs" />
+    <Compile Include="Filler4.cs" />
+    <Compile Include="Filler5.cs" />
     <Compile Include="LittleShape2.cs" />
     <Compile Include="Tester.cs" />
     <Page Include="MainWindow.xaml">

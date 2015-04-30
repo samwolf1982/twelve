@@ -403,20 +403,36 @@ namespace twelve
         /// <param name="e"></param>
         private void Button_Click_2(object sender, RoutedEventArgs e)
         {
-            Filler3 obj = new Filler3();
-            showinConsoleDebug("Begin", false);
-            // массив первого уровня
-            int indexN = 330;
-            for (double a = 30; a < indexN; a+=30)
-            {
-                obj.arrDegree.Add(a);
-            }
 
-            if (obj.search())
-            {
+            Filler5 obj = new Filler5(cuprentPicture());
+            obj.start();
+           
+            //Filler3 obj = new Filler3();
 
-                showinConsoleDebug("End", false);
-            }
+            //for (int i = 30; i < 360; i+=30)
+            //{
+            //    double angle2 = Math.PI * i / 180.0;
+            //    double sinAngleX = Math.Sin(angle2);
+            //    double cosAngleY = Math.Cos(angle2);
+            //                showinConsoleDebug("sin ("+i.ToString()+") = "+sinAngleX , false);
+            //                showinConsoleDebug("cos (" + i.ToString() + ") = " + cosAngleY, false);
+            //                showinConsoleDebug("--------------------", false);
+            //}
+            //showinConsoleDebug("Begin", false);
+
+
+            //// массив первого уровня
+            //int indexN = 330;
+            //for (double a = 30; a < indexN; a+=30)
+            //{
+            //    obj.arrDegree.Add(a);
+            //}
+
+            //if (obj.search())
+            //{
+
+            //    showinConsoleDebug("End", false);
+            //}
         }
 
  
@@ -485,6 +501,15 @@ namespace twelve
               else if (rank == 10) {rank = 12;     lb.Content = rank;}
               else if (rank == 12) { rank = 8; lb.Content = rank; }
              
+          }
+          /// <summary>
+          /// обработчкик для кнопки NextDraw
+          /// </summary>
+          /// <param name="sender"></param>
+          /// <param name="e"></param>
+          private void NextDraw_Click(object sender, RoutedEventArgs e)
+          {
+
           }
          
     }
