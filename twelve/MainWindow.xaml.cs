@@ -23,12 +23,15 @@ namespace twelve
     public partial class MainWindow : Window
     {
         Random rand = new Random();
+        Filler5 obj;
      
         Filler filler;
         int rank = 8;
 
         List<LittleShape2> curentList = new List<LittleShape2>();
         int curentindex = 0;
+        int totalimage = 0;
+        int counter = 0;
         public MainWindow()
         {
             // добавить красивые кнопки 495
@@ -403,10 +406,13 @@ namespace twelve
         /// <param name="e"></param>
         private void Button_Click_2(object sender, RoutedEventArgs e)
         {
-
-            Filler5 obj = new Filler5(cuprentPicture());
+            showinConsoleDebug("Begin", false);
+        obj = new Filler5(cuprentPicture());
             obj.start();
-           
+            totalimage = obj.mainColections.Count;
+            showinConsoleDebug("End", false);
+            showinConsoleDebug("Тотал obj: "+obj.mainColections.Count, false);
+
             //Filler3 obj = new Filler3();
 
             //for (int i = 30; i < 360; i+=30)
@@ -509,7 +515,9 @@ namespace twelve
           /// <param name="e"></param>
           private void NextDraw_Click(object sender, RoutedEventArgs e)
           {
-
+              if (counter < totalimage) { obj.drawOfIndex(counter++); }
+              else counter = 0;
+              
           }
          
     }

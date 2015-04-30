@@ -22,7 +22,7 @@ namespace twelve
         double[] iii = new double[] {0, 90, 180, 270,90};
         double degree; // default 30
 
-        List<Point[]> mainColections = new List<Point[]>();
+      public  List<Point[]> mainColections = new List<Point[]>();
 
 
 
@@ -89,14 +89,14 @@ namespace twelve
                     //     проверить 
                     double degree2=((360/degree)-2)* (degree);
                     //curentN++;  // опускаемся на уровень ниже для поиска последней точки
-                    for (double i = degree; i <degree2; i++)
+                    for (double i = degree; i <degree2; i+=degree)
                     {
                         
                         Point fPoint = mainPoins2[0];
                         Point lPoint = newPoint(i);
 
                         mainPoins2[curentN] = lPoint;
-                        shiftArray(ref mainPoins2, mainPoins2[curentN]);
+                      //  shiftArray(ref mainPoins2, mainPoins2[curentN]);
 
                         mainColections.Add(mainPoins2.ToArray());
 
@@ -104,11 +104,14 @@ namespace twelve
                         {
                             // bingo !!!
                             var r = 0;
+                            return true;
                         }
                        
                  
                         
-                    } 
+                    }
+                    shiftArray(ref mainPoins2, mainPoins2[curentN]);
+                    return false;
                     //mainPoins2[curentN]=newPoint(180);
                     //shiftArray(ref mainPoins2, mainPoins2[curentN]);
           
@@ -121,16 +124,18 @@ namespace twelve
                 {
                     // опускаемся на уровень ниже
                     curentN++; //to  down 1 Level
-                    for (double i = 30; i <= 30; i += 30)
+                    for (double i = 30; i <= 90; i += 30)
                     {
                         // next point
-        //             //   mainPoins2[curentN] = newPoint(i);   // where take degree???
-                        mainPoins2[curentN] = newPoint(iii[curentN]);   // where take degree???
+                          mainPoins2[curentN] = newPoint(i);   // where take degree???
+                       // mainPoins2[curentN] = newPoint(iii[curentN]);   // where take degree???
                         // shift all points
                         shiftArray(ref mainPoins2, mainPoins2[curentN]);
+                        
+                        search();
                     }
                     // ниже и ниже
-                    search();
+                   
 
 
             }
@@ -164,6 +169,7 @@ namespace twelve
             scaleCurentFigure();
             Point[] temp = new Point[mainColections[index].Length];
             temp = mainColections[index].ToArray();
+            scaleCurentFigure2(ref temp);
             shiftArray(ref temp, new Point(-200, -200));
             //   shiftArray2(ref mainPoins2, new Point(-200, -200));
             StreamGeometryTriangleExample(temp.ToList());
@@ -174,6 +180,33 @@ namespace twelve
             shiftArray(ref mainPoins2, new Point(-200, -200));
          //   shiftArray2(ref mainPoins2, new Point(-200, -200));
             StreamGeometryTriangleExample(mainPoins2.ToList());
+        }
+
+        public void scaleCurentFigure2(ref Point[] p)
+        {
+            System.Drawing.Drawing2D.Matrix matrix = new System.Drawing.Drawing2D.Matrix();
+            System.Drawing.Drawing2D.Matrix test = new System.Drawing.Drawing2D.Matrix(1, 0, 0, 1, 0, 0);
+            // трансформация  из double[,] в pointF[]
+            System.Drawing.PointF[] arr = new System.Drawing.PointF[rank];
+
+            for (int i = 0; i < p.Length; i++)
+            {
+                arr[i] = new System.Drawing.PointF((float)p[i].X, (float)p[i].Y);
+            }
+            // увеличение 
+            matrix.Scale(50, 50);
+            // применение увеличения
+            // matrix.Shear(-2, -2);
+            matrix.TransformPoints(arr);
+            // уже увеличеная фигура (точки)
+            for (int i = 0; i < p.Length; i++)
+            {
+                // arr[i] = new System.Drawing.PointF((float)mainPoins2[i].X, (float)mainPoins2[i].Y);
+                p[i].X = arr[i].X;
+               p[i].Y = arr[i].Y;
+            }
+            // setPointFToLinearr(arr);
+
         }
                 public void scaleCurentFigure()
         {
@@ -253,6 +286,7 @@ namespace twelve
             // Add path shape to the UI.
             StackPanel mainPanel = new StackPanel();
             Canvas ss = cv;
+            ss.Children.Clear();
             ss.Children.Add(myPath);
         }
         #endregion
