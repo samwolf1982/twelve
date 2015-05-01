@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,8 +8,9 @@ using System.Windows.Controls;
 
 namespace twelve
 {
-    class Filler5
+    class Filler6
     {
+        #region Values
         int rank;
         int curentN; // текущая глубина отсчет с нуля; 0== первая точка
         /// <summary>
@@ -19,144 +19,94 @@ namespace twelve
         Point[] mainPoins2;
         Canvas cv = new Canvas();
         Random rand = new Random();
-        double[] iii = new double[] {0, 90, 180, 270,90};
-      //  List<Point> curentWay = new List<Point>();
+        double[] iii = new double[] { 0, 90, 180, 270, 90 };
+        //  List<Point> curentWay = new List<Point>();
         double degree; // default 
         bool down = false;
-      public  List<Point[]> mainColections = new List<Point[]>();
-
-
-
-        /// <summary>
-        /// смещение все точек на -х и -у 
-        /// </summary>
-        /// <param name="arr"></param>
-        /// <param name="p"></param>
-        public void shiftArray(ref Point[] arr, Point p)
-        {
-          
-            for (int i = 0; i <=curentN; i++)
-            {
-                arr[i].X -= p.X; ;// p.X;
-                arr[i].Y -= p.Y; ;
-            }
-           // arr[curentN].X = 0; // p.X;
-            //arr[curentN].Y =0 ;
-        }
-        /// <summary>
-        /// смещение все точек на -х и -у 
-        /// </summary>
-        /// <param name="arr"></param>
-        /// <param name="p"></param>
-        public void shiftArray2(ref Point[] arr, Point p)
-        {
-
-            for (int i = 0; i < curentN; i++)
-            {
-                arr[i].X -= p.X; ;// p.X;
-                arr[i].Y -= p.Y; ;
-            }
-            // arr[curentN].X = 0; // p.X;
-            //arr[curentN].Y =0 ;
-        }
+        public List<Point[]> mainColections = new List<Point[]>();
+        public List<Point> tempPopintList = new List<Point>();
+        public List<Point> colectPointForZero = new List<Point>();
+        #endregion
 
         public void start()
         {
-            mainPoins2[curentN] = new Point(0, 0);
-            if (search() == true)
-            {
-                var t = 0;
-                // catch !!!!!!!!!
-            }
-   
+            alif(90);
+
         }
-        public bool search()
+
+        public bool alif(double degree)
         {
-            //if (search() == true)
-            //{
-            //    // попался ктото снизу
-            //    var t = 0;
-            //    // catch !!!!!!!!!
-            //}
-            //else
-            //{
-         
-                // если в самом низу но еще надо одну линию тогда todo 
-                if (curentN == rank-1)
-                {
-                    //         at down !!
-                    var d = 0;
-                    // перебор всех линий поиск совпадение на mainPoins2[0]
-                    // test draw
-                    //     проверить 
-                    double degree2=((360/degree)-2)* (degree);
-                    //curentN++;  // опускаемся на уровень ниже для поиска последней точки
-                    for (double i = degree; i <degree2; i+=degree)
-                    {
-                        
-                        Point fPoint = mainPoins2[0];
-                        Point lPoint = newPoint(i);
-
-                        mainPoins2[curentN] = lPoint;
-                      //  shiftArray(ref mainPoins2, mainPoins2[curentN]);
-
-                        mainColections.Add(mainPoins2.ToArray());
-                        if (mainColections.Count == 10000)
-                        {
-
-                        }
-                        if (fPoint == lPoint)
-                        {
-                            // bingo !!!
-                            var r = 0;
-                            return true;
-                        }                       
-                    }
-                         // совпадений нету вверх
-                    curentN--;
-                    down = true;
-                    return true;
-                    //mainPoins2[curentN]=newPoint(180);
-                    //shiftArray(ref mainPoins2, mainPoins2[curentN]);
-          
-     //  draw();
-                    //scaleCurentFigure();
-                    //shiftArray(ref mainPoins2, new Point(-200, -200));
-                    //StreamGeometryTriangleExample(mainPoins2.ToList());
-                }
-                else
-                {
-                    // опускаемся на уровень ниже
-                    if(down==false) curentN++; //to  down 1 Level
-                    // cоздаем 3 состояния и запоминаем их
-                    List<Point> lp = new List<Point>();
-                    for (double i = 30; i <= 60; i += 30)
-                    {
-                        lp.Add(newPoint(i));
-                    }
-                    // проход по всем состояниям
-                    foreach (var item in lp)
-                    {
-                        mainPoins2[curentN] = new Point(item.X, item.Y);
-                        shiftArray(ref mainPoins2, mainPoins2[curentN]);
-                        if (search() == true && down==true)
-                        {
-                            // если есть совпадения добалвлять фигуру идти више
-                            var r = 99; //bingo!!!!
-                        }
-                    }
-
-                    // после всего наверх
-                    curentN--;
-                    return true;
-                   
-
-
+            if (tempPopintList.Count < rank)
+            {
+                Point p = newPoint(degree);
+                tempPopintList.Add(p);
+                shiftList(ref tempPopintList, p);     // cмещение по осям на ноль послед точку
+                alif(degree);
             }
-                curentN--;
+
+            if(tempPopintList.Count==rank)     // проверка 0 и последнего елемента
+            {
+                    //double degree2=((360/30)-2)* (30); // количество град/угол  30 to 330
+            if( colectPointForZero.Exists(x=>x==tempPopintList[0])) // проверка на попадание
+            {
+                var ff = 99;
+            }
+                    
+                
+             
+            }
             return true;
+
+        }
+        //public Point[] alif1(double degree)
+        //{
+        //    Point p = newPoint(degree);
+        // //   Point[] arr = new Point[rank];
+
+                
+        //}
+        public Point search(ref Point[] arr,Point p, double angle, int level)
+        {
+            if (level == rank) // first check - at down
+            {
+                Point res1 = newPoint(angle);// последняя точка должна совпадать с первой если фигура ОК
+                // если совпадение тогда фигура закрыта и возврат точки
+                if (arr[0] == res1) return res1;
+                else return new Point();  // иначе пустая точка (0 0)
+            }
+            if(level<rank)
+            { // копаем глубже
+                  Point res = newPoint(angle);
+                  Point other=search(ref arr, res, angle, level++);  // точка с низу
+                if (other != new Point()) // возврат не пустой точки ок
+            {
+                // 
+            }
+            }
+          
+
+            return new Point() ;
         }
 
+
+        /// <summary>
+        /// первая проверка в самом низу на 
+        /// </summary>
+        /// <returns>+ it's ok point is</returns>
+        public bool firstCheck(   Point[] mainPoins2,Point p)
+        {
+            foreach (var item in mainPoins2)
+            {
+                if (item == p) return true;
+            }
+            return false;
+
+        }
+        /// <summary>
+        /// новая точка
+        /// </summary>
+        /// <param name="degree"></param>
+        /// <returns></returns>
         public Point newPoint(double degree)
         {
 
@@ -167,16 +117,51 @@ namespace twelve
             return p;
         }
 
-        public Filler5(Canvas can,int rank = 5,double deg=30)
+        #region Shift
+        /// <summary>
+        /// смещение все точек на -х и -у 
+        /// </summary>
+        /// <param name="arr"></param>
+        /// <param name="p"></param>
+        public void shiftArray(ref Point[] arr, Point p)
         {
-            this.rank = rank;
-            this.degree = deg;
-            curentN = 0;
-            cv = can;
-           mainPoins2  = new Point[rank];
+
+            for (int i = 0; i <= curentN; i++)
+            {
+                arr[i].X -= p.X; ;// p.X;
+                arr[i].Y -= p.Y; ;
+            }
+            // arr[curentN].X = 0; // p.X;
+            //arr[curentN].Y =0 ;
         }
 
+        public void shiftList(ref List<Point> arr, Point p)
+        {
 
+            for (int i = 0; i < arr.Count; i++)
+            {
+                var x=  arr[i].X - p.X; ;// p.X;
+                var y= arr[i].Y - p.Y; ;
+               arr[i] = new Point(x, y);
+            }
+        }
+        ///// <summary>
+        ///// смещение все точек на -х и -у 
+        ///// </summary>
+        ///// <param name="arr"></param>
+        ///// <param name="p"></param>
+        //public void shiftArray2(ref Point[] arr, Point p)
+        //{
+
+        //    for (int i = 0; i < curentN; i++)
+        //    {
+        //        arr[i].X -= p.X; ;// p.X;
+        //        arr[i].Y -= p.Y; ;
+        //    }
+        //    // arr[curentN].X = 0; // p.X;
+        //    //arr[curentN].Y =0 ;
+        //}
+        #endregion
         #region для рисования
 
         public void drawOfIndex(int index)
@@ -193,7 +178,7 @@ namespace twelve
         {
             scaleCurentFigure();
             shiftArray(ref mainPoins2, new Point(-200, -200));
-         //   shiftArray2(ref mainPoins2, new Point(-200, -200));
+            //   shiftArray2(ref mainPoins2, new Point(-200, -200));
             StreamGeometryTriangleExample(mainPoins2.ToList());
         }
 
@@ -218,12 +203,12 @@ namespace twelve
             {
                 // arr[i] = new System.Drawing.PointF((float)mainPoins2[i].X, (float)mainPoins2[i].Y);
                 p[i].X = arr[i].X;
-               p[i].Y = arr[i].Y;
+                p[i].Y = arr[i].Y;
             }
             // setPointFToLinearr(arr);
 
         }
-                public void scaleCurentFigure()
+        public void scaleCurentFigure()
         {
             System.Drawing.Drawing2D.Matrix matrix = new System.Drawing.Drawing2D.Matrix();
             System.Drawing.Drawing2D.Matrix test = new System.Drawing.Drawing2D.Matrix(1, 0, 0, 1, 0, 0);
@@ -232,21 +217,21 @@ namespace twelve
 
             for (int i = 0; i < mainPoins2.Length; i++)
             {
-                arr[i] = new System.Drawing.PointF((float)mainPoins2[i].X,(float) mainPoins2[i].Y);
+                arr[i] = new System.Drawing.PointF((float)mainPoins2[i].X, (float)mainPoins2[i].Y);
             }
             // увеличение 
             matrix.Scale(50, 50);
             // применение увеличения
-           // matrix.Shear(-2, -2);
+            // matrix.Shear(-2, -2);
             matrix.TransformPoints(arr);
             // уже увеличеная фигура (точки)
             for (int i = 0; i < mainPoins2.Length; i++)
             {
-               // arr[i] = new System.Drawing.PointF((float)mainPoins2[i].X, (float)mainPoins2[i].Y);
+                // arr[i] = new System.Drawing.PointF((float)mainPoins2[i].X, (float)mainPoins2[i].Y);
                 mainPoins2[i].X = arr[i].X;
                 mainPoins2[i].Y = arr[i].Y;
             }
-           // setPointFToLinearr(arr);
+            // setPointFToLinearr(arr);
 
         }
 
@@ -263,12 +248,12 @@ namespace twelve
             //cl.A = 
             System.Windows.Media.Brush br = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Color.FromArgb(arr[0], arr[1], arr[2], arr[3]));
             #region для заполнение разкоментировать
-              //  myPath.Fill = br;
+            //  myPath.Fill = br;
             #endregion
-          
+
             // Create a StreamGeometry to use to specify myPath.
             System.Windows.Media.StreamGeometry geometry = new System.Windows.Media.StreamGeometry();
-         //   geometry.FillRule = System.Windows.Media.FillRule.EvenOdd;
+            //   geometry.FillRule = System.Windows.Media.FillRule.EvenOdd;
 
             // Open a StreamGeometryContext that can be used to describe this StreamGeometry 
             // object's contents.
@@ -305,6 +290,30 @@ namespace twelve
             ss.Children.Add(myPath);
         }
         #endregion
+        #region Constructors
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="can"></param>
+        /// <param name="rank"> для квадрата 4 точка</param>
+        /// <param name="deg"></param>
+              public Filler6(Canvas can,int rank = 4,double deg=30)
+        {
+            this.rank = rank;
+            this.degree = deg;
+            curentN = 0;
+            cv = can;
+           mainPoins2  = new Point[rank];
+           for (double i = 0; i < 360; i++)
+           {
+               colectPointForZero.Add(newPoint(i));
+
+           }
+
+        }
+        #endregion
+
+
 
     }
 }

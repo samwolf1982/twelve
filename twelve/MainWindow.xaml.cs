@@ -407,11 +407,17 @@ namespace twelve
         private void Button_Click_2(object sender, RoutedEventArgs e)
         {
             showinConsoleDebug("Begin", false);
-        obj = new Filler5(cuprentPicture());
+        //obj = new Filler5(cuprentPicture());
+        //    obj.start();
+        //    totalimage = obj.mainColections.Count;
+          //  Filler6 obj6= new Filler6(cuprentPicture());
+            //obj6.start();
+            Filler7 obj = new Filler7();
             obj.start();
-            totalimage = obj.mainColections.Count;
+
+            showinConsoleDebug("Count El: "+obj.couner, false);
             showinConsoleDebug("End", false);
-            showinConsoleDebug("Тотал obj: "+obj.mainColections.Count, false);
+          //  showinConsoleDebug("Тотал obj: "+obj.mainColections.Count, false);
 
             //Filler3 obj = new Filler3();
 

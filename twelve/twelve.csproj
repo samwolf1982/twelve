@@ -82,6 +82,8 @@
     <Compile Include="Filler3.cs" />
     <Compile Include="Filler4.cs" />
     <Compile Include="Filler5.cs" />
+    <Compile Include="Filler6.cs" />
+    <Compile Include="Filler7.cs" />
     <Compile Include="LittleShape2.cs" />
     <Compile Include="Tester.cs" />
     <Page Include="MainWindow.xaml">

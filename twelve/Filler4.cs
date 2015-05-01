@@ -53,11 +53,20 @@ namespace twelve
         public Point newPoint(double degree)
         {
 
-            double angle2 = Math.PI * degree / 180.0;
+            try
+            {
+             double angle2 = Math.PI * degree / 180.0;
             double sinAngleX = Math.Sin(angle2);
             double cosAngleY = Math.Cos(angle2);
             Point p = new Point(sinAngleX, cosAngleY);
             return p;
+            }
+            catch (Exception ex)
+            {
+                
+                throw;
+            }
+     
         }
     }
 }
