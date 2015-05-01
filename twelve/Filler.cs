@@ -12,7 +12,7 @@ namespace twelve
 {
  public   class Filler
     {
-       
+        #region Values
             static int count = 0;
          public  static int rank = 8;
             public static double[,] mas = new double[2, rank];//количество точек (сейчас 8)
@@ -30,20 +30,16 @@ namespace twelve
  public TimeSpan sp;
      // 
  Dictionary<double, double> listSinCos = new Dictionary<double, double>();
-     // указатель на текущую фигуру
- int cursor = 0;
+        #endregion
 
-// отладка
+
+ #region Debug Values
  public static double[,] debug1 = new double[2, rank];//количество точек (сейчас 8)
  public static double[,] debug2 = new double[2, rank];//количество точек (сейчас 8)
+ #endregion
+// отладка
 
 
- //public List<LittleShape> getter()
- // {
- //     return figureColections;
- // }
-
-            // add bitfield
         /// <summary>
         /// начальна инициализация
         /// </summary>
@@ -76,8 +72,10 @@ namespace twelve
                    sp = DateTime.Now -start;
             
             }
-
-
+     /// <summary>
+     ///  рекурсивная функция
+     /// </summary>
+     /// <param name="k"></param>
           public void search(int k)
             {
                 //    перврый раз
@@ -240,6 +238,172 @@ namespace twelve
 
 
             }
+          #region ЗАКОМЕНТИРОВАНО работающая search()  
+          //public void search(int k)
+          //{
+          //    //    перврый раз
+          //    if (k == 2) // две начальные точки мы поставили, от второй точки, строим третья, для второго отрезка многоугольника, бежим в 6! сторон
+          //    {
+          //        //int i = 0;
+          //        // for (double a = 30; a <= 180; a += 30)
+          //        //   double a = 30;
+          //        for (double a = 30; a <= 180; a += 30)
+          //        {
+          //            // окружность круга
+          //            double x = Math.Sin(a * Math.PI / 180); // нахождение новых координат
+          //            double y = 1 - Math.Cos(a * Math.PI / 180);
+          //            //  System.Diagnostics.Debug.WriteLine("X:Y:  "+x.ToString()+"  "+y.ToString()+"\n");
+          //            // mas[2+i, 0] = x;
+          //            // mas[2+i, 1] = y;
+          //            // для дебага
+          //            double[,] t1 = new double[2, rank];
+          //            double[,] t2 = new double[2, rank];
+          //            t1 = mas;
+          //            //////////////////
+          //            mas[0, k] = x; // постановка координат
+          //            mas[1, k] = y;
+          //            t2 = mas;
+          //            search(k + 1); //3 4 5 - 6
+          //            // ///
+
+
+          //            ////
+          //            // i++;
+          //            // Console.ReadLine();
+          //        }
+          //    }
+          //    else
+          //    {
+          //        /// к=3
+          //        for (double a = 0; a <= 330; a += 30) // бежим в 11 сторон
+          //        {
+          //            //double xx=Math.Sin(a * Math.PI / 180);
+          //            //  double yy = Math.Cos(a * Math.PI / 180);
+          //            // оптимизировано создае  елемент для динамического програмирования  listSinCos
+
+
+          //            double x = mas[0, k - 1] + listSinCos[a];
+          //            double y = mas[1, k - 1] - listSinCos[a + 1];
+
+          //            //   System.Diagnostics.Debug.WriteLine("X:Y:  " + xx.ToString() + "  " + yy.ToString() + "\n");
+          //            // проверка на касание
+          //            bool Flag = false;
+          //            for (int i = 0; i < k - 1; i++)
+          //            {
+          //                double pp = rasst(mas[0, i], mas[1, i], x, y);
+          //                double absPP = Math.Abs(pp);
+          //                if (absPP < 0.001)
+          //                {
+          //                    Flag = true;
+          //                    break;
+          //                }
+          //                ///////      делал только с проверкой не пересечение результат нехватка памяти
+          //                if (i > 0 && equal(mas[0, i - 1], mas[1, i - 1], mas[0, i], mas[1, i], mas[0, k - 1], mas[1, k - 1], x, y))
+          //                {
+          //                    Flag = true;
+          //                    break;
+          //                }
+          //                // если (касаеться +)   делал только с проверкой не пересечение результат нехватка памяти надо включать этот кусок
+          //                // будут отсекаться фигуры с меньшей пл. но будут лищние проверки 
+          //                //    пробую менять местами сначала на пересечение линий break потом на площадь тоже break
+
+          //                // return;
+          //            }
+          //            // если нету касания го 
+          //            if (!Flag)
+          //            {
+          //                mas[0, k] = x;
+          //                mas[1, k] = y;
+          //                var test = mas.GetLength(1) - 1;
+          //                if (k < mas.GetLength(1) - 1)
+          //                    //// ?????????? почему к другое
+          //                    search(k + 1);
+          //                else
+          //                    if (Math.Abs(rasst(mas[0, k], mas[1, k], mas[0, 0], mas[1, 0]) - 1) < 0.01)
+          //                    {
+          //                        //????????
+          //                        Flag = true;
+          //                        for (int i = 1; i < k - 1; i++)
+          //                        {
+          //                            debug1 = mas;
+          //                            if (equal(mas[0, i], mas[1, i], mas[0, i + 1], mas[1, i + 1], mas[0, k], mas[1, k], mas[0, 0], mas[1, 0]))
+          //                                Flag = false;
+          //                        }
+          //                        if (Flag)
+          //                        {
+          //                            //****************************
+          //                            //   double intarea = area(mas);
+          //                            double intarea = 0;
+
+          //                            couuntPlosh++;
+          //                            //////************
+
+          //                            //if (Math.Abs(intarea) < 0.01)
+
+          //                            if (Math.Abs(Math.Round(intarea) - intarea) < 0.00001)
+          //                            {
+
+          //                                xcouunt++;
+
+
+          //                                ////*********////////////////////////////////
+          //                                double[] tempAppay = new double[rank];
+
+
+          //                                List<double> temp = new List<double>();
+
+
+          //                                double[,] tempArr = new double[2, rank];
+          //                                // копирование в новый масс для сохранения
+          //                                for (int i = 0; i < rank; i++)
+          //                                {
+          //                                    tempArr[0, i] = mas[0, i];
+          //                                    tempArr[1, i] = mas[1, i];
+          //                                }
+
+          //                                // сохранение массива 
+          //                                LittleShape2 ready = new LittleShape2();
+          //                                ready.add(tempArr, rank);
+          //                                //   установка масси
+          //                                double areaF = area(mas);
+          //                                int s = (int)Math.Round(areaF);
+
+          //                                ready.Mass = s;
+          //                                mainList.Add(ready);
+          //                                foreach (var item in mas)
+          //                                {
+          //                                    temp.Add(item);
+          //                                }
+          //                                //  mas.CopyTo(tempAppay, 0);
+          //                                // здесь храняться все результаты поиска
+          //                                // для использования забить в в какойто PATH и расовать  проверки на массу нету
+          //                                // делать отдельно в другой части кода
+          //                                // если делать здесь то время поиска будет увеличиваться 
+          //                                // как вариатн можно результат поиска 12 и 10 записать в файл а потом считать для демонстрации 
+          //                                // работоспособности программы
+          //                                // хотя площадь фигуры все равно находиться по причине избежания переполнения 
+          //                                // значить сразу можно делать метку на массу как и было сделано в начале 
+          //                                // делать колекцию фигур с меткой масса
+          //                                testColection.Add(temp);
+
+          //                            }
+          //                            count++;
+
+          //                        }
+
+          //                    }
+          //            }
+          //            //i++;
+
+          //        }
+
+          //    }
+
+
+          //}
+          #endregion
+  
+        #region Пересечение площадь растояние
      /// <summary>
      /// растояние между двумя точками ?
      /// </summary>
@@ -251,14 +415,6 @@ namespace twelve
             static double rasst(double x1, double y1, double x2, double y2)
             {
                 return Math.Sqrt(Math.Pow(x1 - x2, 2) + Math.Pow(y1 - y2, 2));  // расстояние между 2-мя точками
-            }
-            static void print(double[,] mas) // функция печати последовательности точек для нашего многоугольника
-            {
-                for (int i = 0; i < mas.GetLength(1); i++)
-                {
-                    //Console.Write("({0}; {1}); ", mas[0, i], mas[1, i]);
-                }
-                //   Console.WriteLine();
             }
 
             // нетрогать
@@ -279,17 +435,7 @@ namespace twelve
                 plosh += (mas[1, mas.GetLength(1) - 1] + mas[1, 0]) / 2 * (mas[0, 0] - mas[0, mas.GetLength(1) - 1]);
                 return Math.Abs(plosh);
             }
-            //static bool equal (double [,] a, double [,] b)
-            // for 
-            /* double x, y;
-             double det (double x1, double y1, double x2, double y2) {
-                 return ((x - x1) * (y2 - y1)) / ((y - y1) * (x2 - x1));
-             }
-             static void crossing(  ugi )
-             {
-            
-             }
-           */
+ 
      /// <summary>
      ///  функция пересечение двух отрезков ?
      /// </summary>
@@ -331,50 +477,12 @@ namespace twelve
 
             }
 
-  
-            //public LittleShape massToLittleShape(double[,] d)
-            //{
-            //    LittleShape temp = new LittleShape();
-               
-            //    // mas все что с d[0, - x  a d[1, y
-            //    for (int i = 0; i < rank; i++)
-            //    {
-            //        Line l = new Line();
-            //        l.Stroke = System.Windows.Media.Brushes.Black;
-            //        l.StrokeThickness = 3;
-            //        l.X1 = d[0, i];
-            //        l.Y1 = d[1, i];
-            //        l.X2 = d[0, i < rank - 1 ? i+1 : 0];
-            //        l.Y2 = d[1, i < rank - 1 ? i+1 : 0];
-            //        temp.add(l);              
+        #endregion
 
-            //    }
-            //    return temp;
 
-            //}
+
+
      
-     /// <summary>
-     ///  следующая фигура
-     /// </summary>
-            //public LittleShape nextFigure()
-            //{
-            //    if (cursor == figureColections.Count) { cursor=0; }
-            //  //  LittleShape f = figureColections[cursor++].deepCopy();
-            //    var temp= figureColections[cursor++].Clone() as LittleShape;
-            //   return temp;
-            //  //  return f;
-            //}
-            /// <summary>
-            ///  предыдущая фигура
-            /// </summary>
-            //public LittleShape prevFigure()
-            //{
-              
-            //    if (cursor == 0) { return figureColections[cursor].Clone() as LittleShape; }
-            //     else
-            //        return figureColections[--cursor].Clone() as LittleShape;
-            //}
-
 
         
 
