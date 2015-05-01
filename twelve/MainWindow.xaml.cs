@@ -226,12 +226,11 @@ namespace twelve
 
           //  var query = filler.figureColections.Where(x => x.Mass == mass).ToList();
             var query2 = filler.mainList.Where(x => x.Mass == m).ToList();
-                       //     fun(){
-                                         // sin<
-           ///////////
-        //}
-        //    query2.Where();// > 
-        //////////////todo
+                    
+                //проверка всех углов 
+            // checkbox
+          //  #if(){
+       // }
            
             return query2;
 

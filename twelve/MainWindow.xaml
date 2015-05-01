@@ -35,6 +35,20 @@
         <Button Click="b1Next_Click" Name="b1Next" Content="next" Height="20" Width="50" Grid.Column="10" Grid.Row="1">
            
         </Button>
+        <Grid Grid.Column="7" Grid.ColumnSpan="3">
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+
+            <Label HorizontalAlignment="Right"  Margin="5" Grid.Column="0" Grid.ColumnSpan="2">иск. похожие</Label>
+        <CheckBox VerticalAlignment="Center" Margin="5" Grid.Column="2" ></CheckBox>
+        </Grid>
 
 
         <TabControl Name="tabControl1"  Background="LightBlue"  Grid.RowSpan="6" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="8" Margin="1,1,1,10" SelectionChanged="tabControl1_SelectionChanged">
