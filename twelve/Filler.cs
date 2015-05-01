@@ -119,11 +119,11 @@ namespace twelve
                         // оптимизировано создае  елемент для динамического програмирования  listSinCos
 
 
-                        double x = mas[0, k - 1] + Math.Sin(a * Math.PI / 180);
-                        double y = mas[1, k - 1] - Math.Cos(a * Math.PI / 180);
+                     //   double x = mas[0, k - 1] + Math.Sin(a * Math.PI / 180);
+                       // double y = mas[1, k - 1] - Math.Cos(a * Math.PI / 180);
 
-                     //   double x = mas[0, k - 1] + listSinCos[a];
-                   //     double y = mas[1, k - 1] -listSinCos[a+1] ;
+                        double x = mas[0, k - 1] + listSinCos[a];
+                        double y = mas[1, k - 1] -listSinCos[a+1] ;
 
                      //   System.Diagnostics.Debug.WriteLine("X:Y:  " + xx.ToString() + "  " + yy.ToString() + "\n");
                         // проверка на касание
