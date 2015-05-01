@@ -65,7 +65,6 @@ namespace twelve
 
         public Filler7()
         {
-          //  for (double i = 30; i < 360; i +=30)
             for (double i = 10; i < 360; i+=10)
             {
                 mainPointList.Add(newPoint(i));

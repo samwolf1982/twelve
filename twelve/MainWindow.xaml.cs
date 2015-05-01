@@ -229,7 +229,28 @@ namespace twelve
                     
                 //проверка всех углов 
             // checkbox
-          //  #if(){
+           if( cb.IsChecked==true){
+               LittleShape2 fig = new LittleShape2();
+               fig = query2[0];
+
+
+
+               var path = fig.path.ToList();
+
+               for (int i = 0; i < path.Count; i+=2)
+               {
+                   
+               }
+               
+               
+               foreach (var item in query2)
+               {
+                   
+               }
+
+
+           }
+            //  #if(){
        // }
            
             return query2;
@@ -237,7 +258,14 @@ namespace twelve
         }
 
         // cмена вкладки
- 
+        public Vector  goToVector(Line l)
+        {
+            double xV, yV;
+            xV = l.X2 - l.X1;
+            yV = l.Y2 - l.Y1;
+            return new Vector(xV, yV);
+
+        }
 
       
 

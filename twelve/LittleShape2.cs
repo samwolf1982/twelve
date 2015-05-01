@@ -139,6 +139,7 @@ namespace twelve
             List<Line> res2 = new List<Line>();
             double[,] d = doublePath;
             // mas все что с d[0, - x  a d[1, y
+            //for (int i = 0; i < rank; i++)
             for (int i = 0; i < rank; i++)
             {
                 Line l = new Line();
