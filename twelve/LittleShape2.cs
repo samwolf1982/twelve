@@ -56,7 +56,7 @@ namespace twelve
         public PointF[] getPointF(int rank)
         {
             List<Line> tt = new List<Line>();
-            tt = LittleShape2ToLine(rank);
+            tt = LittleShape2ToLine();
             List<PointF> temp = new List<PointF>();
 
             foreach (Line item in tt)
@@ -133,22 +133,23 @@ namespace twelve
         {
             doublePath = new double[2, rank];
         }
-        public List<Line> LittleShape2ToLine( int rank)
+        public List<Line> LittleShape2ToLine()
         {
             LittleShape2 temp = new LittleShape2();
             List<Line> res2 = new List<Line>();
             double[,] d = doublePath;
             // mas все что с d[0, - x  a d[1, y
             //for (int i = 0; i < rank; i++)
-            for (int i = 0; i < rank; i++)
+            int v = d.Length/2;
+            for (int i = 0; i < v; i++)
             {
                 Line l = new Line();
                 l.Stroke = System.Windows.Media.Brushes.Black;
                 l.StrokeThickness = 3;
                 l.X1 = d[0, i];
                 l.Y1 = d[1, i];
-                l.X2 = d[0, i < rank - 1 ? i + 1 : 0];
-                l.Y2 = d[1, i < rank - 1 ? i + 1 : 0];
+                l.X2 = d[0, i < v - 1 ? i + 1 : 0];
+                l.Y2 = d[1, i < v- 1 ? i + 1 : 0];
                 res2.Add(l);
             }
             return res2;
