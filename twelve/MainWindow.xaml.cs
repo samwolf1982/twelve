@@ -230,8 +230,10 @@ namespace twelve
             // как вариант будем одну фигуру вращать 
             // надо длину, угол и порядок следования 
             // сейчас есть 3 квадрата что позволяет думать что мы вроде делаем 3 лишних действия
-            // ---------------------------------------------сразу искать не координаты а вектора фигур где длина вектора будет константа
+            // ---------------------------------------------сразу искать не координаты а вектора фигур
            if( cb.IsChecked==true && query2.Count>0 ){
+               //фигуры из запроса надо теперь их обработать
+               // для всех выставить  градусы
                foreach (var item in query2)
                {
                    LittleShape2 fig2 =item.Clone()as LittleShape2;
@@ -248,20 +250,32 @@ namespace twelve
                //   var res = request.GroupBy(x => x.anglesArr).ToList();
                bool ok = false;
                List<int> index2 = new List<int>();
+               // проход по всем фигурам кроме последней - будет сверяться две фигуры
                for (int i = 0; i < request.Count-1; i++)
                {
-                   var x1 = request[i];
-                   var x2 = request[i+1];
-                   for (int j = 0; j < x1.anglesArr.Length; j++)
+                   var x1 = request[i];   //фигура а
+                   var x2 = request[i+1];  // фигура б
+                   double[] temp = x2.anglesArr.ToArray();    // временая фигура
+                
+                   for (int j = 0; j < x2.anglesArr.Count(); j++)
                    {
-                      var a1 = x2.anglesArr.ToArray();
-
-                    var   a2 = x1.nextAngle(i).ToArray();
-                    if (equalArrDouble(a1, a2))
-                    {
-                        int d = 9;
-                        int tt = 99;
-                    }
+                      //var a1 = x2.anglesArr.ToArray();
+                       bool resEual = equalArrDouble(x1.anglesArr, temp);  //проверка
+                       if (resEual == false) // не равны переворот второй фигуры
+                       {
+                           temp = x2.nextAngle(j);
+                       }
+                       if(resEual==true)//ok
+                       {
+                           int d = 9;
+                           int tt = 99;
+                       }
+                  //  var   a2 = x1.nextAngle(i).ToArray(); //фигуру б вращается 
+                    //if (equalArrDouble(a1, a2))
+                    //{
+                    //    int d = 9;
+                    //    int tt = 99;
+                    //}
 
                        // if (x2.anglesArr.Equals(x1.nextAngle(i)))
                       // bool tres = x2.anglesArr.SequenceEqual(x1.nextAngle(i));  ??

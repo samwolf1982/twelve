@@ -44,7 +44,7 @@ namespace twelve
 
         public double[] nextAngle(int index)
         { 
-            double[] res=new double[anglesArr.Count()];
+         //   double[] res=new double[anglesArr.Count()];
             //  можно просто сместить указатель -- потом доделать
             var a = anglesArr.Take(index);
           var b=  anglesArr.Skip(index);
