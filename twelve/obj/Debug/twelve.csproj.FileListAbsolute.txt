@@ -38,3 +38,7 @@ D:\test\twelve\twelve\obj\Debug\twelve.g.resources
 D:\test\twelve\twelve\obj\Debug\twelve.Properties.Resources.resources
 D:\test\twelve\twelve\obj\Debug\twelve.csproj.GenerateResource.Cache
 D:\test\twelve\twelve\bin\Debug\NumericUpDown.dll
+D:\test\twelve\twelve\bin\Debug\Microsoft.QualityTools.Testing.Fakes.dll
+D:\test\twelve\twelve\bin\Debug\MoreLinq.Portable.dll
+D:\test\twelve\twelve\bin\Debug\MoreLinq.Portable.xml
+D:\test\twelve\twelve\bin\Debug\ru\Microsoft.QualityTools.Testing.Fakes.resources.dll

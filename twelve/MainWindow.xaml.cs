@@ -256,29 +256,24 @@ namespace twelve
                    var x1 = request[i];   //фигура а
                    var x2 = request[i+1];  // фигура б
                    double[] temp = x2.anglesArr.ToArray();    // временая фигура
-                
+               
                    for (int j = 0; j < x2.anglesArr.Count(); j++)
                    {
                       //var a1 = x2.anglesArr.ToArray();
                        bool resEual = equalArrDouble(x1.anglesArr, temp);  //проверка
-                       if (resEual == false) // не равны переворот второй фигуры
-                       {
-                           temp = x2.nextAngle(j);
-                       }
-                       if(resEual==true)//ok
+                       //if (resEual == false) // не равны переворот второй фигуры
+                       //{
+                       //    temp = x2.nextAngle(j);
+                       //}
+                       if(resEual==true)//ok  okokokokokokokokokokokok
                        {
                            int d = 9;
                            int tt = 99;
                        }
-                  //  var   a2 = x1.nextAngle(i).ToArray(); //фигуру б вращается 
-                    //if (equalArrDouble(a1, a2))
-                    //{
-                    //    int d = 9;
-                    //    int tt = 99;
-                    //}
-
-                       // if (x2.anglesArr.Equals(x1.nextAngle(i)))
-                      // bool tres = x2.anglesArr.SequenceEqual(x1.nextAngle(i));  ??
+                       else { 
+                           temp = x2.nextAngle(j);
+                       }
+       
 
 
                        //if (tres == true)

@@ -29,7 +29,7 @@ namespace twelve
 			{
 			 Vector vA = goToVector(path[i]); 
              Vector vB = goToVector(path[ i != path.Count - 1 ? i+1 : 0]);
-          temp.Add(  Math.Round( Vector.AngleBetween(vA, vB),roundPoint));
+          temp.Add( Math.Abs( Math.Round( Vector.AngleBetween(vA, vB),roundPoint)));
 			}
 
         anglesArr = temp.ToArray();     
