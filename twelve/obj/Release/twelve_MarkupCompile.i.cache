@@ -4,16 +4,16 @@
 winexe
 C#
 .cs
-D:\test\twelve\twelve\obj\Debug\
+D:\test\twelve\twelve\obj\Release\
 twelve
 none
 false
-DEBUG;TRACE
+TRACE
 D:\test\twelve\twelve\App.xaml
 11151548125
 
-15-1940199536
-16-1836257265
+17-75107044
+18214664562
 MainWindow.xaml;
 
 False
