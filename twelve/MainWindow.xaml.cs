@@ -599,62 +599,8 @@ namespace twelve
 
 
             // инфо про фигурку
-            String str = "";
-            String str3 = "";
-            temp2.setAngleList();
-            if (temp2.anglesArr != null)
-            {
-                foreach (var item in temp2.anglesArr)
-                {
-                    str3 += item.ToString() + " ";
-                }
-            }
-
-            str = "Maccа фигуры: " + temp2.Mass + "\nТекущый индекс: " + curentindex.ToString() + "\n Количество фигур: " + curentList.Count.ToString() +
-                "\nУглы: " + str3;
-            ;
-
-            FlowDocument flowDoc = new FlowDocument(new Paragraph(new Run(str)));
-            textik.Document = flowDoc;
-        //    showinConsoleDebug("Begin", false);
-        ////obj = new Filler5(cuprentPicture());
-        ////    obj.start();
-        ////    totalimage = obj.mainColections.Count;
-        //  //  Filler6 obj6= new Filler6(cuprentPicture());
-        //    //obj6.start();
-        //    //Filler7 obj = new Filler7();
-        //    //obj.start();
-
-        //    showinConsoleDebug("Count El: "+obj.couner, false);
-        //    showinConsoleDebug("End", false);
-          //  showinConsoleDebug("Тотал obj: "+obj.mainColections.Count, false);
-
-            //Filler3 obj = new Filler3();
-
-            //for (int i = 30; i < 360; i+=30)
-            //{
-            //    double angle2 = Math.PI * i / 180.0;
-            //    double sinAngleX = Math.Sin(angle2);
-            //    double cosAngleY = Math.Cos(angle2);
-            //                showinConsoleDebug("sin ("+i.ToString()+") = "+sinAngleX , false);
-            //                showinConsoleDebug("cos (" + i.ToString() + ") = " + cosAngleY, false);
-            //                showinConsoleDebug("--------------------", false);
-            //}
-            //showinConsoleDebug("Begin", false);
-
-
-            //// массив первого уровня
-            //int indexN = 330;
-            //for (double a = 30; a < indexN; a+=30)
-            //{
-            //    obj.arrDegree.Add(a);
-            //}
-
-            //if (obj.search())
-            //{
-
-            //    showinConsoleDebug("End", false);
-            //}
+            figureInfo(temp2);
+      
         }
 
  
