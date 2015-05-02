@@ -569,43 +569,7 @@ namespace twelve
         {
 
             pic.Children.Clear();
-            LittleShape2 temp2 = new LittleShape2();
-            if (curentindex == curentList.Count) { curentindex = 0; }
-            temp2 = curentList.Count != 0 ? curentList[curentindex++].Clone() as LittleShape2 : null;
-
-            if (temp2 == null)
-            {
-
-                String str2 = "Нету фигур для отображение";
-                FlowDocument flowDoc2 = new FlowDocument(new Paragraph(new Run(str2)));
-                textik.Document = flowDoc2;
-
-                return;
-            }
-
-            myMatrixTransformScale(ref temp2);
-            // cмещаеть все линия по ху и добавлятеься в canvac
-            // cледующий клик все чистит и утечки памяти нету, проверено.
-            // дефолтное значение
-
-            List<System.Windows.Point> arrpoint = new List<System.Windows.Point>();
-            ////////////////////////
-            foreach (var item in temp2.path)
-            {
-                LineGeometry blackLineGeometry = new LineGeometry();
-
-
-                Line l = moveLine(item);
-                arrpoint.Add(new System.Windows.Point(l.X1, l.Y1));
-                arrpoint.Add(new System.Windows.Point(l.X2, l.Y2));
-
-            }
-            StreamGeometryTriangleExample(arrpoint);
-
-
-
-            // инфо про фигурку
-            figureInfo(temp2);
+           
       
         }
 
