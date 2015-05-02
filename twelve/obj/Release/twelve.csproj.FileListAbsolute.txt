@@ -1,0 +1,1 @@
+D:\test\twelve\twelve\bin\Release\twelve.exe.config
