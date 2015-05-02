@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Shapes;
 
 namespace twelve
@@ -13,9 +14,51 @@ namespace twelve
         public List<Line> path = new List<Line>();
         double[,] doublePath = null;
         int counter;
+        // cписок углов заполняеться только при визове setAngleList()  !!! важно должеть быть заполнен path
+      public  double[] anglesArr = null;
     
         // масса фигуры 2-9(8)
         public int Mass { get; set; }
+
+
+        public void setAngleList(int roundPoint=5)
+        {
+            anglesArr = new double[path.Count];
+            List<double>temp=new List<double>();
+        for (int i = 0; i < path.Count; i++)
+			{
+			 Vector vA = goToVector(path[i]); 
+             Vector vB = goToVector(path[ i != path.Count - 1 ? i+1 : 0]);
+          temp.Add(  Math.Round( Vector.AngleBetween(vA, vB),roundPoint));
+			}
+
+        anglesArr = temp.ToArray();     
+                
+        
+            //for (int i = 0; i < path.Count; i=+2)
+            //{
+                
+            //}
+            
+        }
+
+        public double[] nextAngle(int index)
+        { 
+            double[] res=new double[anglesArr.Count()];
+            //  можно просто сместить указатель -- потом доделать
+            var a = anglesArr.Take(index);
+          var b=  anglesArr.Skip(index);
+         var r= b.Concat(a).ToArray(); 
+            return r;
+        }
+        public Vector goToVector(Line l)
+        {
+            double xV, yV;
+            xV = l.X2 - l.X1;
+            yV = l.Y2 - l.Y1;
+            return new Vector(xV, yV);
+
+        }
 
         public LittleShape2()
         {
@@ -56,7 +99,7 @@ namespace twelve
         public PointF[] getPointF(int rank)
         {
             List<Line> tt = new List<Line>();
-            tt = LittleShape2ToLine(rank);
+            tt = LittleShape2ToLine();
             List<PointF> temp = new List<PointF>();
 
             foreach (Line item in tt)
@@ -71,6 +114,7 @@ namespace twelve
         }
         /// <summary>
         ///        назад в линию после трансформации
+        ///        здесь формируються линии и заполняется массив path
         /// </summary>
         /// <returns></returns>
         public void setPointF(PointF[] p)
@@ -80,6 +124,7 @@ namespace twelve
             for (int i = 0; i < p.Length; i += 2)
             {
                 Line l = new Line();
+                if (i == 0) l.Stroke = System.Windows.Media.Brushes.Red;
                 l.Stroke = System.Windows.Media.Brushes.Black;
                 l.StrokeThickness = 3;
                 l.X1 = p[i].X;
@@ -133,21 +178,23 @@ namespace twelve
         {
             doublePath = new double[2, rank];
         }
-        public List<Line> LittleShape2ToLine( int rank)
+        public List<Line> LittleShape2ToLine()
         {
             LittleShape2 temp = new LittleShape2();
             List<Line> res2 = new List<Line>();
             double[,] d = doublePath;
             // mas все что с d[0, - x  a d[1, y
-            for (int i = 0; i < rank; i++)
+            //for (int i = 0; i < rank; i++)
+            int v = d.Length/2;
+            for (int i = 0; i < v; i++)
             {
                 Line l = new Line();
                 l.Stroke = System.Windows.Media.Brushes.Black;
                 l.StrokeThickness = 3;
                 l.X1 = d[0, i];
                 l.Y1 = d[1, i];
-                l.X2 = d[0, i < rank - 1 ? i + 1 : 0];
-                l.Y2 = d[1, i < rank - 1 ? i + 1 : 0];
+                l.X2 = d[0, i < v - 1 ? i + 1 : 0];
+                l.Y2 = d[1, i < v- 1 ? i + 1 : 0];
                 res2.Add(l);
             }
             return res2;
