@@ -241,14 +241,7 @@ namespace twelve
                    fig2.setAngleList(3);
                    request.Add(fig2);
                }
-            //       return Zoos.Where(z => z.Type == "Active")
-            //.SelectMany(filter)
-            //.Distinct()
-            //.OrderBy(s => s);
-                                   //  fruit => fruit.Length < 6);
-            //   var res = request.Where(x => x.path.Count > 0).GroupBy(x => x.anglesArr).ToList();
-               //   var res = request.GroupBy(x => x.anglesArr).ToList();
-               bool ok = false;
+
                List<int> index2 = new List<int>();
                // проход по всем фигурам кроме последней - будет сверяться две фигуры
                for (int i = 0; i < request.Count-1; i++)
@@ -257,7 +250,7 @@ namespace twelve
 
                    var x1 = request[i];   //фигура а
 
-                   bool state = false;
+     
                    for (int j = i+1 ; j <request.Count; j++) //беру все остальные фиг поочереди поворачивая и проверяю на совпадения
                    {
                        if (request[j] == null) continue;
@@ -713,6 +706,56 @@ namespace twelve
           private void cb_Checked(object sender, RoutedEventArgs e)
           {
 
+              #region rA
+              pic.Children.Clear();
+              LittleShape2 temp2 = new LittleShape2();
+              if (curentindex == curentList.Count) { curentindex = 0; }
+              temp2 = curentList.Count != 0 ? curentList[curentindex++].Clone() as LittleShape2 : null;
+
+              if (temp2 == null)
+              {
+
+                  String str2 = "Нету фигур для отображение";
+                  FlowDocument flowDoc2 = new FlowDocument(new Paragraph(new Run(str2)));
+                  textik.Document = flowDoc2;
+
+                  return;
+              }
+
+              myMatrixTransformScale(ref temp2);
+              // cмещаеть все линия по ху и добавлятеься в canvac
+              // cледующий клик все чистит и утечки памяти нету, проверено.
+              // дефолтное значение
+
+              List<System.Windows.Point> arrpoint = new List<System.Windows.Point>();
+              ////////////////////////
+              foreach (var item in temp2.path)
+              {
+                  LineGeometry blackLineGeometry = new LineGeometry();
+
+
+                  Line l = moveLine(item);
+                  arrpoint.Add(new System.Windows.Point(l.X1, l.Y1));
+                  arrpoint.Add(new System.Windows.Point(l.X2, l.Y2));
+
+              }
+              StreamGeometryTriangleExample(arrpoint);
+
+
+
+              // инфо про фигурку
+              figureInfo(temp2);
+              #endregion
+
+            var r=  tabControl1.SelectedItem;
+            var ind = tabControl1.SelectedIndex;
+
+            if (filler == null || filler.mainList.Count == 0) return;
+            curentList = selectfun(ind);
+            curentindex = 0;
+            //Do your job here
+            System.Diagnostics.Debug.WriteLine("Tab,change T1");
+              // инфо про фигурку
           }
          
     }
