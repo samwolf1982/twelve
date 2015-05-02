@@ -1,8 +1,8 @@
 ﻿<Window x:Class="twelve.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="MainWindow" Height="350" Width="525" WindowState="Maximized"
-        >
+        Title="Twelve" Height="350" Width="525" WindowState="Maximized" WindowStyle="ThreeDBorderWindow"
+     >
 
     <Grid Background="AliceBlue">
 
@@ -18,24 +18,23 @@
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition></ColumnDefinition>
-            <ColumnDefinition></ColumnDefinition>
-            <ColumnDefinition></ColumnDefinition>
-            <ColumnDefinition></ColumnDefinition>
-            <ColumnDefinition></ColumnDefinition>
-            <ColumnDefinition></ColumnDefinition>
-            <ColumnDefinition></ColumnDefinition>
-            <ColumnDefinition></ColumnDefinition>
-            <ColumnDefinition></ColumnDefinition>
-            <ColumnDefinition></ColumnDefinition>
-            <ColumnDefinition></ColumnDefinition>
-            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition Width="43*"></ColumnDefinition>
+            <ColumnDefinition Width="43*"></ColumnDefinition>
+            <ColumnDefinition Width="43*"></ColumnDefinition>
+            <ColumnDefinition Width="43*"></ColumnDefinition>
+            <ColumnDefinition Width="43*"></ColumnDefinition>
+            <ColumnDefinition Width="43*"></ColumnDefinition>
+            <ColumnDefinition Width="43*"></ColumnDefinition>
+            <ColumnDefinition Width="43*"></ColumnDefinition>
+            <ColumnDefinition Width="7*"></ColumnDefinition>
+            <ColumnDefinition Width="36*"/>
+            <ColumnDefinition Width="43*"></ColumnDefinition>
+            <ColumnDefinition Width="44*"></ColumnDefinition>
+            <ColumnDefinition Width="43*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
-        <Label Name="lb" Content="8" Margin="40,0,0,0"  FontFamily="Calibri" FontWeight="Bold" FontSize="30" Grid.Column="9" Grid.Row="1" ></Label>
-        <Button Click="b1Next_Click" Name="b1Next" Content="next" Height="20" Width="50" Grid.Column="10" Grid.Row="1">
-           
-        </Button>
-        <Grid Grid.Column="7" Grid.ColumnSpan="3">
+        <Label Name="lb" Content="8" Margin="40,0,0,0"  FontFamily="Calibri" FontWeight="Bold" FontSize="30" Grid.Column="10" Grid.Row="1" ></Label>
+        <Button Click="b1Next_Click" Name="b1Next" Content="next" Height="20" Grid.Column="11" Grid.Row="1" Grid.ColumnSpan="2" Margin="0,8,37,8" HorizontalAlignment="Right" Width="50"/>
+        <Grid Grid.Column="7" Grid.ColumnSpan="4">
             <Grid.RowDefinitions>
                 <RowDefinition></RowDefinition>
                 <RowDefinition></RowDefinition>
@@ -47,11 +46,11 @@
             </Grid.ColumnDefinitions>
 
             <Label HorizontalAlignment="Right"  Margin="5" Grid.Column="0" Grid.ColumnSpan="2">иск. похожие</Label>
-        <CheckBox Name="cb" VerticalAlignment="Center" Margin="5" Grid.Column="2" ></CheckBox>
+            <CheckBox Name="cb" VerticalAlignment="Center" Margin="5" Grid.Column="2" ></CheckBox>
         </Grid>
 
 
-        <TabControl Name="tabControl1"  Background="LightBlue"  Grid.RowSpan="6" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="8" Margin="1,1,1,10" SelectionChanged="tabControl1_SelectionChanged">
+        <TabControl Name="tabControl1"  Background="LightBlue"  Grid.RowSpan="6" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="9" Margin="1,1,1,10" SelectionChanged="tabControl1_SelectionChanged">
             <TabItem BorderThickness="3" Name="t1" Header="Mass=1">
                 <Canvas Name="pic" Background="AntiqueWhite"  Grid.RowSpan="6" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="8" Margin="1,1,1,1" >
                 </Canvas>
@@ -98,15 +97,15 @@
         </Button>
         <Button Margin="1,0,0,7" Grid.Row="7" Grid.Column="3" Grid.ColumnSpan="2"  Name="but2"  Content="Очистить" Height="22" Click="but2_Click" HorizontalAlignment="Left" Width="75" VerticalAlignment="Bottom"/>
         <Button Margin="1,0,0,7" Grid.Row="7" Grid.Column="5" Grid.ColumnSpan="2"  Name="but3"  Content="Пред." Height="22" Click="but3_Click" HorizontalAlignment="Left" Width="75" VerticalAlignment="Bottom"/>
-        <Button Content="След" Margin="1,0,0,7" Grid.Row="7" Grid.Column="7" Grid.ColumnSpan="2"  Name="but4" Height="22" Click="but4_Click" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="85">
+        <Button Content="След" Margin="1,0,0,7" Grid.Row="7" Grid.Column="7" Grid.ColumnSpan="3"  Name="but4" Height="22" Click="but4_Click" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="85">
 
         </Button>
-        <Button Margin="1,0,0,7" Grid.Row="7" Grid.Column="10" Grid.ColumnSpan="2"  Name="butTest" Height="22"  VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="85">
+        <Button Margin="1,0,0,7" Grid.Row="7" Grid.Column="11" Grid.ColumnSpan="2"  Name="butTest" Height="22"  VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="85">
             <Button Content="Button" Width="75" Click="Button_Click_2" />
         </Button>
-        <Button Margin="1,0,0,7" Content="DrowNext" Grid.Row="8" Click="NextDraw_Click" Grid.Column="10" Grid.ColumnSpan="2"  Name="NextDraw" Height="22"  VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="85">
+        <Button Margin="1,0,0,7" Content="DrowNext" Grid.Row="8" Click="NextDraw_Click" Grid.Column="11" Grid.ColumnSpan="2"  Name="NextDraw" Height="22"  VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="85">
         </Button>
-        <RichTextBox BorderThickness="3" Grid.Row="2" Grid.Column="9" Grid.ColumnSpan="3" Grid.RowSpan="4" Name="textik"></RichTextBox>
+        <RichTextBox BorderThickness="3" Grid.Row="2" Grid.Column="10" Grid.ColumnSpan="3" Grid.RowSpan="4" Name="textik"></RichTextBox>
 
     </Grid>
 

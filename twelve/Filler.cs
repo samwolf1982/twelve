@@ -14,8 +14,8 @@ namespace twelve
     {
         #region Values
             static int count = 0;
-         public  static int rank = 8;
-            public static double[,] mas = new double[2, rank];//количество точек (сейчас 8)
+         public   int rank ;
+            public  double[,] mas ;//количество точек (сейчас 8)
             static UInt64[] intplosh = new UInt64[9];//количество для значений площади(максимальная площадь 6) //bitfield
         public int xcouunt=0;
      public   int couuntPlosh = 0;
@@ -34,11 +34,19 @@ namespace twelve
 
 
  #region Debug Values
- public static double[,] debug1 = new double[2, rank];//количество точек (сейчас 8)
- public static double[,] debug2 = new double[2, rank];//количество точек (сейчас 8)
+ public  double[,] debug1 ;//количество точек (сейчас 8)
+ public  double[,] debug2 ;//количество точек (сейчас 8)
  #endregion
 // отладка
 
+
+ public Filler(int rank=8)
+ {
+     this.rank = rank;
+    mas = new double[2, rank];
+    debug1 = new double[2, rank];//количество точек (сейчас 8)
+  debug2 = new double[2, rank];//количество точек (сейчас 8)
+ }
 
         /// <summary>
         /// начальна инициализация

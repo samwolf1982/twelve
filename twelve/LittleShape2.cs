@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Shapes;
 
 namespace twelve
@@ -13,9 +14,51 @@ namespace twelve
         public List<Line> path = new List<Line>();
         double[,] doublePath = null;
         int counter;
+        // cписок углов заполняеться только при визове setAngleList()  !!! важно должеть быть заполнен path
+      public  double[] anglesArr = null;
     
         // масса фигуры 2-9(8)
         public int Mass { get; set; }
+
+
+        public void setAngleList(int roundPoint=5)
+        {
+            anglesArr = new double[path.Count];
+            List<double>temp=new List<double>();
+        for (int i = 0; i < path.Count; i++)
+			{
+			 Vector vA = goToVector(path[i]); 
+             Vector vB = goToVector(path[ i != path.Count - 1 ? i+1 : 0]);
+          temp.Add(  Math.Round( Vector.AngleBetween(vA, vB),roundPoint));
+			}
+
+        anglesArr = temp.ToArray();     
+                
+        
+            //for (int i = 0; i < path.Count; i=+2)
+            //{
+                
+            //}
+            
+        }
+
+        public double[] nextAngle(int index)
+        { 
+            double[] res=new double[anglesArr.Count()];
+            //  можно просто сместить указатель -- потом доделать
+            var a = anglesArr.Take(index);
+          var b=  anglesArr.Skip(index);
+         var r= b.Concat(a).ToArray(); 
+            return r;
+        }
+        public Vector goToVector(Line l)
+        {
+            double xV, yV;
+            xV = l.X2 - l.X1;
+            yV = l.Y2 - l.Y1;
+            return new Vector(xV, yV);
+
+        }
 
         public LittleShape2()
         {
@@ -71,6 +114,7 @@ namespace twelve
         }
         /// <summary>
         ///        назад в линию после трансформации
+        ///        здесь формируються линии и заполняется массив path
         /// </summary>
         /// <returns></returns>
         public void setPointF(PointF[] p)
@@ -80,6 +124,7 @@ namespace twelve
             for (int i = 0; i < p.Length; i += 2)
             {
                 Line l = new Line();
+                if (i == 0) l.Stroke = System.Windows.Media.Brushes.Red;
                 l.Stroke = System.Windows.Media.Brushes.Black;
                 l.StrokeThickness = 3;
                 l.X1 = p[i].X;

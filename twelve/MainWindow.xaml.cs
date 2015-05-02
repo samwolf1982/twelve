@@ -14,6 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Drawing.Drawing2D;
 using System.Drawing;
+using MoreLinq;
 
 namespace twelve
 {
@@ -23,7 +24,7 @@ namespace twelve
     public partial class MainWindow : Window
     {
         Random rand = new Random();
-        Filler5 obj;
+      
      
         Filler filler;
         int rank = 8;
@@ -36,7 +37,7 @@ namespace twelve
         {
             // добавить красивые кнопки 495
             // красывый прогрес бар 505
-            rank = 8;
+        
             InitializeComponent();
             lb.Content = rank;
         }
@@ -52,12 +53,13 @@ namespace twelve
 
 
         //////////////////////////// компоновка
-            filler = new Filler();
+            filler = null;
+            filler = new Filler(rank);
             filler.init();
   
                 String str = "";
               //  str = "Время поиска: " + filler.sp.Seconds + "s.\n Найдкно: "+filler.figureColections.Count.ToString() + "\n area: " + filler.couuntPlosh.ToString();
-                str = "Время поиска: " + filler.sp.Seconds + "s.\n Найдкно: " + filler.mainList.Count.ToString() + "\n количество вызовов area: " + filler.couuntPlosh.ToString();
+                str = "Время поиска: " + filler.sp.Seconds + "s.\n Найдено: " + filler.mainList.Count.ToString() + "\n количество вызовов area: " + filler.couuntPlosh.ToString();
                 FlowDocument flowDoc = new FlowDocument(new Paragraph(new Run(str)));
                 textik.Document = flowDoc;
                 tabControl1.SelectedIndex = 0;
@@ -124,10 +126,7 @@ namespace twelve
 
             StreamGeometryTriangleExample(arrpoint);
             // инфо про фигурку
-            String str = "";
-            str = "Maccа фигуры: " + temp2.Mass + "\nТекущый индекс: " + curentindex.ToString() + "\n Количество фигур: " + curentList.Count.ToString();
-            FlowDocument flowDoc = new FlowDocument(new Paragraph(new Run(str)));
-            textik.Document = flowDoc;
+            figureInfo(temp2);
         }
 
 
@@ -173,10 +172,7 @@ namespace twelve
 
 
             // инфо про фигурку
-                     String str = "";
-                     str = "Maccа фигуры: " + temp2.Mass + "\nТекущый индекс: "+curentindex.ToString()+"\n Количество фигур: " + curentList.Count.ToString();
-                     FlowDocument flowDoc = new FlowDocument(new Paragraph(new Run(str)));
-                     textik.Document = flowDoc;
+                     figureInfo(temp2);
              
 
         }
@@ -226,47 +222,118 @@ namespace twelve
 
           //  var query = filler.figureColections.Where(x => x.Mass == mass).ToList();
             var query2 = filler.mainList.Where(x => x.Mass == m).ToList();
-                    
+            List<LittleShape2> request = new List<LittleShape2>();
+            List<LittleShape2> tempRequest = new List<LittleShape2>();     
                 //проверка всех углов 
             // checkbox
-           if( cb.IsChecked==true){
-               LittleShape2 fig = new LittleShape2();
-               fig = query2[0];
-
-
-
-               var path = fig.path.ToList();
-
-               for (int i = 0; i < path.Count; i+=2)
-               {
-                   
-               }
-               
-               
+            //Две геометрические фигуры называются равными, если их можно совместить наложением.
+            // как вариант будем одну фигуру вращать 
+            // надо длину, угол и порядок следования 
+            // сейчас есть 3 квадрата что позволяет думать что мы вроде делаем 3 лишних действия
+            // ---------------------------------------------сразу искать не координаты а вектора фигур где длина вектора будет константа
+           if( cb.IsChecked==true && query2.Count>0 ){
                foreach (var item in query2)
                {
-                   
+                   LittleShape2 fig2 =item.Clone()as LittleShape2;
+                   myMatrixTransformScale(ref fig2);
+                   fig2.setAngleList(3);
+                   request.Add(fig2);
                }
+            //       return Zoos.Where(z => z.Type == "Active")
+            //.SelectMany(filter)
+            //.Distinct()
+            //.OrderBy(s => s);
+                                   //  fruit => fruit.Length < 6);
+            //   var res = request.Where(x => x.path.Count > 0).GroupBy(x => x.anglesArr).ToList();
+               //   var res = request.GroupBy(x => x.anglesArr).ToList();
+               bool ok = false;
+               List<int> index2 = new List<int>();
+               for (int i = 0; i < request.Count-1; i++)
+               {
+                   var x1 = request[i];
+                   var x2 = request[i+1];
+                   for (int j = 0; j < x1.anglesArr.Length; j++)
+                   {
+                      var a1 = x2.anglesArr.ToArray();
 
+                    var   a2 = x1.nextAngle(i).ToArray();
+                    if (equalArrDouble(a1, a2))
+                    {
+                        int d = 9;
+                        int tt = 99;
+                    }
+
+                       // if (x2.anglesArr.Equals(x1.nextAngle(i)))
+                      // bool tres = x2.anglesArr.SequenceEqual(x1.nextAngle(i));  ??
+
+
+                       //if (tres == true)
+                       //{
+                       //    index2.Add(i);
+                       //    request[i] = null;
+                       //    break;
+                       //}
+                   }
+               }
+               //var res5 = request.Where(x => x != null);
+               //foreach (var item in res5)
+               //{
+               //    var r = item;
+               //}
+               var r2 = 0;
+               var g = 56;
+                //var res3 = request.DistinctBy(x => x.anglesArr).ToList();
+                //var x1 = res3[0];
+                //var x2 = res3[1];
+                //double[] a1 = new double[8];
+                //double[] a2 = new double[8];
+                //for (int i = 0; i < x2.anglesArr.Length; i++)
+                //{
+                //    a1=x2.anglesArr.ToArray();
+        
+                //    a2 = x1.nextAngle(i).ToArray();
+                //   // if (x2.anglesArr.Equals(x1.nextAngle(i)))
+                //    bool tres=x2.anglesArr.SequenceEqual(x1.nextAngle(i));
+                //    if(tres==true)                  
+                //    {
+                //        var y = 0;
+
+                //    }
+                //}
+
+             //List<LittleShape2>om=new List<LittleShape2>();
+             //String str = "";
+             //   foreach (var item in res3)
+             //   {
+             //       foreach (var item2 in item.anglesArr)
+             //       {
+             //           str += item2.ToString()+"  ";
+             //       }
+                    
+             //       System.Diagnostics.Debug.WriteLine(str);
+             //       om.Add(item);
+                  
+
+             //   }
+             //  query2 = om;
+    //   var rrr = res.ToList();
 
            }
-            //  #if(){
-       // }
            
             return query2;
 
         }
 
-        // cмена вкладки
-        public Vector  goToVector(Line l)
+
+        public bool equalArrDouble(double[] a,double[] b)
         {
-            double xV, yV;
-            xV = l.X2 - l.X1;
-            yV = l.Y2 - l.Y1;
-            return new Vector(xV, yV);
-
+  
+            for (int i = 0; i < a.Length; i++)
+			{
+                if (a[i] != b[i]) return false;
+			}
+            return true;
         }
-
       
 
         private void tabControl1_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -351,8 +418,69 @@ namespace twelve
                 }
            
             }
+
+            pic.Children.Clear();
+            LittleShape2 temp2 = new LittleShape2();
+            if (curentindex == curentList.Count) { curentindex = 0; }
+            temp2 = curentList.Count != 0 ? curentList[curentindex++].Clone() as LittleShape2 : null;
+
+            if (temp2 == null)
+            {
+
+                String str2 = "Нету фигур для отображение";
+                FlowDocument flowDoc2 = new FlowDocument(new Paragraph(new Run(str2)));
+                textik.Document = flowDoc2;
+
+                return;
+            }
+
+            myMatrixTransformScale(ref temp2);
+            // cмещаеть все линия по ху и добавлятеься в canvac
+            // cледующий клик все чистит и утечки памяти нету, проверено.
+            // дефолтное значение
+
+            List<System.Windows.Point> arrpoint = new List<System.Windows.Point>();
+            ////////////////////////
+            foreach (var item in temp2.path)
+            {
+                LineGeometry blackLineGeometry = new LineGeometry();
+
+
+                Line l = moveLine(item);
+                arrpoint.Add(new System.Windows.Point(l.X1, l.Y1));
+                arrpoint.Add(new System.Windows.Point(l.X2, l.Y2));
+
+            }
+            StreamGeometryTriangleExample(arrpoint);
+
+
+
+            // инфо про фигурку
+            figureInfo(temp2);
+
              
           
+        }
+
+        public void figureInfo(LittleShape2 temp2)
+        {
+            String str = "";
+            String str3 = "";
+            temp2.setAngleList();
+            if (temp2.anglesArr != null)
+            {
+                foreach (var item in temp2.anglesArr)
+                {
+                    str3 += item.ToString() + "° ";
+                }
+            }
+
+            str = "Maccа фигуры: " + temp2.Mass + "\nТекущый индекс: " + curentindex.ToString() + "\n Количество фигур: " + curentList.Count.ToString() +
+                "\nУглы: " + str3;
+            ;
+
+            FlowDocument flowDoc = new FlowDocument(new Paragraph(new Run(str)));
+            textik.Document = flowDoc;
         }
         public Canvas cuprentPicture()
         {
@@ -433,17 +561,72 @@ namespace twelve
         /// <param name="e"></param>
         private void Button_Click_2(object sender, RoutedEventArgs e)
         {
-            showinConsoleDebug("Begin", false);
-        //obj = new Filler5(cuprentPicture());
-        //    obj.start();
-        //    totalimage = obj.mainColections.Count;
-          //  Filler6 obj6= new Filler6(cuprentPicture());
-            //obj6.start();
-            Filler7 obj = new Filler7();
-            obj.start();
 
-            showinConsoleDebug("Count El: "+obj.couner, false);
-            showinConsoleDebug("End", false);
+            pic.Children.Clear();
+            LittleShape2 temp2 = new LittleShape2();
+            if (curentindex == curentList.Count) { curentindex = 0; }
+            temp2 = curentList.Count != 0 ? curentList[curentindex++].Clone() as LittleShape2 : null;
+
+            if (temp2 == null)
+            {
+
+                String str2 = "Нету фигур для отображение";
+                FlowDocument flowDoc2 = new FlowDocument(new Paragraph(new Run(str2)));
+                textik.Document = flowDoc2;
+
+                return;
+            }
+
+            myMatrixTransformScale(ref temp2);
+            // cмещаеть все линия по ху и добавлятеься в canvac
+            // cледующий клик все чистит и утечки памяти нету, проверено.
+            // дефолтное значение
+
+            List<System.Windows.Point> arrpoint = new List<System.Windows.Point>();
+            ////////////////////////
+            foreach (var item in temp2.path)
+            {
+                LineGeometry blackLineGeometry = new LineGeometry();
+
+
+                Line l = moveLine(item);
+                arrpoint.Add(new System.Windows.Point(l.X1, l.Y1));
+                arrpoint.Add(new System.Windows.Point(l.X2, l.Y2));
+
+            }
+            StreamGeometryTriangleExample(arrpoint);
+
+
+
+            // инфо про фигурку
+            String str = "";
+            String str3 = "";
+            temp2.setAngleList();
+            if (temp2.anglesArr != null)
+            {
+                foreach (var item in temp2.anglesArr)
+                {
+                    str3 += item.ToString() + " ";
+                }
+            }
+
+            str = "Maccа фигуры: " + temp2.Mass + "\nТекущый индекс: " + curentindex.ToString() + "\n Количество фигур: " + curentList.Count.ToString() +
+                "\nУглы: " + str3;
+            ;
+
+            FlowDocument flowDoc = new FlowDocument(new Paragraph(new Run(str)));
+            textik.Document = flowDoc;
+        //    showinConsoleDebug("Begin", false);
+        ////obj = new Filler5(cuprentPicture());
+        ////    obj.start();
+        ////    totalimage = obj.mainColections.Count;
+        //  //  Filler6 obj6= new Filler6(cuprentPicture());
+        //    //obj6.start();
+        //    //Filler7 obj = new Filler7();
+        //    //obj.start();
+
+        //    showinConsoleDebug("Count El: "+obj.couner, false);
+        //    showinConsoleDebug("End", false);
           //  showinConsoleDebug("Тотал obj: "+obj.mainColections.Count, false);
 
             //Filler3 obj = new Filler3();
@@ -508,7 +691,7 @@ namespace twelve
                 ctx.BeginFigure(arrPoints[0], true /* is filled */, true /* is closed */);
                 for (int i = 1; i < arrPoints.Count; i++)
                 {
-                     ctx.LineTo(arrPoints[i], true /* is stroked */, false /* is smooth join */);
+                     ctx.LineTo(arrPoints[i], true /* is stroked */, true /* is smooth join */);
                 }
                 // Draw a line to the next specified point.
              //   ctx.LineTo(new System.Windows.Point(100, 100), true /* is stroked */, false /* is smooth join */);
@@ -548,7 +731,9 @@ namespace twelve
           /// <param name="e"></param>
           private void NextDraw_Click(object sender, RoutedEventArgs e)
           {
-              if (counter < totalimage) { obj.drawOfIndex(counter++); }
+              if (counter < totalimage) {// obj.drawOfIndex(counter++);
+              //
+              }
               else counter = 0;
               
           }
