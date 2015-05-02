@@ -46,7 +46,7 @@
             </Grid.ColumnDefinitions>
 
             <Label HorizontalAlignment="Right"  Margin="5" Grid.Column="0" Grid.ColumnSpan="2">иск. похожие</Label>
-            <CheckBox Name="cb" VerticalAlignment="Center" Margin="5" Grid.Column="2" ></CheckBox>
+            <CheckBox Unchecked="cb_Unchecked" Checked="cb_Checked" Name="cb" VerticalAlignment="Center" Margin="0,5,5,5" Grid.Column="2" HorizontalAlignment="Right" Width="33" />
         </Grid>
 
 

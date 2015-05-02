@@ -253,44 +253,48 @@ namespace twelve
                // проход по всем фигурам кроме последней - будет сверяться две фигуры
                for (int i = 0; i < request.Count-1; i++)
                {
+                   if (request[i] == null) continue;
+
                    var x1 = request[i];   //фигура а
-                   var x2 = request[i+1];  // фигура б
-                   double[] temp = x2.anglesArr.ToArray();    // временая фигура
-               
-                   for (int j = 0; j < x2.anglesArr.Count(); j++)
+
+                   bool state = false;
+                   for (int j = i+1 ; j <request.Count; j++) //беру все остальные фиг поочереди поворачивая и проверяю на совпадения
                    {
-                      //var a1 = x2.anglesArr.ToArray();
-                       bool resEual = equalArrDouble(x1.anglesArr, temp);  //проверка
-                       //if (resEual == false) // не равны переворот второй фигуры
-                       //{
-                       //    temp = x2.nextAngle(j);
-                       //}
-                       if(resEual==true)//ok  okokokokokokokokokokokok
-                       {
-                           int d = 9;
-                           int tt = 99;
-                       }
-                       else { 
-                           temp = x2.nextAngle(j);
-                       }
-       
+                       if (request[j] == null) continue;
+                           var x2 = request[j];  // фигура следующая // временая фигура она будет или null или не будет
+                           double[] temp = x2.anglesArr.ToArray();
+
+                   
+                                       for (int k = 0; k < x2.anglesArr.Count(); k++) //  здесь сравнение и поворот фигуры второй
+                                       {
+                                           //var a1 = x2.anglesArr.ToArray();
+                                           bool resEual = equalArrDouble(x1.anglesArr, temp);  //проверка
+                            
+                                           if (resEual == true)//ok  okokokokokokokokokokokok
+                                           {
+                                               request[j] = null; //                      1111111111111111111111111
+                                               break;
+                                           }
+                                           else
+                                           {
+                                               temp = x2.nextAngle(k);
+                                           }
 
 
-                       //if (tres == true)
-                       //{
-                       //    index2.Add(i);
-                       //    request[i] = null;
-                       //    break;
-                       //}
+                                       }
+
                    }
+
+                   query2 = request.Where(x => x != null).ToList();
+               
                }
                //var res5 = request.Where(x => x != null);
                //foreach (var item in res5)
                //{
                //    var r = item;
                //}
-               var r2 = 0;
-               var g = 56;
+               //var r2 = 0;
+               //var g = 56;
                 //var res3 = request.DistinctBy(x => x.anglesArr).ToList();
                 //var x1 = res3[0];
                 //var x2 = res3[1];
@@ -691,6 +695,24 @@ namespace twelve
               }
               else counter = 0;
               
+          }
+        /// <summary>
+        ///  обработчик снятия чека
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+          private void cb_Unchecked(object sender, RoutedEventArgs e)
+          {
+
+          }
+        /// <summary>
+        /// установка чека
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+          private void cb_Checked(object sender, RoutedEventArgs e)
+          {
+
           }
          
     }
