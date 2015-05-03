@@ -137,12 +137,34 @@ namespace twelve
 
 
         }
+        /// <summary>
+        ///        назад в линию после трансформации
+        ///        здесь формируються линии и заполняется массив path
+        /// </summary>
+        /// <returns></returns>
+        public void setPoint(System.Windows.Point[] p)
+        {
+            path.Clear();
+
+            for (int i = 0; i < p.Length; i += 1)
+            {
+                Line l = new Line();
+                if (i == 0) l.Stroke = System.Windows.Media.Brushes.Red;
+                l.Stroke = System.Windows.Media.Brushes.Black;
+                l.StrokeThickness = 3;
+                l.X1 = p[i].X;
+                l.Y1 = p[i].Y;
+                l.X2 = p[i==p.Length-1?0:i+1].X;
+                l.Y2 = p[i == p.Length - 1 ? 0 : i + 1].Y;
+                path.Add(l);
+            }
+
+
+
+        }
 
         public LittleShape2(LittleShape2 obj)
         {
-           // doublePath = new double[2, rank];
-          
-       //  var v = obj.doublePath.GetLength();
             var size=obj.doublePath.Length / 2;
             doublePath = new double[2, size];
          for (int i = 0; i < size; i++)
@@ -182,6 +204,7 @@ namespace twelve
         {
             LittleShape2 temp = new LittleShape2();
             List<Line> res2 = new List<Line>();
+            if (doublePath == null) return path;
             double[,] d = doublePath;
             // mas все что с d[0, - x  a d[1, y
             //for (int i = 0; i < rank; i++)

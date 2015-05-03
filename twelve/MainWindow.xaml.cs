@@ -281,48 +281,8 @@ namespace twelve
                    query2 = request.Where(x => x != null).ToList();
                
                }
-               //var res5 = request.Where(x => x != null);
-               //foreach (var item in res5)
-               //{
-               //    var r = item;
-               //}
-               //var r2 = 0;
-               //var g = 56;
-                //var res3 = request.DistinctBy(x => x.anglesArr).ToList();
-                //var x1 = res3[0];
-                //var x2 = res3[1];
-                //double[] a1 = new double[8];
-                //double[] a2 = new double[8];
-                //for (int i = 0; i < x2.anglesArr.Length; i++)
-                //{
-                //    a1=x2.anglesArr.ToArray();
-        
-                //    a2 = x1.nextAngle(i).ToArray();
-                //   // if (x2.anglesArr.Equals(x1.nextAngle(i)))
-                //    bool tres=x2.anglesArr.SequenceEqual(x1.nextAngle(i));
-                //    if(tres==true)                  
-                //    {
-                //        var y = 0;
+    
 
-                //    }
-                //}
-
-             //List<LittleShape2>om=new List<LittleShape2>();
-             //String str = "";
-             //   foreach (var item in res3)
-             //   {
-             //       foreach (var item2 in item.anglesArr)
-             //       {
-             //           str += item2.ToString()+"  ";
-             //       }
-                    
-             //       System.Diagnostics.Debug.WriteLine(str);
-             //       om.Add(item);
-                  
-
-             //   }
-             //  query2 = om;
-    //   var rrr = res.ToList();
 
            }
            
@@ -569,9 +529,39 @@ namespace twelve
         {
 
             pic.Children.Clear();
-           
-      
+            Filler8 obj = new Filler8(8);
+           // obj.addNewVector(4);
+            obj.addPointToVectorMainList2();
+            showinConsoleDebug("Vector Start", false);
+            showinConsoleDebug(obj.showAllLength(obj.mainList2),false);
+
+            showinConsoleDebug(obj.test(), false);
+            obj.start();
+            showinConsoleDebug("Find: "+obj.mainLL.Count, false);
+            #region ДЛя рисования разкоментировать
+                 curentList=   obj.draw();
+         curentindex = 0;
+        //var temp2 = curentList[curentindex];
+        // myMatrixTransformScale(ref temp2);
+ 
+
+        // List<System.Windows.Point> arrpoint = new List<System.Windows.Point>();
+        // ////////////////////////
+        // foreach (var item in temp2.path)
+        // {
+        //     LineGeometry blackLineGeometry = new LineGeometry();
+
+
+        //     Line l = moveLine(item);
+        //     arrpoint.Add(new System.Windows.Point(l.X1, l.Y1));
+        //     arrpoint.Add(new System.Windows.Point(l.X2, l.Y2));
+
+        // }
+        // StreamGeometryTriangleExample(arrpoint);
+        //    showinConsoleDebug("Vector Finish", false);      
         }
+            #endregion
+    
 
  
 
