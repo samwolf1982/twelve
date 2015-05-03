@@ -99,7 +99,7 @@
         <Button Margin="1,0,0,7" Grid.Row="7" Grid.Column="5" Grid.ColumnSpan="2"  Name="but3"  Content="Пред." Height="22" Click="but3_Click" HorizontalAlignment="Left" Width="75" VerticalAlignment="Bottom"/>
         <Button Content="След" Margin="1,0,0,7" Grid.Row="7" Grid.Column="7" Grid.ColumnSpan="3"  Name="but4" Height="22" Click="but4_Click" VerticalAlignment="Bottom"/>
         <Button Margin="1,0,0,7" Grid.Row="7" Grid.Column="11" Grid.ColumnSpan="2"  Name="butTest" Height="22"  VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="85">
-            <Button Content="Button" Width="75" Click="Button_Click_2" />
+            <Button Click="Button_Click_2" Content="Button" Width="75"  />
         </Button>
         <Button Margin="1,0,0,7" Content="DrowNext" Grid.Row="8" Click="NextDraw_Click" Grid.Column="11" Grid.ColumnSpan="2"  Name="NextDraw" Height="22"  VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="85">
         </Button>

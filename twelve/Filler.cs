@@ -434,13 +434,13 @@ namespace twelve
      /// <param name="x2"></param>
      /// <param name="y2"></param>
      /// <returns></returns>
-            static double rasst(double x1, double y1, double x2, double y2)
+             double rasst(double x1, double y1, double x2, double y2)
             {
                 return Math.Sqrt(Math.Pow(x1 - x2, 2) + Math.Pow(y1 - y2, 2));  // расстояние между 2-мя точками
             }
 
             // нетрогать
-            static double area(double[,] mas1) // функция для отыскания площади фигуры
+             double area(double[,] mas1) // функция для отыскания площади фигуры
             {
                //  xcouunt++;
               
@@ -470,7 +470,7 @@ namespace twelve
      /// <param name="bx2"></param>
      /// <param name="by2"></param>
      /// <returns></returns>
-            static bool equal(double ax1, double ay1, double ax2, double ay2, double bx1, double by1, double bx2, double by2) // функция проверки, что 2 отрезка не пересекаются
+             bool equal(double ax1, double ay1, double ax2, double ay2, double bx1, double by1, double bx2, double by2) // функция проверки, что 2 отрезка не пересекаются
             {
                 double v1; double v2; double v3; double v4;
                 //        // (bx2 - bx1)

@@ -4,79 +4,109 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Threading;
 
 namespace twelve
 {
     class Filler8
     {
-        //List<Vector> mainList = new List<Vector>();
-      public  List<Vector> mainList2 = new List<Vector>(); // колекция векторов
+        #region Values
+                //List<Vector> mainList = new List<Vector>();
+    public   List<Vector> mainList2 = new List<Vector>(); // колекция векторов
       public List<Vector> temp = new List<Vector>();
-      int[] testlist = new int[] { 6, 6, 9,  0, 0 };
+    //  int[] testlist = new int[] { 6, 6, 9,  0, 0 };
       int index = 1;
-      int rank;
+       int rank;
       int countAlif = 0;
-     public List<List<Vector>> mainLL = new List<List<Vector>>();
+     public  List<List<Vector>> mainLL = new List<List<Vector>>();
+     public List<List<Vector>> dinamicmainLL = new List<List<Vector>>();
+     //Переменная "локер", которая служит для блокировки value
+     private object valueLocker = new object();
+
+      int[] indexerToLevel;
+        #endregion
 
 
-     int[] indexerToLevel;
+     #region Debug
+    public List<int[]> testint = new List<int[]>();
+     #endregion
 
 
+    public void startThread()
+    {
+        lock (valueLocker)
+        {
+            //Выводим значение value
+            var res = alif4(0);
+            //Увеличиваем его на единицу
+                 }
+    }
       public void start()
       {
           temp.Clear();
-          temp.Add(mainList2[6]);
-          temp.Add(mainList2[6]);
-          temp.Add(mainList2[9]);
-          temp.Add(mainList2[0]);
-          temp.Add(mainList2[0]);
+          #region Hide
+           //temp.Add(mainList2[6]);
+          //temp.Add(mainList2[6]);
+          //temp.Add(mainList2[9]);
+          //temp.Add(mainList2[0]);
+          //temp.Add(mainList2[0]);
           /////////*************
           //temp.Add(mainList2[3]);
           //temp.Add(mainList2[6]);
           //temp.Add(mainList2[9]);
-          Vector resTemp = new Vector();
-          foreach (var item in temp)
-          {
-              resTemp +=item;
-          }
+          //Vector resTemp = new Vector();
+          //foreach (var item in temp)
+          //{
+          //    resTemp +=item;
+          //}
           //for (int i = 0; i < mainList2.Count; i++)    // для каждого елемента из векторов свой запуск
           //{
-          List<Vector>vv=new List<Vector>();
-          vv.Add(temp[0]);
+          //List<Vector>vv=new List<Vector>();
+          //vv.Add(temp[0]);
+          #endregion
+         
+          var po = Math.Pow(12, 4);
+          var maxval = long.MaxValue;
+
+          for ( long i = 0; i < po; i++)
+          {
+
+              if (i == 500)
+              {
+
+              }
+              //Thread tread = new Thread(alif4);
+
+
+              var res = alif4(0);
+          }
                     //var res=alif3(1,temp[0],vv);   // для каждого елемента из векторов свой запуск
-          var res = alif4(1, 2);   // для каждого елемента из векторов свой запуск
+        // для каждого елемента из векторов свой запуск
 
                     int result = 9999;
-          //      if (res.Length > 0.90 && res.Length < 1.1)
-          //            {
-          //             int ok = 999;
-          //           }
-          //else
-          //{
-          //    int bad = 999;
-          //}
-          //}
+  
       
       }
 
-      public Vector alif4(int level,int ind)   
+      public  Vector alif4(int level)   
       {
-          countAlif++;
+         // countAlif++;
           if (level == rank - 1)// опустился вниз и взял след вектор и вернул
           {
             #region Нижний уровень
-                          return  nextVector4(2);        
+                          //return  nextVector4End(level);  // возврат самого нижнего вектор + смещение индекс      
+              return nextVector4End(level);  // возврат самого нижнего вектор + смещение индекс      
               }
            #endregion
 
           var lev = level+1;
-              return  alif4(lev,2)+ nextVector4(2);
+              return  alif4(lev)+ nextVector4(level);
       
 
       }
 
-
-      public bool alif3(int level, Vector vector, List<Vector> curentList)
+      #region Not Use
+            public bool alif3(int level, Vector vector, List<Vector> curentList)
       {
           countAlif++;
           if (level == rank - 1)   // опустился вниз и взял след вектор и вернул
@@ -149,24 +179,65 @@ namespace twelve
           return result;
 
       }
-        private Vector nextVector4(int index)
+        private  Vector nextVector4(int level)
         {
             Vector v = new Vector();
-            v = mainList2[index++];
+            int x = (indexerToLevel[level]);
+            v = mainList2[x];
+          //  nextValueChange(level, mainList2.Count);
             return v;
         }
-      private Vector nextVector()
+      #endregion
+
+        private  Vector nextVector4End(int level)
+        {
+            Vector v = new Vector();
+            int x = (indexerToLevel[level]);
+            v = mainList2[x];
+            ++indexerToLevel[level];
+            nextValueChange(level, mainList2.Count);
+            return v;
+            //Vector v = new Vector();
+            //int n = indexerToLevel[level]; // уровень - значение до 12
+            //if (n >= mainList2.Count)
+            //{   // когда n =12 тогда увеличиваеться предыдущий уровень и установка значения в 0
+            //  //  ++indexerToLevel[level - 1];
+            //    ++indexerToLevel[level-1] ;
+            //    indexerToLevel[level] = 0;
+            //    //return new Vector(); // нулевой вектор
+            //    int x1 = (indexerToLevel[level]);
+            //    v = mainList2[x1];
+
+            //    return v;
+            //}
+            //int x = (indexerToLevel[level]++);
+            //v = mainList2[x];
+            //return v;
+        }
+
+
+        public  void nextValueChange(int level,int maxVal)
+        {
+           // indexerToLevel[level]++;
+            for (int i = indexerToLevel.Length-1; i >0; i--)
+            {
+                if (indexerToLevel[i] >= maxVal) { indexerToLevel[i] = 0; indexerToLevel[i - 1]++; }
+
+            }
+
+
+        }
+        
+        private Vector nextVector()
       {
           Vector v=new Vector();
-          //int f = testlist[index++];
-          //v =mainList2[ f];
           v = temp[index++];
           return v;
       }
 
       public Filler8(int rank=6)
       {
-          this.rank = rank;
+          this.rank = rank ;
           indexerToLevel = new int[rank];//~~~~~~~~~~~~~~~~~~~
       }
 
@@ -186,24 +257,12 @@ namespace twelve
       }
       public string test()
       {
-          Vector res = mainList2[6] + mainList2[6] + mainList2[9] + mainList2[0] + mainList2[0]; ;
-          temp.Add(mainList2[6]);
-          temp.Add(mainList2[6]);
-          temp.Add(mainList2[9]);
-          temp.Add(mainList2[0]);
-          temp.Add(mainList2[0]);
 
-          if (res.Length >0.90 && res.Length<1.1)
-          {
-
-          }
-
-          return "X " + res.X + " Y" + res.Y + " \nLen = " + res.Length;
+          return "";
       }
       public List<LittleShape2> draw2()
       {
           List<LittleShape2> f = new List<LittleShape2>();
-
           int ccc = 0;
           foreach (var item in mainLL)
           {
@@ -267,7 +326,9 @@ namespace twelve
         public void addPointToVectorMainList2()
         {
             // add to       mainlist2
-            for (double a = 0; a <= 360; a += 30) // бежим в 11 сторон
+
+            //for (double a = 0; a <= 360; a += 30) // бежим в 11 сторон
+            for (double a = 0; a <= 360; a += 30) 
             {
                 double xx = Math.Sin(a * Math.PI / 180);
                 double yy = Math.Cos(a * Math.PI / 180);

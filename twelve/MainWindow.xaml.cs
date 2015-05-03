@@ -15,6 +15,7 @@ using System.Windows.Shapes;
 using System.Drawing.Drawing2D;
 using System.Drawing;
 using MoreLinq;
+using System.Threading;
 
 namespace twelve
 {
@@ -529,18 +530,36 @@ namespace twelve
         {
 
             pic.Children.Clear();
-            Filler8 obj = new Filler8(4);
+            Filler8 obj = new Filler8(10);
            // obj.addNewVector(4);
             obj.addPointToVectorMainList2();
             showinConsoleDebug("Vector Start", false);
-            showinConsoleDebug(obj.showAllLength(obj.mainList2),false);
+            //showinConsoleDebug(obj.showAllLength(obj.mainList2),false);
 
             showinConsoleDebug(obj.test(), false);
-            obj.start();
-            showinConsoleDebug("Find: "+obj.mainLL.Count, false);
+
+            var po = Math.Pow(12, 6);
+            var maxval = long.MaxValue;
+
+            for (UInt64 i = 0; i < po; i++)
+            {
+                var res = obj.alif4(0);
+            }
+
+ //           for (long i = 0; i < po; i++)
+ //           {
+ //Thread tr = new Thread(obj.startThread);
+ //tr.Start();
+ ////tr.Join();
+             
+ //           }
+
+
+
             #region ДЛя рисования разкоментировать
                  curentList=   obj.draw2();
          curentindex = 0;
+         if (curentList.Count <= 0) { return; }
         var temp2 = curentList[curentindex];
          myMatrixTransformScale(ref temp2);
 
@@ -561,7 +580,6 @@ namespace twelve
          showinConsoleDebug("Vector Finish", false);      
         }
             #endregion
-    
 
  
 
