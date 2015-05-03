@@ -529,7 +529,7 @@ namespace twelve
         {
 
             pic.Children.Clear();
-            Filler8 obj = new Filler8(8);
+            Filler8 obj = new Filler8(4);
            // obj.addNewVector(4);
             obj.addPointToVectorMainList2();
             showinConsoleDebug("Vector Start", false);
@@ -539,26 +539,26 @@ namespace twelve
             obj.start();
             showinConsoleDebug("Find: "+obj.mainLL.Count, false);
             #region ДЛя рисования разкоментировать
-                 curentList=   obj.draw();
+                 curentList=   obj.draw2();
          curentindex = 0;
-        //var temp2 = curentList[curentindex];
-        // myMatrixTransformScale(ref temp2);
- 
-
-        // List<System.Windows.Point> arrpoint = new List<System.Windows.Point>();
-        // ////////////////////////
-        // foreach (var item in temp2.path)
-        // {
-        //     LineGeometry blackLineGeometry = new LineGeometry();
+        var temp2 = curentList[curentindex];
+         myMatrixTransformScale(ref temp2);
 
 
-        //     Line l = moveLine(item);
-        //     arrpoint.Add(new System.Windows.Point(l.X1, l.Y1));
-        //     arrpoint.Add(new System.Windows.Point(l.X2, l.Y2));
+         List<System.Windows.Point> arrpoint = new List<System.Windows.Point>();
+         ////////////////////////
+         foreach (var item in temp2.path)
+         {
+             LineGeometry blackLineGeometry = new LineGeometry();
 
-        // }
-        // StreamGeometryTriangleExample(arrpoint);
-        //    showinConsoleDebug("Vector Finish", false);      
+
+             Line l = moveLine(item);
+             arrpoint.Add(new System.Windows.Point(l.X1, l.Y1));
+             arrpoint.Add(new System.Windows.Point(l.X2, l.Y2));
+
+         }
+         StreamGeometryTriangleExample(arrpoint);
+         showinConsoleDebug("Vector Finish", false);      
         }
             #endregion
     

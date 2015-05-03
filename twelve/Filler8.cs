@@ -10,13 +10,16 @@ namespace twelve
     class Filler8
     {
         //List<Vector> mainList = new List<Vector>();
-      public  List<Vector> mainList2 = new List<Vector>();
+      public  List<Vector> mainList2 = new List<Vector>(); // колекция векторов
       public List<Vector> temp = new List<Vector>();
       int[] testlist = new int[] { 6, 6, 9,  0, 0 };
       int index = 1;
       int rank;
       int countAlif = 0;
      public List<List<Vector>> mainLL = new List<List<Vector>>();
+
+
+     int[] indexerToLevel;
 
 
       public void start()
@@ -40,7 +43,8 @@ namespace twelve
           //{
           List<Vector>vv=new List<Vector>();
           vv.Add(temp[0]);
-                    var res=alif3(1,temp[0],vv);   // для каждого елемента из векторов свой запуск
+                    //var res=alif3(1,temp[0],vv);   // для каждого елемента из векторов свой запуск
+          var res = alif4(1, 2);   // для каждого елемента из векторов свой запуск
 
                     int result = 9999;
           //      if (res.Length > 0.90 && res.Length < 1.1)
@@ -55,10 +59,27 @@ namespace twelve
       
       }
 
-      public bool alif3(int level, Vector vector,List<Vector> curentList)
+      public Vector alif4(int level,int ind)   
       {
           countAlif++;
-          if (level == rank - 1)
+          if (level == rank - 1)// опустился вниз и взял след вектор и вернул
+          {
+            #region Нижний уровень
+                          return  nextVector4(2);        
+              }
+           #endregion
+
+          var lev = level+1;
+              return  alif4(lev,2)+ nextVector4(2);
+      
+
+      }
+
+
+      public bool alif3(int level, Vector vector, List<Vector> curentList)
+      {
+          countAlif++;
+          if (level == rank - 1)   // опустился вниз и взял след вектор и вернул
           {
               #region Нижний уровень
               foreach (var item in mainList2)
@@ -68,9 +89,9 @@ namespace twelve
                   {
                       int ok = 999;
                       // проверить на пересечение и собирать
-                      //       если все ок тогда 
                       curentList.Add(item);
-                      mainLL.Add(curentList);
+                      mainLL.Add(curentList.ToList());
+                      curentList.RemoveAt(curentList.Count - 1);
                       return true;
                   }
                   else
@@ -78,25 +99,26 @@ namespace twelve
                       int bad = 999;
                   }
               }
-              return  false;
+              return false;
               #endregion
               // проход по циклу последнего совпадения
 
           }
-          
+
           int num = level + 1;
           foreach (var item in mainList2)
           {
-              var vv =item + vector;
-                var result = alif3(num, vv,curentList);
+              var vv = item + vector;
+              var result = alif3(num, vv, curentList);
           }
-        
-           // сочетаю двв вектора
-        
+
+          // сочетаю двв вектора
+
           return false;
 
       }
-      public List< Vector>  alif2(int level, Vector vector)
+
+        public List< Vector>  alif2(int level, Vector vector)
       {
           countAlif++;
           if (level == rank-1)
@@ -127,6 +149,12 @@ namespace twelve
           return result;
 
       }
+        private Vector nextVector4(int index)
+        {
+            Vector v = new Vector();
+            v = mainList2[index++];
+            return v;
+        }
       private Vector nextVector()
       {
           Vector v=new Vector();
@@ -139,6 +167,7 @@ namespace twelve
       public Filler8(int rank=6)
       {
           this.rank = rank;
+          indexerToLevel = new int[rank];//~~~~~~~~~~~~~~~~~~~
       }
 
       #region Test Draw alif
@@ -171,27 +200,41 @@ namespace twelve
 
           return "X " + res.X + " Y" + res.Y + " \nLen = " + res.Length;
       }
-             public List<LittleShape2> draw()
+      public List<LittleShape2> draw2()
       {
           List<LittleShape2> f = new List<LittleShape2>();
-          List<Point> p = new List<Point>();
+
+          int ccc = 0;
+          foreach (var item in mainLL)
+          {
+              if (ccc++ == 1000) return f;
+              List<Point> p = new List<Point>();
           int c = 1;
           p.Add(new Point());
-          foreach (var item in temp)
-          {
-              Point pr = new Point(item.X * c, item.Y * c);
-              p.Add(pr);
-              shiftList(ref p, pr);
+              foreach (var i in item)
+              {
+                  Point pr = new Point(i.X * c, i.Y * c);
+                  p.Add(pr);
+                  shiftList(ref p, pr);
+                  //  shiftList(ref p, new Point(0, 0));
+                  List<Point> lp = new List<Point>();
+
+                  LittleShape2 ls = new LittleShape2();
+                  ls.setPoint(p.ToArray());
+                  f.Add(ls);
+              }
+
+
           }
+          //foreach (var item in temp)
+          //{
 
-          //  shiftList(ref p, new Point(0, 0));
-          List<Point> lp = new List<Point>();
+          //}
 
-          LittleShape2 ls = new LittleShape2();
-          ls.setPoint(p.ToArray());
-          f.Add(ls);
+
 
           return f;
+      }
       
       public List<LittleShape2> draw()
       {
@@ -231,6 +274,7 @@ namespace twelve
                 Vector v = new Vector(xx - 0, yy - 0);
                 mainList2.Add(v);
             }
+        //    indexerToLevel = Enumerable.Range(0, mainList2.Count).ToArray();
 
         }
 
