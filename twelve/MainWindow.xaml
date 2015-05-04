@@ -33,7 +33,6 @@
             <ColumnDefinition Width="43*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <Label Name="lb" Content="8" Margin="40,0,0,0"  FontFamily="Calibri" FontWeight="Bold" FontSize="30" Grid.Column="10" Grid.Row="1" ></Label>
-        <Button Click="b1Next_Click" Name="b1Next" Content="next" Height="20" Grid.Column="11" Grid.Row="1" Grid.ColumnSpan="2" Margin="0,8,37,8" HorizontalAlignment="Right" Width="50"/>
         <Grid Grid.Column="7" Grid.ColumnSpan="4">
             <Grid.RowDefinitions>
                 <RowDefinition></RowDefinition>

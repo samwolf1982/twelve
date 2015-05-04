@@ -97,13 +97,6 @@ namespace twelve
                         // окружность круга
                         double x = Math.Sin(a * Math.PI / 180); // нахождение новых координат
                         double y = 1 - Math.Cos(a * Math.PI / 180);
-                      ////  System.Diagnostics.Debug.WriteLine("X:Y:  "+x.ToString()+"  "+y.ToString()+"\n");
-                      //  // mas[2+i, 0] = x;
-                      //  // mas[2+i, 1] = y;
-                      //  // для дебага
-                      ////  double[,] t1 = new double[2, rank];
-                      //  //double[,] t2 = new double[2, rank];
-                      //  //t1 = mas;
                         //////////////////
                         mas[0, k] = x; // постановка координат
                         mas[1, k] = y;
@@ -177,20 +170,23 @@ namespace twelve
                                     {
                                         debug1 = mas;
                                         if (equal(mas[0, i], mas[1, i], mas[0, i + 1], mas[1, i + 1], mas[0, k], mas[1, k], mas[0, 0], mas[1, 0]))
-                                            Flag = false;
+                                        {
+                                            Flag = false; 
+                                            break;
+                                        }
                                     }
                                     if (Flag)
                                     {
                                         //****************************
-                                     //   double intarea = area(mas);
+          
                                         double intarea = area(mas);
-                                      //  double intarea = 0;
+                                         var abs=Math.Abs(Math.Round(intarea) - intarea);
                              couuntPlosh++;
                                         //////************
 
-                                        //if (Math.Abs(intarea) < 0.01)
+              
 
-                                        if (Math.Abs(Math.Round(intarea) - intarea) < 0.00001)
+                                        if (abs < 0.00001)
                                         {
    
                                                     xcouunt++;
@@ -215,10 +211,11 @@ namespace twelve
                                             LittleShape2 ready = new LittleShape2();
                                             ready.add(tempArr,rank);
                                             //   установка масси
-                                            double areaF = area(mas);
-                                            int s = (int)Math.Round(areaF);
+                                            //double areaF = area(mas);
+                                        
+                                   
                                        
-                                            ready.Mass = s;
+                                            ready.Mass =  (int)Math.Round(intarea);;
                                             mainList.Add(ready);
                                             foreach (var item in mas)
                                             {
@@ -243,7 +240,7 @@ namespace twelve
 
                                 }
                         }
-                        //i++;
+        
 
                     }
 
