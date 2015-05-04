@@ -19,7 +19,7 @@ namespace twelve
        int rank;
       int countAlif = 0;
      public  List<List<Vector>> mainLL = new List<List<Vector>>();
-     public List<List<Vector>> dinamicmainLL = new List<List<Vector>>();
+     public Vector[,] dinamicmainLL;
      //Переменная "локер", которая служит для блокировки value
      private object valueLocker = new object();
 
@@ -239,6 +239,8 @@ namespace twelve
       {
           this.rank = rank ;
           indexerToLevel = new int[rank];//~~~~~~~~~~~~~~~~~~~
+
+          dinamicmainLL = new Vector[rank, 4096];
       }
 
       #region Test Draw alif
