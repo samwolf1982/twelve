@@ -1,0 +1,17 @@
+D:\test\twelve\twelve\bin\Release\twelve.exe.config
+D:\test\twelve\twelve\obj\Release\twelve.exe
+D:\test\twelve\twelve\obj\Release\twelve.pdb
+D:\test\twelve\twelve\bin\Release\twelve.exe
+D:\test\twelve\twelve\bin\Release\twelve.pdb
+D:\test\twelve\twelve\bin\Release\Microsoft.QualityTools.Testing.Fakes.dll
+D:\test\twelve\twelve\bin\Release\MoreLinq.Portable.dll
+D:\test\twelve\twelve\bin\Release\NumericUpDown.dll
+D:\test\twelve\twelve\bin\Release\MoreLinq.Portable.xml
+D:\test\twelve\twelve\bin\Release\ru\Microsoft.QualityTools.Testing.Fakes.resources.dll
+D:\test\twelve\twelve\obj\Release\MainWindow.baml
+D:\test\twelve\twelve\obj\Release\MainWindow.g.cs
+D:\test\twelve\twelve\obj\Release\App.g.cs
+D:\test\twelve\twelve\obj\Release\twelve_MarkupCompile.cache
+D:\test\twelve\twelve\obj\Release\twelve.g.resources
+D:\test\twelve\twelve\obj\Release\twelve.Properties.Resources.resources
+D:\test\twelve\twelve\obj\Release\twelve13.csproj.GenerateResource.Cache
