@@ -29,7 +29,7 @@ namespace twelve
  //public List<LittleShape> figureColections=new List<LittleShape>();
  public TimeSpan sp;
      // 
- Dictionary<double, double> listSinCos = new Dictionary<double, double>();
+ Dictionary<double, double> listSinCos = new Dictionary<double, double>();  // набор синусов и косинусо для определеных углов
         #endregion
 
 
@@ -75,7 +75,7 @@ namespace twelve
                 mas[1, 1] = 1;
                 DateTime start = DateTime.Now;            
                 //  int k;
-                search(2);
+                             search(2);        //вызов рекурсивной функции
             //    time work
                    sp = DateTime.Now -start;
             
@@ -97,24 +97,20 @@ namespace twelve
                         // окружность круга
                         double x = Math.Sin(a * Math.PI / 180); // нахождение новых координат
                         double y = 1 - Math.Cos(a * Math.PI / 180);
-                      //  System.Diagnostics.Debug.WriteLine("X:Y:  "+x.ToString()+"  "+y.ToString()+"\n");
-                        // mas[2+i, 0] = x;
-                        // mas[2+i, 1] = y;
-                        // для дебага
-                      //  double[,] t1 = new double[2, rank];
-                        //double[,] t2 = new double[2, rank];
-                        //t1 = mas;
+                      ////  System.Diagnostics.Debug.WriteLine("X:Y:  "+x.ToString()+"  "+y.ToString()+"\n");
+                      //  // mas[2+i, 0] = x;
+                      //  // mas[2+i, 1] = y;
+                      //  // для дебага
+                      ////  double[,] t1 = new double[2, rank];
+                      //  //double[,] t2 = new double[2, rank];
+                      //  //t1 = mas;
                         //////////////////
                         mas[0, k] = x; // постановка координат
                         mas[1, k] = y;
                         //t2 = mas;
-                        search(k + 1); //3 4 5 - 6
+                        search(k + 1); //  вызов рекурсивной функции
                        // ///
-                       
-                      
-                        ////
-                        // i++;
-                        // Console.ReadLine();
+    
                     }
                 }
                 else
@@ -122,27 +118,22 @@ namespace twelve
                     /// к=3
                     for (double a = 0; a <= 330; a += 30) // бежим в 11 сторон
                     {
-                        //double xx=Math.Sin(a * Math.PI / 180);
-                      //  double yy = Math.Cos(a * Math.PI / 180);
-                        // оптимизировано создае  елемент для динамического програмирования  listSinCos
-
-
-                     //   double x = mas[0, k - 1] + Math.Sin(a * Math.PI / 180);
-                       // double y = mas[1, k - 1] - Math.Cos(a * Math.PI / 180);
-
+                        //                   берем значения син и кос из готового массива
                         double x = mas[0, k - 1] + listSinCos[a];
                         double y = mas[1, k - 1] -listSinCos[a+1] ;
 
-                     //   System.Diagnostics.Debug.WriteLine("X:Y:  " + xx.ToString() + "  " + yy.ToString() + "\n");
+        
                         // проверка на касание
                         bool Flag = false;
 
                         for (int i = 0; i < k - 1; i++)
                         {
-                            if (Math.Abs(rasst(mas[0, i], mas[1, i], x, y)) < 0.001)
-                                Flag = true;
+                            if (Math.Abs(rasst(mas[0, i], mas[1, i], x, y)) < 0.001){
+                                Flag = true; break;}
                             if (i > 0 && equal(mas[0, i - 1], mas[1, i - 1], mas[0, i], mas[1, i], mas[0, k - 1], mas[1, k - 1], x, y))
-                                Flag = true;
+                            {
+                                Flag = true; break;
+                            }
                         }
                         #region предыдущий код
                                     //for (int i = 0; i < k - 1; i++)
@@ -175,7 +166,7 @@ namespace twelve
                             mas[1, k] = y;
                          //   var test = mas.GetLength(1) - 1;
                             if (k < mas.GetLength(1) - 1)
-                               //// ?????????? почему к другое
+            
                                 search(k + 1);
                             else
                                 if (Math.Abs(rasst(mas[0, k], mas[1, k], mas[0, 0], mas[1, 0]) - 1) < 0.01)
