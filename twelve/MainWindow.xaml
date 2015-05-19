@@ -98,7 +98,7 @@
         <Button Margin="1,0,0,7" Grid.Row="7" Grid.Column="5" Grid.ColumnSpan="2"  Name="but3"  Content="Пред." Height="22" Click="but3_Click" HorizontalAlignment="Left" Width="75" VerticalAlignment="Bottom"/>
         <Button Content="След" Margin="1,0,0,7" Grid.Row="7" Grid.Column="7" Grid.ColumnSpan="3"  Name="but4" Height="22" Click="but4_Click" VerticalAlignment="Bottom"/>
         <RichTextBox BorderThickness="3" Grid.Row="2" Grid.Column="10" Grid.ColumnSpan="3" Grid.RowSpan="4" Name="textik"></RichTextBox>
-
+        <Button Margin="1,0,0,7" Grid.Row="7" Grid.Column="11" Grid.ColumnSpan="2"  Name="num"  Content="След число" Height="22" Click="num_Click"  HorizontalAlignment="Left" Width="75" VerticalAlignment="Bottom"/>
     </Grid>
 
 </Window>

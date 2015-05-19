@@ -48,7 +48,8 @@ namespace twelve
         {
 
             filler = null;
-            filler = new Filler(rank);
+            int a = Int16.Parse(lb.Content.ToString());
+            filler = new Filler(a);
             filler.init();
 
             String str = "";
@@ -727,6 +728,17 @@ namespace twelve
             ////Do your job here
             //System.Diagnostics.Debug.WriteLine("Tab,change T1");
             // инфо про фигурку
+        }
+
+        private void num_Click(object sender, RoutedEventArgs e)
+        {
+            int a = Int16.Parse( lb.Content.ToString());
+            a=a+2;
+
+            int maxnum = 10;
+            if (a > maxnum) { a = 6; }
+
+            lb.Content = a;
         }
 
     }
