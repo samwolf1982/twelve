@@ -86,6 +86,10 @@
                 <Canvas Name="pic9" Background="AntiqueWhite"  Grid.RowSpan="6" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="8" Margin="1,1,1,1" >
                 </Canvas>
             </TabItem>
+            <TabItem Name="t10" Header="Search">
+                <Canvas Name="pic10" Background="AntiqueWhite"  Grid.RowSpan="6" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="8" Margin="1,1,1,1" >
+                </Canvas>
+            </TabItem>
 
         </TabControl>
 

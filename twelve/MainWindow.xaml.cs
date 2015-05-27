@@ -733,8 +733,8 @@ namespace twelve
         private void num_Click(object sender, RoutedEventArgs e)
         {
             int a = Int16.Parse( lb.Content.ToString());
-            a=a+2;
-
+         //  a=a+2;
+            a ++;
             int maxnum = 10;
             if (a > maxnum) { a = 6; }
 
