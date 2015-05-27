@@ -13,36 +13,39 @@ namespace twelve
  public   class Filler
     {
         #region Values
+
+     static public object locker = new object();
             static int count = 0;
-         public   int rank ;
-            public  double[,] mas ;//количество точек (сейчас 8)
+        static public   int rank ;
+       static     public  double[,] mas ;//количество точек (сейчас 8)
             static UInt64[] intplosh = new UInt64[9];//количество для значений площади(максимальная площадь 6) //bitfield
-        public int xcouunt=0;
-     public   int couuntPlosh = 0;
-     public List<List<double>> testColection = new List<List<double>>();
+       static public int xcouunt=0;
+    static public   int couuntPlosh = 0;
+  static   public List<List<double>> testColection = new List<List<double>>();
 
      // все фигури  
- public List<LittleShape2> mainList = new List<LittleShape2>();
+static public List<LittleShape2> mainList = new List<LittleShape2>();
 
 
-  public List<double[,]> mainList2 = new List<double[,]>();
+ // public List<double[,]> mainList2 = new List<double[,]>();
  //public List<LittleShape> figureColections=new List<LittleShape>();
- public TimeSpan sp;
+ static public TimeSpan sp;
      // 
- Dictionary<double, double> listSinCos = new Dictionary<double, double>();  // набор синусов и косинусо для определеных углов
+ static Dictionary<double, double> listSinCos = new Dictionary<double, double>();  // набор синусов и косинусо для определеных углов
         #endregion
 
 
  #region Debug Values
- public  double[,] debug1 ;//количество точек (сейчас 8)
- public  double[,] debug2 ;//количество точек (сейчас 8)
+static public  double[,] debug1 ;//количество точек (сейчас 8)
+static public  double[,] debug2 ;//количество точек (сейчас 8)
  #endregion
 // отладка
 
 
- public Filler(int rank=8)
+ public Filler(int ran=8)
  {
-     this.rank = rank;
+
+    rank = ran;
     mas = new double[2, rank];
     debug1 = new double[2, rank];//количество точек (сейчас 8)
   debug2 = new double[2, rank];//количество точек (сейчас 8)
@@ -51,7 +54,7 @@ namespace twelve
         /// <summary>
         /// начальна инициализация
         /// </summary>
-        public  void init ()
+      static  public  void init ()
             {
                 for (int i = 0; i < intplosh.Length; i++)// переделать!!! битовое поле
                     intplosh[i] = 0;
@@ -84,7 +87,7 @@ namespace twelve
      ///  рекурсивная функция
      /// </summary>
      /// <param name="k"></param>
-          public void search(int k)
+      static    public void search(int k)
             {
                 //    перврый раз
                 if (k == 2) // две начальные точки мы поставили, от второй точки, строим третья, для второго отрезка многоугольника, бежим в 6! сторон
@@ -216,7 +219,10 @@ namespace twelve
                                    
                                        
                                             ready.Mass =  (int)Math.Round(intarea);;
-                                            mainList.Add(ready);
+                                            lock (locker)
+                                            {
+                                                mainList.Add(ready);
+                                            }
                                             foreach (var item in mas)
                                             {
                                                 temp.Add(item);
@@ -422,13 +428,13 @@ namespace twelve
      /// <param name="x2"></param>
      /// <param name="y2"></param>
      /// <returns></returns>
-             double rasst(double x1, double y1, double x2, double y2)
+          static   double rasst(double x1, double y1, double x2, double y2)
             {
                 return Math.Sqrt(Math.Pow(x1 - x2, 2) + Math.Pow(y1 - y2, 2));  // расстояние между 2-мя точками
             }
 
             // нетрогать
-             double area(double[,] mas1) // функция для отыскания площади фигуры
+         static    double area(double[,] mas1) // функция для отыскания площади фигуры
             {
                //  xcouunt++;
               
@@ -458,7 +464,7 @@ namespace twelve
      /// <param name="bx2"></param>
      /// <param name="by2"></param>
      /// <returns></returns>
-             bool equal(double ax1, double ay1, double ax2, double ay2, double bx1, double by1, double bx2, double by2) // функция проверки, что 2 отрезка не пересекаются
+      static      bool equal(double ax1, double ay1, double ax2, double ay2, double bx1, double by1, double bx2, double by2) // функция проверки, что 2 отрезка не пересекаются
             {
                 double v1; double v2; double v3; double v4;
                 //        // (bx2 - bx1)
