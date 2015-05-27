@@ -20,16 +20,20 @@ using System.Threading;
 
 namespace twelve
 {
+   
     /// <summary>
     /// Логика взаимодействия для MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window
     {
-      
+        int sec = 0;
+        System.Windows.Threading.DispatcherTimer dispatcherTimer = new System.Windows.Threading.DispatcherTimer();
+       //  public event StatusChangedEventHandler StatusChanged;
         Random rand = new Random(); // для генерации цветов
         // FillerX    FillerX;  // главный объэкт
            FillerX  FillerX;  // главный объэкт
         Thread t = null;
+
         int rank = 6;  // количество граней
 
         List<LittleShape2> curentList = new List<LittleShape2>();  // сборка временых фигур
@@ -41,6 +45,9 @@ namespace twelve
 
             InitializeComponent();
             lb.Content = rank;
+            dispatcherTimer.Tick += new EventHandler(dispatcherTimer_Tick);
+            dispatcherTimer.Interval = new TimeSpan(0, 0, 1);
+       //     dispatcherTimer.Start();
 
          
             //Thread.CurrentThread.Name = "Main";
@@ -53,19 +60,24 @@ namespace twelve
         /// <param name="e">sys</param>
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+
             t = new Thread(  FillerX.init);
+     
             //   FillerX = null;
             int a = Int16.Parse(lb.Content.ToString());
                FillerX = new    FillerX(a);
    //-      FillerX.init();
-            t.Start();     
+            t.Start();
+
+            sec = 0;
+            dispatcherTimer.Start();
             String str = "";
 
             
            //- str = "Время поиска: " +    FillerX.sp.Seconds + "s.\n Найдено: " +    FillerX.mainList.Count.ToString() + "\n количество вызовов area: " +    FillerX.couuntPlosh.ToString();
-            str = "Время поиска: " +    FillerX.sp.Seconds + "s.\n Найдено: " +    FillerX.mainList.Count.ToString() + "\n количество вызовов area: " +    FillerX.couuntPlosh.ToString();
-            FlowDocument flowDoc = new FlowDocument(new Paragraph(new Run(str)));
-            textik.Document = flowDoc;
+            //str = "Время поиска: " +    FillerX.sp.Seconds + "s.\n Найдено: " +    FillerX.mainList.Count.ToString() + "\n количество вызовов area: " +    FillerX.couuntPlosh.ToString();
+            //FlowDocument flowDoc = new FlowDocument(new Paragraph(new Run(str)));
+            //textik.Document = flowDoc;
             tabControl1.SelectedIndex = 0;
 
             if ( FillerX == null || FillerX.mainList.Count == 0) return;
@@ -97,13 +109,17 @@ namespace twelve
             ///// одна фигура для рисования будет братmся из curentList
             LittleShape2 temp2 = new LittleShape2();
             // смотрим где указатель на текущюю фигуру из curentList
-            if (curentindex == 0)
+            if (curentindex ==0)
             {
+                curentindex = curentList.Count - 1;
+               // curentindex++;
                 temp2 = curentList.Count != 0 ? curentList[curentindex].Clone() as LittleShape2 : null;
+               
             }
             else
             {
-                temp2 = curentList.Count != 0 ? curentList[--curentindex].Clone() as LittleShape2 : null;
+              
+                temp2 = curentList.Count != 0 ? curentList[curentindex--].Clone() as LittleShape2 : null;
             }
             if (temp2 == null)
             {
@@ -146,8 +162,9 @@ namespace twelve
 
             pic.Children.Clear();
             LittleShape2 temp2 = new LittleShape2();
-            if (curentindex == curentList.Count) { curentindex = 0; }
-            temp2 = curentList.Count != 0 ? curentList[curentindex++].Clone() as LittleShape2 : null;
+            if (curentindex == curentList.Count-1 || curentindex > curentList.Count) {
+                curentindex = 0; temp2 = curentList.Count != 0 ? curentList[curentindex].Clone() as LittleShape2 : null; }
+            else  temp2 = curentList.Count != 0 ? curentList[++curentindex].Clone() as LittleShape2 : null;
 
             if (temp2 == null)
             {
@@ -318,6 +335,8 @@ namespace twelve
 
         private void tabControl1_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+
+
             if (e.Source is TabControl) //if this event fired from TabControl then enter
             {
                 if (t1.IsSelected)
@@ -402,7 +421,7 @@ namespace twelve
             pic.Children.Clear();
             LittleShape2 temp2 = new LittleShape2();
             if (curentindex == curentList.Count) { curentindex = 0; }
-            temp2 = curentList.Count != 0 ? curentList[curentindex++].Clone() as LittleShape2 : null;
+            temp2 = curentList.Count != 0 ? curentList[curentindex].Clone() as LittleShape2 : null;
 
             if (temp2 == null)
             {
@@ -456,7 +475,7 @@ namespace twelve
             }
 
             str = "Maccа фигуры: " + temp2.Mass + "\nТекущый индекс: " + curentindex.ToString() + "\n Количество фигур: " + curentList.Count.ToString() +
-                "\nУглы: " + str3;
+                "\nУглы: " + str3+"Status :"+ t.ThreadState.ToString() ;
             ;
 
             FlowDocument flowDoc = new FlowDocument(new Paragraph(new Run(str)));
@@ -759,8 +778,24 @@ namespace twelve
         {
             if (t != null) { t.Abort(); }
         }
+   
+        private void dispatcherTimer_Tick(object sender, EventArgs e)
+        {
+            sec++;
+          String  str = "State : " + t.ThreadState.ToString() +" Прошло: "+sec.ToString()+"s."  ;
+  
+            
+       
+            workerState.Content = str;
+            if (t.ThreadState == ThreadState.Running)
+            {
 
-
+            }
+            if (t.ThreadState == ThreadState.Stopped)
+            {
+                dispatcherTimer.Stop();
+            }
+        } 
     }
 
 }

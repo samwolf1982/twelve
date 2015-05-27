@@ -19,9 +19,12 @@ namespace tesstthread
 
 
             Thread t = new Thread(Wr);
+            Thread t2 = new Thread(Wr);
             Thread.CurrentThread.Name = "Main";
-            t.Name = "Worker";
+            t.Name = "Worker1";
+            t2.Name = "worker2";
             t.Start();
+            t2.Start();
 
            // bw.DoWork += bw_DoWork;
          //   bw.RunWorkerAsync("Message to worker");     

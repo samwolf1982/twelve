@@ -44,10 +44,11 @@
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
 
+          
             <Label HorizontalAlignment="Right"  Margin="5" Grid.Column="0" Grid.ColumnSpan="2">иск. похожие</Label>
             <CheckBox Unchecked="cb_Unchecked" Checked="cb_Checked" Name="cb" VerticalAlignment="Center" Margin="0,5,5,5" Grid.Column="2" HorizontalAlignment="Right" Width="33" />
         </Grid>
-
+        <Label Name="workerState" HorizontalAlignment="Right"  Margin="5" Grid.Column="0" Grid.ColumnSpan="2">?</Label>
 
         <TabControl Name="tabControl1"  Background="LightBlue"  Grid.RowSpan="6" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="9" Margin="1,1,1,10" SelectionChanged="tabControl1_SelectionChanged">
             <TabItem BorderThickness="3" Name="t1" Header="Mass=1">
@@ -95,14 +96,14 @@
 
 
 
-        <Button Click="Button_Click" Margin="1,0,0,7" Grid.Row="7" Grid.Column="1" Grid.ColumnSpan="2"  Name="but"  Content="Начало&#xD;&#xA;" Height="22"  HorizontalAlignment="Left" Width="75" VerticalAlignment="Bottom">
-
-        </Button>
+        <Button Click="Button_Click" Margin="1,0,10,7" Grid.Row="7" Grid.Column="1" Grid.ColumnSpan="2"  Name="but"  Content="Начало&#xD;&#xA;" Height="22" VerticalAlignment="Bottom"/>
         <Button Margin="1,0,0,7" Grid.Row="7" Grid.Column="3" Grid.ColumnSpan="2"  Name="but2"  Content="Очистить" Height="22" Click="but2_Click" HorizontalAlignment="Left" Width="75" VerticalAlignment="Bottom"/>
         <Button Margin="1,0,0,7" Grid.Row="7" Grid.Column="5" Grid.ColumnSpan="2"  Name="but3"  Content="Пред." Height="22" Click="but3_Click" HorizontalAlignment="Left" Width="75" VerticalAlignment="Bottom"/>
         <Button Content="След" Margin="1,0,0,7" Grid.Row="7" Grid.Column="7" Grid.ColumnSpan="3"  Name="but4" Height="22" Click="but4_Click" VerticalAlignment="Bottom"/>
         <RichTextBox BorderThickness="3" Grid.Row="2" Grid.Column="10" Grid.ColumnSpan="3" Grid.RowSpan="4" Name="textik"></RichTextBox>
         <Button Margin="1,0,0,7" Grid.Row="7" Grid.Column="11" Grid.ColumnSpan="2"  Name="num"  Content="След число" Height="22" Click="num_Click"  HorizontalAlignment="Left" Width="75" VerticalAlignment="Bottom"/>
+         
+    
     </Grid>
 
 </Window>
