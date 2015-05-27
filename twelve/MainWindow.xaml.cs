@@ -27,7 +27,8 @@ namespace twelve
     {
       
         Random rand = new Random(); // для генерации цветов
-        Filler filler;  // главный объэкт
+        // FillerX    FillerX;  // главный объэкт
+           FillerX  FillerX;  // главный объэкт
         Thread t = null;
         int rank = 6;  // количество граней
 
@@ -52,22 +53,22 @@ namespace twelve
         /// <param name="e">sys</param>
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            t = new Thread(Filler.init);
-            filler = null;
+            t = new Thread(  FillerX.init);
+            //   FillerX = null;
             int a = Int16.Parse(lb.Content.ToString());
-            filler = new Filler(a);
-   //-   Filler.init();
+               FillerX = new    FillerX(a);
+   //-      FillerX.init();
             t.Start();     
             String str = "";
 
             
-           //- str = "Время поиска: " + filler.sp.Seconds + "s.\n Найдено: " + filler.mainList.Count.ToString() + "\n количество вызовов area: " + filler.couuntPlosh.ToString();
-            str = "Время поиска: " + Filler.sp.Seconds + "s.\n Найдено: " + Filler.mainList.Count.ToString() + "\n количество вызовов area: " + Filler.couuntPlosh.ToString();
+           //- str = "Время поиска: " +    FillerX.sp.Seconds + "s.\n Найдено: " +    FillerX.mainList.Count.ToString() + "\n количество вызовов area: " +    FillerX.couuntPlosh.ToString();
+            str = "Время поиска: " +    FillerX.sp.Seconds + "s.\n Найдено: " +    FillerX.mainList.Count.ToString() + "\n количество вызовов area: " +    FillerX.couuntPlosh.ToString();
             FlowDocument flowDoc = new FlowDocument(new Paragraph(new Run(str)));
             textik.Document = flowDoc;
             tabControl1.SelectedIndex = 0;
 
-            if (filler == null ||Filler.mainList.Count == 0) return;
+            if ( FillerX == null || FillerX.mainList.Count == 0) return;
             curentList = selectfun(1);
             curentindex = 0;
 
@@ -228,11 +229,11 @@ namespace twelve
 
             List<LittleShape2> res2 = new List<LittleShape2>();
 
-            //  var query = filler.figureColections.Where(x => x.Mass == mass).ToList();
+            //  var query =    FillerX.figureColections.Where(x => x.Mass == mass).ToList();
            List<LittleShape2> query2=null ;
-            lock (Filler.locker)
+            lock ( FillerX.locker)
             {
-              query2  = Filler.mainList.Where(x => x.Mass == m).ToList();
+              query2  =    FillerX.mainList.Where(x => x.Mass == m).ToList();
             }
             List<LittleShape2> request = new List<LittleShape2>();
             List<LittleShape2> tempRequest = new List<LittleShape2>();
@@ -321,7 +322,7 @@ namespace twelve
             {
                 if (t1.IsSelected)
                 {
-                    if (filler == null || Filler.mainList.Count == 0) return;
+                    if ( FillerX == null ||    FillerX.mainList.Count == 0) return;
                     curentList = selectfun(1);
                     curentindex = 0;
                     //Do your job here
@@ -334,7 +335,7 @@ namespace twelve
                 {
                     //Do your job here
                     System.Diagnostics.Debug.WriteLine("Tab,change T2");
-                    if (filler == null || Filler.mainList.Count == 0) return;
+                    if ( FillerX == null ||    FillerX.mainList.Count == 0) return;
                     curentList = selectfun(2);
                     curentindex = 0;
                     //  drawCountShape(curentList.Count);
@@ -343,7 +344,7 @@ namespace twelve
                 {
                     //Do your job here
                     System.Diagnostics.Debug.WriteLine("Tab,change T3");
-                    if (filler == null || Filler.mainList.Count == 0) return;
+                    if ( FillerX == null ||    FillerX.mainList.Count == 0) return;
                     curentList = selectfun(3);
                     curentindex = 0;
                 }
@@ -351,7 +352,7 @@ namespace twelve
                 {
                     //Do your job here
                     System.Diagnostics.Debug.WriteLine("Tab,change T3");
-                    if (filler == null || Filler.mainList.Count == 0) return;
+                    if ( FillerX == null ||    FillerX.mainList.Count == 0) return;
                     curentList = selectfun(4);
                     curentindex = 0;
                 }
@@ -359,7 +360,7 @@ namespace twelve
                 {
                     //Do your job here
                     System.Diagnostics.Debug.WriteLine("Tab,change T3");
-                    if (filler == null || Filler.mainList.Count == 0) return;
+                    if ( FillerX == null ||    FillerX.mainList.Count == 0) return;
                     curentList = selectfun(5);
                     curentindex = 0;
                 }
@@ -367,7 +368,7 @@ namespace twelve
                 {
                     //Do your job here
                     System.Diagnostics.Debug.WriteLine("Tab,change T3");
-                    if (filler == null || Filler.mainList.Count == 0) return;
+                    if ( FillerX == null ||    FillerX.mainList.Count == 0) return;
                     curentList = selectfun(6);
                     curentindex = 0;
                 }
@@ -375,7 +376,7 @@ namespace twelve
                 {
                     //Do your job here
                     System.Diagnostics.Debug.WriteLine("Tab,change T3");
-                    if (filler == null || Filler.mainList.Count == 0) return;
+                    if ( FillerX == null ||    FillerX.mainList.Count == 0) return;
                     curentList = selectfun(7);
                     curentindex = 0;
                 }
@@ -383,7 +384,7 @@ namespace twelve
                 {
                     //Do your job here
                     System.Diagnostics.Debug.WriteLine("Tab,change T3");
-                    if (filler == null || Filler.mainList.Count == 0) return;
+                    if ( FillerX == null ||    FillerX.mainList.Count == 0) return;
                     curentList = selectfun(8);
                     curentindex = 0;
                 }
@@ -391,7 +392,7 @@ namespace twelve
                 {
                     //Do your job here
                     System.Diagnostics.Debug.WriteLine("Tab,change T3");
-                    if (filler == null || Filler.mainList.Count == 0) return;
+                    if ( FillerX == null ||    FillerX.mainList.Count == 0) return;
                     curentList = selectfun(9);
                     curentindex = 0;
                 }
@@ -547,7 +548,7 @@ namespace twelve
         //{
 
         // pic.Children.Clear();
-        // Filler8 obj = new Filler8(10);
+        //    FillerX8 obj = new    FillerX8(10);
         //// obj.addNewVector(4);
         // obj.addPointToVectorMainList2();
         // showinConsoleDebug("Vector Start", false);
@@ -734,7 +735,7 @@ namespace twelve
             //var r = tabControl1.SelectedItem;
             //var ind = tabControl1.SelectedIndex;
 
-            //if (filler == null || filler.mainList.Count == 0) return;
+            //if ( FillerX == null ||    FillerX.mainList.Count == 0) return;
             //curentList = selectfun(ind);
             //curentindex = 0;
             ////Do your job here
@@ -745,14 +746,19 @@ namespace twelve
         private void num_Click(object sender, RoutedEventArgs e)
         {
             int a = Int16.Parse( lb.Content.ToString());
-         //  a=a+2;
-            a ++;
-            int maxnum = 10;
+           a=a+2;
+         //   a ++;
+            int maxnum = 12;
             if (a > maxnum) { a = 6; }
 
             lb.Content = a;
         }
         static void dd() { }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            if (t != null) { t.Abort(); }
+        }
 
 
     }
