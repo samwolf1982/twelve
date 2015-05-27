@@ -22,7 +22,7 @@ namespace twelve
      public List<List<double>> testColection = new List<List<double>>();
 
      // все фигури  
-  public List<LittleShape2> mainList = new List<LittleShape2>();
+ public List<LittleShape2> mainList = new List<LittleShape2>();
 
 
   public List<double[,]> mainList2 = new List<double[,]>();
