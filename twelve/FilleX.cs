@@ -18,8 +18,8 @@ namespace twelve
 
      static public object locker = new object();
      static int count = 0;
-        static public   int rank ;
-       static     public  double[,] mas ;//количество точек (сейчас 8)
+     static public   int rank ;
+     static     public  double[,] mas ;//количество точек (сейчас 8)
             static UInt64[] intplosh = new UInt64[9];//количество для значений площади(максимальная площадь 6) //bitfield
        static public int xcouunt=0;
     static public   int couuntPlosh = 0;
@@ -28,9 +28,6 @@ namespace twelve
      // все фигури  
 static public List<LittleShape2> mainList = new List<LittleShape2>();
 
-
- // public List<double[,]> mainList2 = new List<double[,]>();
- //public List<LittleShape> figureColections=new List<LittleShape>();
  static public TimeSpan sp;
      // 
  static Dictionary<double, double> listSinCos = new Dictionary<double, double>();  // набор синусов и косинусо для определеных углов
@@ -236,10 +233,10 @@ static public  double[,] debug2 ;//количество точек (сейчас
                                       {
                                           mainList.Add(ready);
                                       }
-                                      foreach (var item in mas)
-                                      {
-                                          temp.Add(item);
-                                      }
+                                      ///foreach (var item in mas)
+                                      ///{
+                                         /// temp.Add(item);
+                                   ///   }
                                       //  mas.CopyTo(tempAppay, 0);
                                       // здесь храняться все результаты поиска
                                       // для использования забить в в какойто PATH и расовать  проверки на массу нету
@@ -250,7 +247,7 @@ static public  double[,] debug2 ;//количество точек (сейчас
                                       // хотя площадь фигуры все равно находиться по причине избежания переполнения 
                                       // значить сразу можно делать метку на массу как и было сделано в начале 
                                       // делать колекцию фигур с меткой масса
-                                      testColection.Add(temp);
+                                   ///   testColection.Add(temp);
 
                                   }
                                   count++;

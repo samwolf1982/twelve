@@ -65,6 +65,7 @@
     </ApplicationDefinition>
     <Compile Include="FilleX.cs" />
     <Compile Include="LittleShape2.cs" />
+    <Compile Include="MyDataGridItem.cs" />
     <Compile Include="Tester.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>

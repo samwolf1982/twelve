@@ -26,6 +26,8 @@ namespace twelve
     /// </summary>
     public partial class MainWindow : Window
     {
+        List<MyDataGridItem> items = new List<MyDataGridItem>(); 
+   
         int sec = 0;
         System.Windows.Threading.DispatcherTimer dispatcherTimer = new System.Windows.Threading.DispatcherTimer();
        //  public event StatusChangedEventHandler StatusChanged;
@@ -47,6 +49,27 @@ namespace twelve
             lb.Content = rank;
             dispatcherTimer.Tick += new EventHandler(dispatcherTimer_Tick);
             dispatcherTimer.Interval = new TimeSpan(0, 0, 1);
+
+            //var items = new List<MyDataGridItem> {
+            //    new MyDataGridItem {
+            //        Image = new BitmapImage(new Uri("my_image.png", UriKind.Relative)),
+            //        Description = "It's image"
+            //    },
+            //    new MyDataGridItem {
+            //        Image = new BitmapImage(new Uri("my_image2.png", UriKind.Relative)),
+            //        Description = "It's another image!"
+            //    },
+            //    new MyDataGridItem {
+            //        Image = new BitmapImage(new Uri("my_image3.png", UriKind.Relative)),
+            //        Description = "annoying images!"
+            //    },
+            //};
+            grid.ItemsSource = items;
+            //items.Add(new MyDataGridItem {
+            //        Image = new BitmapImage(new Uri("my_image3.png", UriKind.Relative)),
+            //        Description = "annoying22 images!"
+            //    }
+            //);
        //     dispatcherTimer.Start();
 
          

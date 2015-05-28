@@ -90,6 +90,18 @@
             </TabItem>
             <TabItem Name="t10" Header="Search">
                 <DataGrid Name="grid" Background="AntiqueWhite"  Grid.RowSpan="6" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="8" Margin="1,1,1,1" >
+                    <DataGrid.Columns>
+                        <DataGridTemplateColumn Header="Изображение">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Image Source="{Binding Image}"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTextColumn Header="Описание" Binding="{Binding Description}"/>
+                    </DataGrid.Columns>
+
+
                 </DataGrid>
               
             </TabItem>

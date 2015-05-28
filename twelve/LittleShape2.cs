@@ -75,10 +75,6 @@ namespace twelve
                 doublePath[1, i] = t[1, i];
    
             }
-            
-
-
-
         }
         /// <summary>
         /// выдает следущюю линию 
