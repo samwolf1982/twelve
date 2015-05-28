@@ -58,6 +58,7 @@ static public  double[,] debug2 ;//количество точек (сейчас
         /// </summary>
       static  public  void init ()
             {
+                listSinCos.Clear();
                 for (int i = 0; i < intplosh.Length; i++)// переделать!!! битовое поле
                     intplosh[i] = 0;
                 //////елемент динамического програмирование

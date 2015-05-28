@@ -52,6 +52,7 @@
 
         <TabControl Name="tabControl1"  Background="LightBlue"  Grid.RowSpan="6" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="9" Margin="1,1,1,10" SelectionChanged="tabControl1_SelectionChanged">
             <TabItem BorderThickness="3" Name="t1" Header="Mass=1">
+                
                 <Canvas Name="pic" Background="AntiqueWhite"  Grid.RowSpan="6" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="8" Margin="1,1,1,1" >
                 </Canvas>
             </TabItem>
@@ -88,8 +89,9 @@
                 </Canvas>
             </TabItem>
             <TabItem Name="t10" Header="Search">
-                <Canvas Name="pic10" Background="AntiqueWhite"  Grid.RowSpan="6" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="8" Margin="1,1,1,1" >
-                </Canvas>
+                <DataGrid Name="grid" Background="AntiqueWhite"  Grid.RowSpan="6" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="8" Margin="1,1,1,1" >
+                </DataGrid>
+              
             </TabItem>
 
         </TabControl>

@@ -60,7 +60,11 @@ namespace twelve
         /// <param name="e">sys</param>
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-
+            if (t!=null &&t.ThreadState == ThreadState.Running ) { t.Abort(); }
+            curentList.Clear();
+            FillerX.mainList.Clear();
+            curentindex = 0;
+          
             t = new Thread(  FillerX.init);
      
             //   FillerX = null;

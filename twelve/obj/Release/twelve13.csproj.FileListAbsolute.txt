@@ -32,3 +32,4 @@ D:\temp\sdsds\twelve\twelve\obj\Release\twelve_MarkupCompile.cache
 D:\temp\sdsds\twelve\twelve\obj\Release\twelve.g.resources
 D:\temp\sdsds\twelve\twelve\obj\Release\twelve.Properties.Resources.resources
 D:\temp\sdsds\twelve\twelve\obj\Release\twelve13.csproj.GenerateResource.Cache
+D:\temp\sdsds\twelve\twelve\obj\Release\twelve13.csprojResolveAssemblyReference.cache
