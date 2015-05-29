@@ -26,10 +26,11 @@ namespace twelve
     /// </summary>
     public partial class MainWindow : Window
     {
-        List<MyDataGridItem> items = new List<MyDataGridItem>(); 
-   
+        List<MyDataGridItem> items = new List<MyDataGridItem>();
+        int miniindex = -1;
         int sec = 0;
         System.Windows.Threading.DispatcherTimer dispatcherTimer = new System.Windows.Threading.DispatcherTimer();
+        System.Windows.Threading.DispatcherTimer dispatcherTimer2 = new System.Windows.Threading.DispatcherTimer();
        //  public event StatusChangedEventHandler StatusChanged;
         Random rand = new Random(); // для генерации цветов
         // FillerX    FillerX;  // главный объэкт
@@ -49,6 +50,8 @@ namespace twelve
             lb.Content = rank;
             dispatcherTimer.Tick += new EventHandler(dispatcherTimer_Tick);
             dispatcherTimer.Interval = new TimeSpan(0, 0, 1);
+            dispatcherTimer2.Tick += new EventHandler(dispatcherTimer2_Tick);
+            dispatcherTimer2.Interval = TimeSpan.FromMilliseconds(0.2);
 
             //var items = new List<MyDataGridItem> {
             //    new MyDataGridItem {
@@ -64,7 +67,13 @@ namespace twelve
             //        Description = "annoying images!"
             //    },
             //};
-            grid.ItemsSource = items;
+
+           // MyDataGridItem it = new MyDataGridItem();
+
+       
+       
+           // it.Image = myCanvas;
+           // grid.ItemsSource = items;
             //items.Add(new MyDataGridItem {
             //        Image = new BitmapImage(new Uri("my_image3.png", UriKind.Relative)),
             //        Description = "annoying22 images!"
@@ -76,6 +85,39 @@ namespace twelve
             //Thread.CurrentThread.Name = "Main";
         }
 
+        private void dispatcherTimer2_Tick(object sender, EventArgs e)
+        {
+
+            int total = 0;
+            lock (FillerX.locker)
+            {
+                total = FillerX.mainList.Count;
+            }
+            if (total == 0 || total == miniindex + 1) return;
+
+            LittleShape2 lp = selectOneShape(++miniindex);
+            var a = lp.anglesArr;
+
+            List<System.Windows.Point> arrpoint = new List<System.Windows.Point>();
+            ////////////////////////
+            foreach (var item in lp.path)
+            {
+                LineGeometry blackLineGeometry = new LineGeometry();
+                //    cмещение по канвасу
+                //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                Line l = moveLine(item, 40, 50);
+                arrpoint.Add(new System.Windows.Point(l.X1, l.Y1));
+                arrpoint.Add(new System.Windows.Point(l.X2, l.Y2));
+
+            }
+
+            Canvas myCanvas = StreamGeometryTriangleLitle(arrpoint);
+     //       myCanvas.Background = System.Windows.Media.Brushes.LightBlue;
+            myCanvas.Width = 170;
+            myCanvas.Height = 120;
+            wrapP.Children.Add(myCanvas);   
+        }
+
         /// <summary>
         ///  обработчик кнопки Начало 
         /// </summary>
@@ -83,6 +125,9 @@ namespace twelve
         /// <param name="e">sys</param>
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+            if (dispatcherTimer2.IsEnabled) dispatcherTimer2.Stop();
+            miniindex = -1;
+            wrapP.Children.Clear();
             if (t!=null &&t.ThreadState == ThreadState.Running ) { t.Abort(); }
             curentList.Clear();
             FillerX.mainList.Clear();
@@ -98,7 +143,7 @@ namespace twelve
 
             sec = 0;
             dispatcherTimer.Start();
-            String str = "";
+            dispatcherTimer2.Start();
 
             
            //- str = "Время поиска: " +    FillerX.sp.Seconds + "s.\n Найдено: " +    FillerX.mainList.Count.ToString() + "\n количество вызовов area: " +    FillerX.couuntPlosh.ToString();
@@ -111,6 +156,7 @@ namespace twelve
             curentList = selectfun(1);
             curentindex = 0;
 
+        
 
         }
 
@@ -264,6 +310,26 @@ namespace twelve
             temp.setPointF(arr);
         }
         /// <summary>
+        /// фун для матричного преобразования в даном случае увеличения
+        /// </summary>
+        /// <param name="temp"></param>
+        public void myMatrixTransformScaleMini(ref LittleShape2 temp)
+        {
+            System.Drawing.Drawing2D.Matrix matrix = new System.Drawing.Drawing2D.Matrix();
+            System.Drawing.Drawing2D.Matrix test = new System.Drawing.Drawing2D.Matrix(1, 0, 0, 1, 0, 0);
+            // трансформация  из double[,] в pointF[]
+            PointF[] arr = temp.getPointF(rank);
+            // увеличение 
+            matrix.Scale(25, 25);
+            // применение увеличения
+     
+            matrix.TransformPoints(arr);
+           //  matrix.Shear(1, 1);
+          //   matrix.TransformPoints(arr);
+            // уже увеличеная фигура (точки)
+            temp.setPointF(arr);
+        }
+        /// <summary>
         /// виборка всех елементов с определенной масой
         /// доделать проверку на углы
         /// </summary>
@@ -343,6 +409,95 @@ namespace twelve
 
 
             }
+
+            return query2;
+
+        }
+        /// <summary>
+        /// виборка одной фигуры по индексу
+        /// </summary>
+        /// <param name="mass"></param>
+        public LittleShape2 selectOneShape(int m)
+        {
+
+            LittleShape2 res2 = null;
+
+            //  var query =    FillerX.figureColections.Where(x => x.Mass == mass).ToList();
+              LittleShape2 query2 = null;
+            lock (FillerX.locker)
+            {
+                query2 = FillerX.mainList[m].Clone() as LittleShape2 ;
+            }
+
+            myMatrixTransformScaleMini(ref query2);
+
+            query2.setAngleList(3);
+
+
+            //List<LittleShape2> request = new List<LittleShape2>();
+            //List<LittleShape2> tempRequest = new List<LittleShape2>();
+            //проверка всех углов 
+            // checkbox
+            //Две геометрические фигуры называются равными, если их можно совместить наложением.
+            // как вариант будем одну фигуру вращать 
+            // надо длину, угол и порядок следования 
+            // сейчас есть 3 квадрата что позволяет думать что мы вроде делаем 3 лишних действия
+            // ---------------------------------------------сразу искать не координаты а вектора фигур но  12в степени 12 еще никто не отменял
+            //if (cb.IsChecked == true && query2.Count > 0)
+            //{
+            //    //фигуры из запроса надо теперь их обработать
+            //    // для всех выставить  градусы
+            //    foreach (var item in query2)
+            //    {
+            //        LittleShape2 fig2 = item.Clone() as LittleShape2;
+            //        myMatrixTransformScale(ref fig2);
+            //        fig2.setAngleList(3);
+            //        request.Add(fig2);
+            //    }
+
+            //    List<int> index2 = new List<int>();
+            //    // проход по всем фигурам кроме последней - будет сверяться две фигуры
+            //    for (int i = 0; i < request.Count - 1; i++)
+            //    {
+            //        if (request[i] == null) continue;
+
+            //        var x1 = request[i];   //фигура а
+
+
+            //        for (int j = i + 1; j < request.Count; j++) //беру все остальные фиг поочереди поворачивая и проверяю на совпадения
+            //        {
+            //            if (request[j] == null) continue;
+            //            var x2 = request[j];  // фигура следующая // временая фигура она будет или null или не будет
+            //            double[] temp = x2.anglesArr.ToArray();
+
+
+            //            for (int k = 0; k < x2.anglesArr.Count(); k++) //  здесь сравнение и поворот фигуры второй
+            //            {
+            //                //var a1 = x2.anglesArr.ToArray();
+            //                bool resEual = equalArrDouble(x1.anglesArr, temp);  //проверка
+
+            //                if (resEual == true)//ok  okokokokokokokokokokokok
+            //                {
+            //                    request[j] = null; //                      1111111111111111111111111
+            //                    break;
+            //                }
+            //                else
+            //                {
+            //                    temp = x2.nextAngle(k);
+            //                }
+
+
+            //            }
+
+            //        }
+
+            //        query2 = request.Where(x => x != null).ToList();
+
+            //    }
+
+
+
+            //}
 
             return query2;
 
@@ -650,17 +805,18 @@ namespace twelve
 
 
         //}
+
         /// <summary>
         ///  рисовалка для фигуры
         /// </summary>
         /// <param name="arrPoints"></param>
-        public void StreamGeometryTriangleExample(List<System.Windows.Point> arrPoints)
+        public Canvas StreamGeometryTriangleLitle(List<System.Windows.Point> arrPoints)
         {
             // Create a path to draw a geometry with.
             Path myPath = new Path();
             myPath.Stroke = System.Windows.Media.Brushes.Black;
             myPath.StrokeThickness = 1;
-            System.Windows.Media.Color cl = new System.Windows.Media.Color();
+            
             byte[] arr = new byte[4];
             rand.NextBytes(arr);
             //cl.A = 
@@ -698,7 +854,62 @@ namespace twelve
             myPath.Data = geometry;
 
             // Add path shape to the UI.
-            StackPanel mainPanel = new StackPanel();
+          //  StackPanel mainPanel = new StackPanel();
+           Canvas c = new Canvas();
+           
+        //    myPath.RenderTransform
+            c.Children.Add(myPath);
+            return c;
+        }
+        /// <summary>
+        ///  рисовалка для фигуры
+        /// </summary>
+        /// <param name="arrPoints"></param>
+        public void StreamGeometryTriangleExample(List<System.Windows.Point> arrPoints)
+        {
+            // Create a path to draw a geometry with.
+            Path myPath = new Path();
+            myPath.Stroke = System.Windows.Media.Brushes.Black;
+            myPath.StrokeThickness = 1;
+     
+            byte[] arr = new byte[4];
+            rand.NextBytes(arr);
+            //cl.A = 
+            System.Windows.Media.Brush br = new SolidColorBrush(System.Windows.Media.Color.FromArgb(arr[0], arr[1], arr[2], arr[3]));
+            myPath.Fill = br;
+            // Create a StreamGeometry to use to specify myPath.
+            StreamGeometry geometry = new StreamGeometry();
+            geometry.FillRule = FillRule.EvenOdd;
+
+            // Open a StreamGeometryContext that can be used to describe this StreamGeometry 
+            // object's contents.
+
+            using (StreamGeometryContext ctx = geometry.Open())
+            {
+
+                // Begin the triangle at the point specified. Notice that the shape is set to 
+                // be closed so only two lines need to be specified below to make the triangle.
+                ctx.BeginFigure(arrPoints[0], true /* is filled */, true /* is closed */);
+                for (int i = 1; i < arrPoints.Count; i++)
+                {
+                    ctx.LineTo(arrPoints[i], true /* is stroked */, true /* is smooth join */);
+                }
+                // Draw a line to the next specified point.
+                //   ctx.LineTo(new System.Windows.Point(100, 100), true /* is stroked */, false /* is smooth join */);
+
+                // Draw another line to the next specified point.
+                //  ctx.LineTo(new System.Windows.Point(100, 50), true /* is stroked */, false /* is smooth join */);
+            }
+
+            // Freeze the geometry (make it unmodifiable)
+            // for additional performance benefits.
+            geometry.Freeze();
+
+            // Specify the shape (triangle) of the Path using the StreamGeometry.
+            myPath.Data = geometry;
+
+            // Add path shape to the UI.
+           // StackPanel mainPanel = new StackPanel();
             Canvas ss = cuprentPicture();
             ss.Children.Add(myPath);
         }
@@ -822,6 +1033,57 @@ namespace twelve
             {
                 dispatcherTimer.Stop();
             }
+
+            //for (int i = 0; i < 50; i++)
+            //{
+            //    Line line = new Line();
+            //    line.Stroke = System.Windows.Media.Brushes.Black;
+
+            //    line.X1 = 0;
+            //    line.X2 = 20;
+            //    line.Y1 = 0;
+            //    line.Y2 = 20;
+
+            //    line.StrokeThickness = 5;
+            //    Canvas myCanvas = new Canvas();
+            //    myCanvas.Background = System.Windows.Media.Brushes.Red;
+
+            //    myCanvas.Children.Add(line);
+            //    wrapP.Children.Add(myCanvas);
+            //}
+        }
+
+        // test
+        private void test_Click(object sender, RoutedEventArgs e)
+        {
+            int total=0;
+            lock (FillerX.locker)
+            {
+             total=FillerX.mainList.Count;  
+            }
+            if(total==0 ||total==miniindex+1 ) return;
+            
+                LittleShape2 lp = selectOneShape(++miniindex);
+            var a = lp.anglesArr;
+
+            List<System.Windows.Point> arrpoint = new List<System.Windows.Point>();
+            ////////////////////////
+            foreach (var item in lp.path)
+            {
+                LineGeometry blackLineGeometry = new LineGeometry();
+      //    cмещение по канвасу
+      //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                Line l = moveLine(item,40,50);
+                arrpoint.Add(new System.Windows.Point(l.X1, l.Y1));
+                arrpoint.Add(new System.Windows.Point(l.X2, l.Y2));
+
+            }
+           
+          Canvas myCanvas =     StreamGeometryTriangleLitle(arrpoint );
+          myCanvas.Background = System.Windows.Media.Brushes.LightBlue;
+          myCanvas.Width = 170;
+          myCanvas.Height = 120;
+          wrapP.Children.Add(myCanvas);   
         } 
     }
 

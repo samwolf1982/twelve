@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 using System.Windows.Media;
 
 namespace twelve
@@ -11,7 +12,7 @@ namespace twelve
     {
 
       
-       public ImageSource Image { get; set; }
+       public Canvas Image { get; set; }
         public string Description { get; set; }
     }
 }

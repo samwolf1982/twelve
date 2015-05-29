@@ -23,7 +23,7 @@ namespace twelve
             static UInt64[] intplosh = new UInt64[9];//количество для значений площади(максимальная площадь 6) //bitfield
        static public int xcouunt=0;
     static public   int couuntPlosh = 0;
-  static   public List<List<double>> testColection = new List<List<double>>();
+ // static   public List<List<double>> testColection = new List<List<double>>();
 
      // все фигури  
 static public List<LittleShape2> mainList = new List<LittleShape2>();
@@ -405,10 +405,10 @@ static public  double[,] debug2 ;//количество точек (сейчас
                                             {
                                                 mainList.Add(ready);
                                             }
-                                            foreach (var item in mas)
-                                            {
-                                                temp.Add(item);
-                                            }
+                                            //foreach (var item in mas)
+                                            //{
+                                             //   temp.Add(item);
+                                           // }
                                        //  mas.CopyTo(tempAppay, 0);
                                             // здесь храняться все результаты поиска
                                             // для использования забить в в какойто PATH и расовать  проверки на массу нету
@@ -419,7 +419,7 @@ static public  double[,] debug2 ;//количество точек (сейчас
                                             // хотя площадь фигуры все равно находиться по причине избежания переполнения 
                                             // значить сразу можно делать метку на массу как и было сделано в начале 
                                             // делать колекцию фигур с меткой масса
-                                            testColection.Add(temp);
+                                        ///    testColection.Add(temp);
 
                                         }
                                         count++;
@@ -679,8 +679,6 @@ static public  double[,] debug2 ;//количество точек (сейчас
             }
 
         #endregion
-
-
 
 
      
