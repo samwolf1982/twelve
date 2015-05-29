@@ -165,7 +165,7 @@ static public  double[,] debug2 ;//количество точек (сейчас
                   //}
                   // если нету касания го 
                   #endregion
-
+                  if (rasst(x, y, mas[0, 0], mas[1, 0]) > mas.GetLength(1) - k) Flag = true;
                   if (!Flag)
                   {
                       mas[0, k] = x;

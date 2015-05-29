@@ -1,0 +1,6 @@
+D:\temp\sdsds\twelve\tesstthread\bin\Debug\tesstthread.exe.config
+D:\temp\sdsds\twelve\tesstthread\bin\Debug\tesstthread.exe
+D:\temp\sdsds\twelve\tesstthread\bin\Debug\tesstthread.pdb
+D:\temp\sdsds\twelve\tesstthread\obj\Debug\tesstthread.csprojResolveAssemblyReference.cache
+D:\temp\sdsds\twelve\tesstthread\obj\Debug\tesstthread.exe
+D:\temp\sdsds\twelve\tesstthread\obj\Debug\tesstthread.pdb

@@ -154,7 +154,7 @@ namespace twelve
 
             if ( FillerX == null || FillerX.mainList.Count == 0) return;
             curentList = selectfun(1);
-            curentindex = 0;
+            curentindex = 1;
 
         
 
@@ -177,23 +177,21 @@ namespace twelve
         /// <param name="e"></param>
         private void but3_Click(object sender, RoutedEventArgs e)
         {
+       
+            // смотрим где указатель на текущюю фигуру из curentList
+
+            if (curentindex <= 0 || curentList.Count == 0) { return; }
             //    очистка екрана
             pic.Children.Clear();
             ///// одна фигура для рисования будет братmся из curentList
             LittleShape2 temp2 = new LittleShape2();
-            // смотрим где указатель на текущюю фигуру из curentList
-            if (curentindex ==0)
-            {
-                curentindex = curentList.Count - 1;
-               // curentindex++;
-                temp2 = curentList.Count != 0 ? curentList[curentindex].Clone() as LittleShape2 : null;
+
+            temp2 = curentList[--curentindex].Clone() as LittleShape2;
                
-            }
-            else
-            {
-              
-                temp2 = curentList.Count != 0 ? curentList[curentindex--].Clone() as LittleShape2 : null;
-            }
+ 
+           
+
+
             if (temp2 == null)
             {
                 String str2 = "Нету фигур для отображение";
@@ -233,11 +231,24 @@ namespace twelve
         private void but4_Click(object sender, RoutedEventArgs e)
         {
 
-            pic.Children.Clear();
+         
+        
+            if (curentindex == curentList.Count - 1 || curentindex > curentList.Count || curentindex<0) return;
+            
             LittleShape2 temp2 = new LittleShape2();
-            if (curentindex == curentList.Count-1 || curentindex > curentList.Count) {
-                curentindex = 0; temp2 = curentList.Count != 0 ? curentList[curentindex].Clone() as LittleShape2 : null; }
-            else  temp2 = curentList.Count != 0 ? curentList[++curentindex].Clone() as LittleShape2 : null;
+            pic.Children.Clear();
+            temp2 = curentList[++curentindex].Clone() as LittleShape2;
+            //{
+              //  curentindex = 0; curentList.Count != 0 ? curentList[curentindex].Clone() as LittleShape2 : null;
+            //}
+            //else
+            //temp2 = curentList.Count != 0 ? curentList[++curentindex].Clone() as LittleShape2 : null;
+
+
+            //LittleShape2 temp2 = new LittleShape2();
+            //if (curentindex == curentList.Count-1 || curentindex > curentList.Count) {
+            //    curentindex = 0; temp2 = curentList.Count != 0 ? curentList[curentindex].Clone() as LittleShape2 : null; }
+            //else  temp2 = curentList.Count != 0 ? curentList[++curentindex].Clone() as LittleShape2 : null;
 
             if (temp2 == null)
             {
