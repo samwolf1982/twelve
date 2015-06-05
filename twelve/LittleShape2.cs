@@ -12,7 +12,7 @@ namespace twelve
     public class LittleShape2
     {
         public List<Line> path = new List<Line>();
-        double[,] doublePath = null;
+        double[,] pathFigures = null;
         int counter;
         // cписок углов заполняеться только при визове setAngleList()  !!! важно должеть быть заполнен path
       public  double[] anglesArr = null;
@@ -27,8 +27,8 @@ namespace twelve
             List<double>temp=new List<double>();
         for (int i = 0; i < path.Count; i++)
 			{
-			 Vector vA = goToVector(path[i]); 
-             Vector vB = goToVector(path[ i != path.Count - 1 ? i+1 : 0]);
+			 Vector vA = transformToVector(path[i]); 
+             Vector vB = transformToVector(path[ i != path.Count - 1 ? i+1 : 0]);
           temp.Add( Math.Abs( Math.Round( Vector.AngleBetween(vA, vB),roundPoint)));
 			}
 
@@ -51,7 +51,7 @@ namespace twelve
          var r= b.Concat(a).ToArray(); 
             return r;
         }
-        public Vector goToVector(Line l)
+        public Vector transformToVector(Line l)
         {
             double xV, yV;
             xV = l.X2 - l.X1;
@@ -68,11 +68,11 @@ namespace twelve
         public void add(double[,] t,int rank)
         {
             // копирование массива          
-            doublePath = new double[2, rank];
+            pathFigures = new double[2, rank];
             for (int i = 0; i < rank; i++)
             {
-                doublePath[0, i] = t[0, i];
-                doublePath[1, i] = t[1, i];
+                pathFigures[0, i] = t[0, i];
+                pathFigures[1, i] = t[1, i];
    
             }
         }
@@ -161,12 +161,12 @@ namespace twelve
 
         public LittleShape2(LittleShape2 obj)
         {
-            var size=obj.doublePath.Length / 2;
-            doublePath = new double[2, size];
+            var size=obj.pathFigures.Length / 2;
+            pathFigures = new double[2, size];
          for (int i = 0; i < size; i++)
             {
-                doublePath[0, i] = obj.doublePath[0, i];
-                doublePath[1, i] = obj.doublePath[1, i];
+                pathFigures[0, i] = obj.pathFigures[0, i];
+                pathFigures[1, i] = obj.pathFigures[1, i];
 
             }
 
@@ -194,15 +194,15 @@ namespace twelve
         }
         public LittleShape2(int rank)
         {
-            doublePath = new double[2, rank];
+            pathFigures = new double[2, rank];
         }
         public List<Line> LittleShape2ToLine()
         {
             LittleShape2 temp = new LittleShape2();
             List<Line> res2 = new List<Line>();
-            if (doublePath == null) return path;
-            double[,] d = doublePath;
-            // mas все что с d[0, - x  a d[1, y
+            if (pathFigures == null) return path;
+            double[,] d = pathFigures;
+            // pointColection все что с d[0, - x  a d[1, y
             //for (int i = 0; i < rank; i++)
             int v = d.Length/2;
             for (int i = 0; i < v; i++)

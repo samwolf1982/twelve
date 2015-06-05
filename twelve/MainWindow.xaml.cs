@@ -29,13 +29,13 @@ namespace twelve
         List<MyDataGridItem> items = new List<MyDataGridItem>();
         int miniindex = -1;
         int sec = 0;
-        System.Windows.Threading.DispatcherTimer dispatcherTimer = new System.Windows.Threading.DispatcherTimer();
-        System.Windows.Threading.DispatcherTimer dispatcherTimer2 = new System.Windows.Threading.DispatcherTimer();
+        System.Windows.Threading.DispatcherTimer timer1 = new System.Windows.Threading.DispatcherTimer();
+        System.Windows.Threading.DispatcherTimer timer2 = new System.Windows.Threading.DispatcherTimer();
        //  public event StatusChangedEventHandler StatusChanged;
         Random rand = new Random(); // для генерации цветов
-        // FillerX    FillerX;  // главный объэкт
-           FillerX  FillerX;  // главный объэкт
-        Thread t = null;
+        // Filler    Filler;  // главный объэкт
+           Filler  FillerX;  // главный объэкт
+        Thread thredValues = null;
 
         int rank = 6;  // количество граней
 
@@ -48,10 +48,10 @@ namespace twelve
 
             InitializeComponent();
             lb.Content = rank;
-            dispatcherTimer.Tick += new EventHandler(dispatcherTimer_Tick);
-            dispatcherTimer.Interval = new TimeSpan(0, 0, 1);
-            dispatcherTimer2.Tick += new EventHandler(dispatcherTimer2_Tick);
-            dispatcherTimer2.Interval = TimeSpan.FromMilliseconds(0.2);
+            timer1.Tick += new EventHandler(dispatcherTimer_Tick);
+            timer1.Interval = new TimeSpan(0, 0, 1);
+            timer2.Tick += new EventHandler(dispatcherTimer2_Tick);
+            timer2.Interval = TimeSpan.FromMilliseconds(0.2);
 
             //var items = new List<MyDataGridItem> {
             //    new MyDataGridItem {
@@ -79,7 +79,7 @@ namespace twelve
             //        Description = "annoying22 images!"
             //    }
             //);
-       //     dispatcherTimer.Start();
+       //     timer1.Start();
 
          
             //Thread.CurrentThread.Name = "Main";
@@ -89,9 +89,9 @@ namespace twelve
         {
 
             int total = 0;
-            lock (FillerX.locker)
+            lock (Filler.locker)
             {
-                total = FillerX.mainList.Count;
+                total = Filler.mainListFigures.Count;
             }
             if (total == 0 || total == miniindex + 1) return;
 
@@ -125,34 +125,30 @@ namespace twelve
         /// <param name="e">sys</param>
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            if (dispatcherTimer2.IsEnabled) dispatcherTimer2.Stop();
+            if (timer2.IsEnabled) timer2.Stop();
             miniindex = -1;
             wrapP.Children.Clear();
-            if (t!=null &&t.ThreadState == ThreadState.Running ) { t.Abort(); }
+            if (thredValues!=null &&thredValues.ThreadState == ThreadState.Running ) { thredValues.Abort(); }
             curentList.Clear();
-            FillerX.mainList.Clear();
+            Filler.mainListFigures.Clear();
             curentindex = 0;
           
-            t = new Thread(  FillerX.init);
+            thredValues = new Thread(  Filler.initialisation);
      
-            //   FillerX = null;
+            //   Filler = null;
             int a = Int16.Parse(lb.Content.ToString());
-               FillerX = new    FillerX(a);
-   //-      FillerX.init();
-            t.Start();
+               FillerX = new    Filler(a);
+   //-      Filler.initialisation();
+            thredValues.Start();
 
             sec = 0;
-            dispatcherTimer.Start();
-            dispatcherTimer2.Start();
+            timer1.Start();
+            timer2.Start();
 
-            
-           //- str = "Время поиска: " +    FillerX.sp.Seconds + "s.\n Найдено: " +    FillerX.mainList.Count.ToString() + "\n количество вызовов area: " +    FillerX.couuntPlosh.ToString();
-            //str = "Время поиска: " +    FillerX.sp.Seconds + "s.\n Найдено: " +    FillerX.mainList.Count.ToString() + "\n количество вызовов area: " +    FillerX.couuntPlosh.ToString();
-            //FlowDocument flowDoc = new FlowDocument(new Paragraph(new Run(str)));
-            //textik.Document = flowDoc;
+           
             tabControl1.SelectedIndex = 0;
 
-            if ( FillerX == null || FillerX.mainList.Count == 0) return;
+            if ( FillerX == null || Filler.mainListFigures.Count == 0) return;
             curentList = selectfun(1);
             curentindex = 1;
 
@@ -350,11 +346,11 @@ namespace twelve
 
             List<LittleShape2> res2 = new List<LittleShape2>();
 
-            //  var query =    FillerX.figureColections.Where(x => x.Mass == mass).ToList();
+            //  var query =    Filler.figureColections.Where(x => x.Mass == mass).ToList();
            List<LittleShape2> query2=null ;
-            lock ( FillerX.locker)
+            lock ( Filler.locker)
             {
-              query2  =    FillerX.mainList.Where(x => x.Mass == m).ToList();
+              query2  =    Filler.mainListFigures.Where(x => x.Mass == m).ToList();
             }
             List<LittleShape2> request = new List<LittleShape2>();
             List<LittleShape2> tempRequest = new List<LittleShape2>();
@@ -396,7 +392,7 @@ namespace twelve
                         for (int k = 0; k < x2.anglesArr.Count(); k++) //  здесь сравнение и поворот фигуры второй
                         {
                             //var a1 = x2.anglesArr.ToArray();
-                            bool resEual = equalArrDouble(x1.anglesArr, temp);  //проверка
+                            bool resEual = equalFun(x1.anglesArr, temp);  //проверка
 
                             if (resEual == true)//ok  okokokokokokokokokokokok
                             {
@@ -431,13 +427,10 @@ namespace twelve
         public LittleShape2 selectOneShape(int m)
         {
 
-            LittleShape2 res2 = null;
-
-            //  var query =    FillerX.figureColections.Where(x => x.Mass == mass).ToList();
               LittleShape2 query2 = null;
-            lock (FillerX.locker)
+            lock (Filler.locker)
             {
-                query2 = FillerX.mainList[m].Clone() as LittleShape2 ;
+                query2 = Filler.mainListFigures[m].Clone() as LittleShape2 ;
             }
 
             myMatrixTransformScaleMini(ref query2);
@@ -485,7 +478,7 @@ namespace twelve
             //            for (int k = 0; k < x2.anglesArr.Count(); k++) //  здесь сравнение и поворот фигуры второй
             //            {
             //                //var a1 = x2.anglesArr.ToArray();
-            //                bool resEual = equalArrDouble(x1.anglesArr, temp);  //проверка
+            //                bool resEual = equalFun(x1.anglesArr, temp);  //проверка
 
             //                if (resEual == true)//ok  okokokokokokokokokokokok
             //                {
@@ -515,7 +508,7 @@ namespace twelve
         }
 
 
-        public bool equalArrDouble(double[] a, double[] b)
+        public bool equalFun(double[] a, double[] b)
         {
 
             for (int i = 0; i < a.Length; i++)
@@ -534,7 +527,7 @@ namespace twelve
             {
                 if (t1.IsSelected)
                 {
-                    if ( FillerX == null ||    FillerX.mainList.Count == 0) return;
+                    if ( FillerX == null ||    Filler.mainListFigures.Count == 0) return;
                     curentList = selectfun(1);
                     curentindex = 0;
                     //Do your job here
@@ -547,7 +540,7 @@ namespace twelve
                 {
                     //Do your job here
                     System.Diagnostics.Debug.WriteLine("Tab,change T2");
-                    if ( FillerX == null ||    FillerX.mainList.Count == 0) return;
+                    if ( FillerX == null ||    Filler.mainListFigures.Count == 0) return;
                     curentList = selectfun(2);
                     curentindex = 0;
                     //  drawCountShape(curentList.Count);
@@ -556,7 +549,7 @@ namespace twelve
                 {
                     //Do your job here
                     System.Diagnostics.Debug.WriteLine("Tab,change T3");
-                    if ( FillerX == null ||    FillerX.mainList.Count == 0) return;
+                    if ( FillerX == null ||    Filler.mainListFigures.Count == 0) return;
                     curentList = selectfun(3);
                     curentindex = 0;
                 }
@@ -564,7 +557,7 @@ namespace twelve
                 {
                     //Do your job here
                     System.Diagnostics.Debug.WriteLine("Tab,change T3");
-                    if ( FillerX == null ||    FillerX.mainList.Count == 0) return;
+                    if ( FillerX == null ||    Filler.mainListFigures.Count == 0) return;
                     curentList = selectfun(4);
                     curentindex = 0;
                 }
@@ -572,7 +565,7 @@ namespace twelve
                 {
                     //Do your job here
                     System.Diagnostics.Debug.WriteLine("Tab,change T3");
-                    if ( FillerX == null ||    FillerX.mainList.Count == 0) return;
+                    if ( FillerX == null ||    Filler.mainListFigures.Count == 0) return;
                     curentList = selectfun(5);
                     curentindex = 0;
                 }
@@ -580,7 +573,7 @@ namespace twelve
                 {
                     //Do your job here
                     System.Diagnostics.Debug.WriteLine("Tab,change T3");
-                    if ( FillerX == null ||    FillerX.mainList.Count == 0) return;
+                    if ( FillerX == null ||    Filler.mainListFigures.Count == 0) return;
                     curentList = selectfun(6);
                     curentindex = 0;
                 }
@@ -588,7 +581,7 @@ namespace twelve
                 {
                     //Do your job here
                     System.Diagnostics.Debug.WriteLine("Tab,change T3");
-                    if ( FillerX == null ||    FillerX.mainList.Count == 0) return;
+                    if ( FillerX == null ||    Filler.mainListFigures.Count == 0) return;
                     curentList = selectfun(7);
                     curentindex = 0;
                 }
@@ -596,7 +589,7 @@ namespace twelve
                 {
                     //Do your job here
                     System.Diagnostics.Debug.WriteLine("Tab,change T3");
-                    if ( FillerX == null ||    FillerX.mainList.Count == 0) return;
+                    if ( FillerX == null ||    Filler.mainListFigures.Count == 0) return;
                     curentList = selectfun(8);
                     curentindex = 0;
                 }
@@ -604,7 +597,7 @@ namespace twelve
                 {
                     //Do your job here
                     System.Diagnostics.Debug.WriteLine("Tab,change T3");
-                    if ( FillerX == null ||    FillerX.mainList.Count == 0) return;
+                    if ( FillerX == null ||    Filler.mainListFigures.Count == 0) return;
                     curentList = selectfun(9);
                     curentindex = 0;
                 }
@@ -668,7 +661,7 @@ namespace twelve
             }
 
             str = "Maccа фигуры: " + temp2.Mass + "\nТекущый индекс: " + curentindex.ToString() + "\n Количество фигур: " + curentList.Count.ToString() +
-                "\nУглы: " + str3+"Status :"+ t.ThreadState.ToString() ;
+                "\nУглы: " + str3+"Status :"+ thredValues.ThreadState.ToString() ;
             ;
 
             FlowDocument flowDoc = new FlowDocument(new Paragraph(new Run(str)));
@@ -1003,7 +996,7 @@ namespace twelve
             //var r = tabControl1.SelectedItem;
             //var ind = tabControl1.SelectedIndex;
 
-            //if ( FillerX == null ||    FillerX.mainList.Count == 0) return;
+            //if ( Filler == null ||    Filler.mainListFigures.Count == 0) return;
             //curentList = selectfun(ind);
             //curentindex = 0;
             ////Do your job here
@@ -1021,28 +1014,27 @@ namespace twelve
 
             lb.Content = a;
         }
-        static void dd() { }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            if (t != null) { t.Abort(); }
+            if (thredValues != null) { thredValues.Abort(); }
         }
    
         private void dispatcherTimer_Tick(object sender, EventArgs e)
         {
             sec++;
-          String  str = "State : " + t.ThreadState.ToString() +" Прошло: "+sec.ToString()+"s."  ;
+          String  str = "State : " + thredValues.ThreadState.ToString() +" Прошло: "+sec.ToString()+"s."  ;
   
             
        
             workerState.Content = str;
-            if (t.ThreadState == ThreadState.Running)
+            if (thredValues.ThreadState == ThreadState.Running)
             {
 
             }
-            if (t.ThreadState == ThreadState.Stopped)
+            if (thredValues.ThreadState == ThreadState.Stopped)
             {
-                dispatcherTimer.Stop();
+                timer1.Stop();
             }
 
             //for (int i = 0; i < 50; i++)
@@ -1068,9 +1060,9 @@ namespace twelve
         private void test_Click(object sender, RoutedEventArgs e)
         {
             int total=0;
-            lock (FillerX.locker)
+            lock (Filler.locker)
             {
-             total=FillerX.mainList.Count;  
+             total=Filler.mainListFigures.Count;  
             }
             if(total==0 ||total==miniindex+1 ) return;
             

@@ -3,8 +3,22 @@
   <Class Name="twelve.Filler">
     <Position X="0.5" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AgQAEAAAAACgACEZBAAAAACAAAAAABIAACAAAAAAAAU=</HashCode>
-      <FileName>Filler.cs</FileName>
+      <HashCode>AAAAAAAAAQCAIAAIBEAAEAAAAQABAAAAAKAAAAAQIAE=</HashCode>
+      <FileName>Fille.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="twelve.MainWindow">
+    <Position X="4.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AARAAIQABSgSAIEAABwHEAEACEAGQABAAAAAAAGKAAE=</HashCode>
+      <FileName>MainWindow.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="twelve.LittleShape2">
+    <Position X="2.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAABAAAAAACAAAAAAAACAEAgAQCAACCCLA=</HashCode>
+      <FileName>LittleShape2.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Font Name="Segoe UI" Size="9" />
